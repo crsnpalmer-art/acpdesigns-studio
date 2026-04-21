@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type HeroTab = {
   id: string;
@@ -12,6 +12,19 @@ type HeroTab = {
   primaryLabel: string;
   projectTarget: string;
   external?: boolean;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  secondaryExternal?: boolean;
+  tint: string; // CSS color — subtle accent overlay on the hero
+};
+
+type PropertyTile = {
+  slug: string;
+  name: string;
+  city: string;
+  units: number;
+  fromPrice?: number;
+  href: string;
 };
 
 type Project = {
@@ -25,31 +38,42 @@ type Project = {
   metrics: Array<{ label: string; value: string }>;
   href?: string;
   hrefLabel?: string;
+  properties?: PropertyTile[];
+  extraLink?: { href: string; label: string };
+  icon?: string; // optional square brand mark rendered beside the project name
 };
 
 const heroTabs: HeroTab[] = [
   {
     id: "property-management",
-    label: "Property Management",
-    heading: "Property systems\nthat tenants actually use.",
+    label: "Properties",
+    heading: "Four properties.\nOne family-run portfolio.",
     subheading:
-      "KnowYourHome, move-in guidance, maintenance routing, and the internal automation around Palmer-side operations all live under one practical lane.",
-    tag: "KnowYourHome. Handoffs. Maintenance.",
-    primaryHref: "#project-knowyourhome",
-    primaryLabel: "See Property Work",
-    projectTarget: "knowyourhome",
+      "Palmer Construction operates 122 units across Tuscaloosa and Northport, plus KnowYourHome for tenants. Residential rentals, construction, and the day-to-day systems underneath.",
+    tag: "Build. Rent. Support. All in-house.",
+    primaryHref: "#project-palmer-properties",
+    primaryLabel: "See the portfolio",
+    projectTarget: "palmer-properties",
+    secondaryHref: "https://palmerconstructioncompany.co",
+    secondaryLabel: "Palmer Construction",
+    secondaryExternal: true,
+    tint: "rgba(245, 165, 36, 0.18)",
   },
   {
     id: "openclaw",
     label: "OpenClaw",
     heading: "Automation that\nruns the operation.",
     subheading:
-      "OpenClaw is the local control plane behind the studio: recurring jobs, agent workflows, and the systems that keep daily work from falling into six different dashboards.",
-    tag: "Agents. Cron. Local runtime.",
-    primaryHref: "https://openclaw.ai",
-    primaryLabel: "Open OpenClaw.ai",
+      "OpenClaw is the local control plane behind the studio: 6 named agents, 35 scheduled jobs, a voice subsystem, and the wiring that keeps daily work out of six different dashboards.",
+    tag: "6 agents. 35 crons. One operator.",
+    primaryHref: "https://openclaw-viz-mu.vercel.app/",
+    primaryLabel: "See the observatory",
     projectTarget: "openclaw",
     external: true,
+    secondaryHref: "https://openclaw.ai",
+    secondaryLabel: "Visit OpenClaw.ai",
+    secondaryExternal: true,
+    tint: "rgba(192, 132, 252, 0.20)",
   },
   {
     id: "habitforge",
@@ -62,6 +86,9 @@ const heroTabs: HeroTab[] = [
     primaryLabel: "Visit HabitForgeAI.com",
     projectTarget: "habitforge",
     external: true,
+    secondaryHref: "#project-habitforge",
+    secondaryLabel: "See the card",
+    tint: "rgba(52, 211, 153, 0.18)",
   },
   {
     id: "transfer-portal",
@@ -70,10 +97,13 @@ const heroTabs: HeroTab[] = [
     subheading:
       "Transfer Portal is a focused iPhone app for tracking NCAA football portal entries, commits, and team movement without the ad-heavy sports-site experience.",
     tag: "iPhone. NCAA. Real-time tracker.",
-    primaryHref: "https://github.com/crsnpalmer-art/transfer-portal-ios",
-    primaryLabel: "View the Repo",
+    primaryHref: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
+    primaryLabel: "Get it on the App Store",
     projectTarget: "transfer-portal",
     external: true,
+    secondaryHref: "#project-transfer-portal",
+    secondaryLabel: "See the card",
+    tint: "rgba(56, 189, 248, 0.18)",
   },
   {
     id: "todotonotes",
@@ -85,6 +115,7 @@ const heroTabs: HeroTab[] = [
     primaryHref: "#project-todotonotes",
     primaryLabel: "See the App",
     projectTarget: "todotonotes",
+    tint: "rgba(20, 184, 166, 0.16)",
   },
 ];
 
@@ -97,19 +128,20 @@ const projects: Project[] = [
     summary:
       "The local automation system underneath the rest of the studio.",
     description:
-      "OpenClaw is the internal runtime that keeps recurring ops, agent workflows, and project maintenance from turning into a stack of disconnected tools. It is the backbone behind the public-facing products.",
+      "OpenClaw is the internal runtime that keeps recurring ops, agent workflows, and project maintenance from turning into a stack of disconnected tools. It is the backbone behind the public-facing products — and the observatory shows it running in real time.",
     bullets: [
       "Runs local-first on one machine instead of depending on a mess of SaaS glue",
-      "Handles recurring automations, review loops, and operational handoffs",
+      "Observable at a glance: 6 named agents, 35 crons, 21 launchd services, voice inbound on Twilio",
       "Acts as the control plane behind the apps and tenant tooling",
     ],
     metrics: [
-      { label: "Role", value: "Studio backbone" },
-      { label: "Surface", value: "Internal ops" },
-      { label: "Mode", value: "Local-first" },
+      { label: "Agents", value: "6 named" },
+      { label: "Scheduled jobs", value: "35 crons + 21 services" },
+      { label: "Voice", value: "Twilio inbound" },
     ],
-    href: "https://openclaw.ai",
-    hrefLabel: "OpenClaw.ai",
+    href: "https://openclaw-viz-mu.vercel.app/",
+    hrefLabel: "Live observatory",
+    icon: "/app-icons/openclaw.jpg",
   },
   {
     id: "transfer-portal",
@@ -130,8 +162,9 @@ const projects: Project[] = [
       { label: "Scope", value: "132 FBS teams" },
       { label: "Business", value: "Free, no ads" },
     ],
-    href: "https://github.com/crsnpalmer-art/transfer-portal-ios",
-    hrefLabel: "View repo",
+    href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
+    hrefLabel: "App Store",
+    icon: "/app-icons/transfer-portal.jpg",
   },
   {
     id: "habitforge",
@@ -154,26 +187,83 @@ const projects: Project[] = [
     ],
     href: "https://habitforgeai.com",
     hrefLabel: "Visit site",
+    icon: "/app-icons/habitforge.jpg",
+  },
+  {
+    id: "palmer-properties",
+    name: "Palmer Properties",
+    status: "Active portfolio",
+    category: "Rental properties + construction",
+    summary: "Four properties, 122 units, one family-run operation.",
+    description:
+      "Palmer Construction Company owns and operates four Alabama rental properties plus the construction arm behind them. Every property has its own public site, tenant portal, and maintenance pipeline — all running under the same small team.",
+    bullets: [
+      "Condos, townhomes, and single-family rentals across Tuscaloosa and Northport",
+      "Each property has its own site and tenant portal for rent + maintenance",
+      "Expansion planned into Hayden, AL and Milton, FL",
+    ],
+    metrics: [
+      { label: "Units", value: "122" },
+      { label: "Markets", value: "Tuscaloosa + Northport" },
+      { label: "Parent", value: "Palmer Construction" },
+    ],
+    properties: [
+      {
+        slug: "pinnacle-park",
+        name: "Pinnacle Park",
+        city: "Tuscaloosa",
+        units: 72,
+        fromPrice: 2800,
+        href: "https://pinnacleparknr.com",
+      },
+      {
+        slug: "first-and-main",
+        name: "First and Main",
+        city: "Northport",
+        units: 30,
+        fromPrice: 2700,
+        href: "https://firstandmaincondos.com",
+      },
+      {
+        slug: "the-station",
+        name: "The Station",
+        city: "Northport",
+        units: 16,
+        fromPrice: 4000,
+        href: "https://thestationonmainave.com",
+      },
+      {
+        slug: "forest-lake",
+        name: "Forest Lake",
+        city: "Tuscaloosa",
+        units: 4,
+        fromPrice: 4000,
+        href: "https://forestlakerentals.com",
+      },
+    ],
+    href: "https://palmerconstructioncompany.co",
+    hrefLabel: "Palmer Construction",
   },
   {
     id: "knowyourhome",
     name: "KnowYourHome",
-    status: "Private tenant tool",
-    category: "Property guide",
+    status: "Current tenants only",
+    category: "Tenant companion",
     summary:
-      "A mobile-first guide for tenants across four properties and storage.",
+      "A private mobile guide for current tenants — not a marketing site.",
     description:
-      "KnowYourHome turns move-in information, property quirks, trash schedules, maintenance routes, and day-one questions into one tenant-facing surface. It is meant to answer the practical questions before someone needs to call.",
+      "Every Palmer property already has a public site and a tenant portal for rent and maintenance. KnowYourHome is the lighter companion tenants actually open on day one: move-in orientation, the small quirks of each building, trash and parking rules, and answers to the questions that usually come in as a phone call. Per-property content, one surface.",
     bullets: [
+      "Not public — tenants get access when their lease starts",
       "Per-property guidance for Pinnacle Park, First and Main, The Station, Forest Lake, and storage",
-      "Move-in and move-out checklists with practical how-tos",
-      "Designed as a cleaner front door for maintenance and tenant support",
+      "Move-in and move-out checklists plus practical how-tos before anyone picks up the phone",
     ],
     metrics: [
-      { label: "Audience", value: "Tenants" },
+      { label: "Audience", value: "Current tenants" },
       { label: "Coverage", value: "4 properties + storage" },
       { label: "Surface", value: "Mobile-first" },
     ],
+    icon: "/app-icons/knowyourhome.jpg",
   },
   {
     id: "todotonotes",
@@ -194,6 +284,7 @@ const projects: Project[] = [
       { label: "Input", value: "Camera or image" },
       { label: "Output", value: "Apple Notes" },
     ],
+    icon: "/app-icons/todotonotes.jpg",
   },
 ];
 
@@ -232,6 +323,7 @@ function ExternalIcon() {
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState(heroTabs[0].id);
+  const [showVideo, setShowVideo] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const mobileTabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -239,6 +331,37 @@ export default function Home() {
     () => heroTabs.find((tab) => tab.id === selectedTab) ?? heroTabs[0],
     [selectedTab],
   );
+
+  // Deep-link: read ?tab= on mount, write on change.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    if (tab && heroTabs.some((t) => t.id === tab)) {
+      setSelectedTab(tab);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (selectedTab === heroTabs[0].id) {
+      url.searchParams.delete("tab");
+    } else {
+      url.searchParams.set("tab", selectedTab);
+    }
+    window.history.replaceState({}, "", url.toString());
+  }, [selectedTab]);
+
+  // Mobile: skip the 4.7 MB video, use the poster image only.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setShowVideo(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const handleTabKeyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
@@ -270,19 +393,36 @@ export default function Home() {
           aria-label="Studio introduction"
           className="relative min-h-screen overflow-hidden bg-black"
         >
-          <video
-            className="hero-video absolute inset-0 h-full w-full object-cover"
-            src="/hero.mp4"
-            poster="/hero-poster.jpg"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-            tabIndex={-1}
-          />
+          {showVideo ? (
+            <video
+              className="hero-video absolute inset-0 h-full w-full object-cover"
+              src="/hero.mp4"
+              poster="/hero-poster.jpg"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="hero-video absolute inset-0 h-full w-full object-cover"
+              src="/hero-poster.jpg"
+              alt=""
+              aria-hidden="true"
+            />
+          )}
           <div className="hero-overlay absolute inset-0 z-[1]" aria-hidden="true" />
+          <div
+            className="absolute inset-0 z-[1] transition-[background] duration-700"
+            style={{
+              background: `radial-gradient(ellipse at bottom, ${activeTab.tint}, transparent 60%)`,
+            }}
+            aria-hidden="true"
+          />
 
           <div className="relative z-10 flex min-h-screen flex-col">
             <header className="px-6 pt-6 md:px-12 lg:px-16">
@@ -404,10 +544,13 @@ export default function Home() {
                         {activeTab.external && <ExternalIcon />}
                       </a>
                       <a
-                        className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition hover:bg-white hover:text-black"
-                        href={`#project-${activeTab.projectTarget}`}
+                        className="liquid-glass inline-flex items-center rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition hover:bg-white hover:text-black"
+                        href={activeTab.secondaryHref ?? `#project-${activeTab.projectTarget}`}
+                        target={activeTab.secondaryExternal ? "_blank" : undefined}
+                        rel={activeTab.secondaryExternal ? "noreferrer" : undefined}
                       >
-                        Explore Now
+                        {activeTab.secondaryLabel ?? "Explore Now"}
+                        {activeTab.secondaryExternal && <ExternalIcon />}
                       </a>
                     </div>
                   </div>
@@ -471,9 +614,22 @@ export default function Home() {
                           </span>
                         </div>
 
-                        <h3 className="mt-6 text-4xl tracking-[-0.05em] text-white md:text-5xl">
-                          {project.name}
-                        </h3>
+                        <div className="mt-6 flex items-center gap-5">
+                          {project.icon && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={project.icon}
+                              alt=""
+                              width={64}
+                              height={64}
+                              loading="lazy"
+                              className="h-16 w-16 shrink-0 rounded-2xl object-cover ring-1 ring-white/10"
+                            />
+                          )}
+                          <h3 className="text-4xl tracking-[-0.05em] text-white md:text-5xl">
+                            {project.name}
+                          </h3>
+                        </div>
                         <p className="mt-4 max-w-3xl text-xl leading-8 text-white">
                           {project.summary}
                         </p>
@@ -495,6 +651,44 @@ export default function Home() {
                             </li>
                           ))}
                         </ul>
+
+                        {project.properties && (
+                          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                            {project.properties.map((p) => (
+                              <a
+                                key={p.name}
+                                href={p.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition hover:border-white/30 hover:bg-white/[0.06]"
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={`/api/tile/${p.slug}`}
+                                  alt=""
+                                  width={800}
+                                  height={500}
+                                  loading="lazy"
+                                  className="aspect-[8/5] w-full object-cover"
+                                />
+                                <div className="flex items-center justify-between gap-3 px-4 py-3">
+                                  <div>
+                                    <p className="text-base font-medium text-white">
+                                      {p.name}
+                                    </p>
+                                    <p className="text-xs text-gray-300">
+                                      {p.city} · {p.units} unit{p.units === 1 ? "" : "s"}
+                                      {p.fromPrice
+                                        ? ` · from $${p.fromPrice.toLocaleString()}/mo`
+                                        : ""}
+                                    </p>
+                                  </div>
+                                  <ExternalIcon />
+                                </div>
+                              </a>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
                       <aside className="liquid-glass rounded-2xl border border-white/10 p-5">
@@ -529,6 +723,18 @@ export default function Home() {
                           <p className="mt-6 text-sm leading-7 text-gray-300">
                             Active work, not publicly launched yet.
                           </p>
+                        )}
+
+                        {project.extraLink && (
+                          <a
+                            className="mt-3 inline-flex items-center text-sm font-medium text-white underline-offset-4 hover:underline"
+                            href={project.extraLink.href}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {project.extraLink.label}
+                            <ExternalIcon />
+                          </a>
                         )}
                       </aside>
                     </div>
