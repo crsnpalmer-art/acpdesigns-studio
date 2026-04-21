@@ -153,8 +153,12 @@ export async function GET(
       width: 800,
       height: 500,
       headers: {
+        // Deliberately not `immutable` — the URL is stable but the rendered
+        // output can change (property data edits, visual tweaks), and the CDN
+        // needs to pick those up on redeploy. SWR lets the edge serve instantly
+        // while refreshing in the background; browsers revalidate every hour.
         "Cache-Control":
-          "public, max-age=31536000, s-maxage=31536000, immutable",
+          "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
       },
     },
   );
