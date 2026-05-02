@@ -6,7 +6,7 @@ import HomeClient from "./home-client";
 // a small duplication for the allowlist.
 const TAB_IDS = [
   "property-management",
-  "openclaw",
+  "workflow-automation",
   "habitforge",
   "transfer-portal",
   "todotonotes",

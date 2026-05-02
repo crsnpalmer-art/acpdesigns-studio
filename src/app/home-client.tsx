@@ -25,6 +25,8 @@ type PropertyTile = {
   units: number;
   fromPrice?: number;
   href: string;
+  video?: string; // self-hosted mp4 path; when present, replaces the static tile
+  videoPoster?: string; // frame shown before video loads
 };
 
 type Project = {
@@ -47,12 +49,12 @@ const heroTabs: HeroTab[] = [
   {
     id: "property-management",
     label: "Properties",
-    heading: "Four properties.\nOne family-run portfolio.",
+    heading: "A shelf for\nwhat I am building.",
     subheading:
-      "Palmer Construction operates 122 units across Tuscaloosa and Northport, plus KnowYourHome for tenants. Residential rentals, construction, and the day-to-day systems underneath.",
-    tag: "Build. Rent. Support. All in-house.",
-    primaryHref: "#project-palmer-properties",
-    primaryLabel: "See the portfolio",
+      "A laid-back home for property work, workflow maps, app ideas, and the notes that make the next version better.",
+    tag: "Projects, notes, and useful scraps from real work.",
+    primaryHref: "#projects",
+    primaryLabel: "Browse the shelf",
     projectTarget: "palmer-properties",
     secondaryHref: "https://palmerconstructioncompany.co",
     secondaryLabel: "Palmer Construction",
@@ -60,28 +62,27 @@ const heroTabs: HeroTab[] = [
     tint: "rgba(245, 165, 36, 0.18)",
   },
   {
-    id: "openclaw",
-    label: "OpenClaw",
-    heading: "Automation that\nruns the operation.",
+    id: "workflow-automation",
+    label: "Automation",
+    heading: "Workflow maps\nwith the messy parts left in.",
     subheading:
-      "OpenClaw is the local control plane behind the studio: 6 named agents, 35 scheduled jobs, a voice subsystem, and the wiring that keeps daily work out of six different dashboards.",
-    tag: "6 lanes. 35 live jobs. One operator.",
+      "The automation notes show how recurring work, customer service intake, approvals, guardrails, and human follow-up can fit together.",
+    tag: "Patterns from a real operating setup.",
     primaryHref: "https://openclaw-viz-mu.vercel.app/",
-    primaryLabel: "Open the field guide",
-    projectTarget: "openclaw",
+    primaryLabel: "View workflow map",
+    projectTarget: "workflow-automation",
     external: true,
-    secondaryHref: "https://openclaw.ai",
-    secondaryLabel: "Visit OpenClaw.ai",
-    secondaryExternal: true,
+    secondaryHref: "#project-workflow-automation",
+    secondaryLabel: "See the system",
     tint: "rgba(192, 132, 252, 0.20)",
   },
   {
     id: "habitforge",
     label: "HabitForge",
-    heading: "Habit systems\nbuilt for the long game.",
+    heading: "A habit app\nstill getting sharper.",
     subheading:
-      "HabitForge is a four-pillar habit product covering mental, physical, spiritual, and financial growth with a structure-first approach instead of endless checklist clutter.",
-    tag: "Habits. Coaching. Four pillars.",
+      "HabitForge is a calm habit system idea built around structure without pressure mechanics, with the product thinking kept nearby.",
+    tag: "Screens, product notes, and the habit-system idea.",
     primaryHref: "https://habitforgeai.com",
     primaryLabel: "Visit HabitForgeAI.com",
     projectTarget: "habitforge",
@@ -93,10 +94,10 @@ const heroTabs: HeroTab[] = [
   {
     id: "transfer-portal",
     label: "Transfer Portal",
-    heading: "Transfer data\nwithout the media clutter.",
+    heading: "A sports app\nfrom a simple annoyance.",
     subheading:
-      "Transfer Portal is a focused iPhone app for tracking NCAA football portal entries, commits, and team movement without the ad-heavy sports-site experience.",
-    tag: "iPhone. NCAA. Real-time tracker.",
+      "Transfer Portal started from a simple gap: transfer news is scattered, slow to scan, and awkward on mobile.",
+    tag: "132 FBS teams. iPhone-first.",
     primaryHref: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
     primaryLabel: "Get it on the App Store",
     projectTarget: "transfer-portal",
@@ -108,10 +109,10 @@ const heroTabs: HeroTab[] = [
   {
     id: "todotonotes",
     label: "TodoToNotes",
-    heading: "From camera roll\nto Apple Notes.",
+    heading: "Tiny tools\nfor everyday friction.",
     subheading:
-      "TodoToNotes turns handwritten lists into editable tasks and saves them into Apple Notes with native checklist formatting instead of fake checkbox characters.",
-    tag: "macOS. OCR. Apple Notes.",
+      "TodoToNotes is a small macOS utility idea: snap a handwritten list, review the extracted tasks, and send clean checklists to Apple Notes.",
+    tag: "A compact idea for turning messy input into useful output.",
     primaryHref: "#project-todotonotes",
     primaryLabel: "See the App",
     projectTarget: "todotonotes",
@@ -121,18 +122,18 @@ const heroTabs: HeroTab[] = [
 
 const projects: Project[] = [
   {
-    id: "openclaw",
-    name: "OpenClaw",
-    status: "Live runtime",
-    category: "Automation control plane",
+    id: "workflow-automation",
+    name: "Workflow Automation",
+    status: "Live system map",
+    category: "Automation control layer",
     summary:
-      "The local automation system underneath the rest of the studio.",
+      "A plain-English map for recurring work and operational follow-through.",
     description:
-      "OpenClaw is the internal runtime that keeps recurring ops, agent workflows, and project maintenance from turning into a stack of disconnected tools. It is the backbone behind the public-facing products — and the observatory shows it running in real time.",
+      "This system coordinates recurring operations, routed workflows, reminders, customer-service intake, and maintenance tasks. The useful part is the shape: what comes in, where it goes, what gets checked, and when a person needs to step in.",
     bullets: [
-      "Runs local-first on one machine instead of depending on a mess of SaaS glue",
-      "Observable at a glance: 6 named agents, 35 crons, 21 launchd services, voice inbound on Twilio",
-      "Acts as the control plane behind the apps and tenant tooling",
+      "Shows how local-first automation can stay observable and reversible",
+      "Turns scattered reminders and handoffs into a visible operating loop",
+      "Leaves behind patterns other operators can borrow without copying the whole stack",
     ],
     metrics: [
       { label: "Agents", value: "6 named" },
@@ -140,7 +141,7 @@ const projects: Project[] = [
       { label: "Voice", value: "Twilio inbound" },
     ],
     href: "https://openclaw-viz-mu.vercel.app/",
-    hrefLabel: "Runtime field guide",
+    hrefLabel: "Workflow map",
     icon: "/app-icons/openclaw.jpg",
   },
   {
@@ -149,13 +150,13 @@ const projects: Project[] = [
     status: "Active builds",
     category: "iPhone app",
     summary:
-      "A cleaner, ad-free tracker for NCAA football transfer movement.",
+      "A focused iPhone app concept for NCAA football transfer tracking.",
     description:
-      "Transfer Portal is built for people who want the data without the slideshow. It tracks entries, commits, rankings, and team movement across all 132 FBS programs with a fast native iPhone experience.",
+      "Transfer Portal tracks entries, commitments, rankings, and team movement across all 132 FBS programs. The idea is simple: make roster movement fast to scan without forcing fans through scattered articles and slow pages.",
     bullets: [
       "Live transfer tracking for all 132 FBS teams",
       "Rankings, team grades, and roster views in one place",
-      "Designed to feel faster and calmer than sports media feeds",
+      "A product note on turning a noisy information market into a clean mobile tool",
     ],
     metrics: [
       { label: "Platform", value: "iOS" },
@@ -172,13 +173,13 @@ const projects: Project[] = [
     status: "Live brand, active product",
     category: "Habit system",
     summary:
-      "A four-pillar habit platform for building the future version of yourself.",
+      "A four-pillar habit app idea for structure without pressure mechanics.",
     description:
-      "HabitForge centers on habits across mental, physical, spiritual, and financial life. The direction is structured and coach-assisted rather than turning habit tracking into another endless checklist.",
+      "HabitForge organizes habits across mental, physical, spiritual, and financial life. The product note is about shape: how to create accountability without turning self-improvement into a scoreboard.",
     bullets: [
       "Four dimensions: mental, physical, spiritual, and financial",
-      "Cross-device direction with secure auth and cloud sync",
-      "Built to turn vague self-improvement into concrete daily structure",
+      "Daily rhythm, private reflection, and recovery from imperfect weeks",
+      "A relaxed example of turning a personal system into a product concept",
     ],
     metrics: [
       { label: "Pillars", value: "4" },
@@ -194,13 +195,13 @@ const projects: Project[] = [
     name: "Palmer Properties",
     status: "Active portfolio",
     category: "Rental properties + construction",
-    summary: "Four properties, 122 units, one family-run operation.",
+    summary: "A 122-unit rental portfolio across Tuscaloosa and Northport.",
     description:
-      "Palmer Construction Company owns and operates four Alabama rental properties plus the construction arm behind them. Every property has its own public site, tenant portal, and maintenance pipeline — all running under the same small team.",
+      "Palmer Construction Company owns and operates rental properties across Tuscaloosa and Northport. The properties are the real-world lab: leasing, maintenance, tenant support, AppFolio gaps, and move-in workflows create the problems the software has to solve.",
     bullets: [
       "Condos, townhomes, and single-family rentals across Tuscaloosa and Northport",
-      "Each property has its own site and tenant portal for rent + maintenance",
-      "Expansion planned into Hayden, AL and Milton, FL",
+      "Each property has its own site and process for leasing, maintenance, and tenant support",
+      "The portfolio creates the operating pressure that shapes the internal tools",
     ],
     metrics: [
       { label: "Units", value: "122" },
@@ -215,6 +216,8 @@ const projects: Project[] = [
         units: 72,
         fromPrice: 2800,
         href: "https://pinnacleparknr.com",
+        video: "/property-videos/pinnacle-park.mp4",
+        videoPoster: "/property-videos/pinnacle-park.jpg",
       },
       {
         slug: "first-and-main",
@@ -223,6 +226,8 @@ const projects: Project[] = [
         units: 30,
         fromPrice: 2700,
         href: "https://firstandmaincondos.com",
+        video: "/property-videos/first-and-main.mp4",
+        videoPoster: "/property-videos/first-and-main.jpg",
       },
       {
         slug: "the-station",
@@ -231,6 +236,8 @@ const projects: Project[] = [
         units: 16,
         fromPrice: 4000,
         href: "https://thestationonmainave.com",
+        video: "/property-videos/the-station.mp4",
+        videoPoster: "/property-videos/the-station.jpg",
       },
       {
         slug: "forest-lake",
@@ -239,6 +246,8 @@ const projects: Project[] = [
         units: 4,
         fromPrice: 4000,
         href: "https://forestlakerentals.com",
+        video: "/property-videos/forest-lake.mp4",
+        videoPoster: "/property-videos/forest-lake.jpg",
       },
     ],
     href: "https://palmerconstructioncompany.co",
@@ -250,13 +259,13 @@ const projects: Project[] = [
     status: "Current tenants only",
     category: "Tenant companion",
     summary:
-      "A private mobile guide for current tenants — not a marketing site.",
+      "A tenant companion idea shaped by move-in questions and property quirks.",
     description:
-      "Every Palmer property already has a public site and a tenant portal for rent and maintenance. KnowYourHome is the lighter companion tenants actually open on day one: move-in orientation, the small quirks of each building, trash and parking rules, and answers to the questions that usually come in as a phone call. Per-property content, one surface.",
+      "KnowYourHome provides current tenants with move-in guidance, property-specific information, parking and trash rules, and common answers in one mobile-friendly place. The lesson is that support content should live where residents can actually use it.",
     bullets: [
       "Not public — tenants get access when their lease starts",
       "Per-property guidance for Pinnacle Park, First and Main, The Station, Forest Lake, and storage",
-      "Move-in and move-out checklists plus practical how-tos before anyone picks up the phone",
+      "Move-in and move-out checklists plus practical property information",
     ],
     metrics: [
       { label: "Audience", value: "Current tenants" },
@@ -271,12 +280,12 @@ const projects: Project[] = [
     status: "Open-source app",
     category: "macOS utility",
     summary:
-      "Snap a handwritten list, review the OCR, and save it into Apple Notes with native checklists.",
+      "A small macOS utility for turning handwritten lists into Apple Notes checklists.",
     description:
-      "TodoToNotes takes the friction out of handwritten capture. A photo from your camera or desktop becomes editable structured tasks, then lands in Apple Notes with real checkboxes instead of fake Unicode bullets.",
+      "TodoToNotes converts a photo of a handwritten list into editable tasks and saves them to Apple Notes using native checklist formatting. It is intentionally small: one annoying handoff, made clean.",
     bullets: [
       "Supports camera capture, drag-and-drop, and structured review before save",
-      "Uses AI vision to read handwriting with custom context for better accuracy",
+      "Uses AI vision to read handwriting and improve task extraction",
       "Exports to Apple Notes using native checklist formatting",
     ],
     metrics: [
@@ -290,16 +299,46 @@ const projects: Project[] = [
 
 const principles = [
   {
-    title: "Use it first",
-    body: "Every project here is something I use every day. That keeps scope honest and surfaces problems before anyone else hits them.",
+    title: "Start where the problem is",
+    body: "The best ideas here come from the place where the friction is obvious: properties, calls, lists, schedules, screens, and real handoffs.",
   },
   {
-    title: "Own the stack",
-    body: "Local-first systems that stay debuggable. No dependency pyramid that breaks when a vendor changes their mind.",
+    title: "Leave the useful part",
+    body: "The point is not to make everything look impressive. It is to leave the diagram, note, or product shape clear enough for someone else to use.",
   },
   {
-    title: "Ship rough, edit later",
-    body: "Live beats polished. Most of these launched well before they were \u201Cdone\u201D and got sharper by being used.",
+    title: "Let it stay unfinished",
+    body: "A good idea does not have to arrive polished. It just needs to be honest about what exists, what is being tested, and what was learned.",
+  },
+];
+
+const focusAreas = [
+  {
+    title: "Systems",
+    body: "Workflow maps, recurring operations, customer-service routing, and guardrails that keep work from drifting.",
+  },
+  {
+    title: "App ideas",
+    body: "HabitForge, Transfer Portal, TodoToNotes, and other product ideas with the original problem still attached.",
+  },
+  {
+    title: "Properties",
+    body: "The real-world testing ground: leasing, maintenance, move-in support, tenant questions, and property-specific workflows.",
+  },
+];
+
+const fieldNotes = [
+  {
+    title: "Inputs before software",
+    body: "Most useful tools here start by naming the real input: a call, a lease question, a handwritten list, a transfer rumor, or a recurring task that keeps slipping.",
+  },
+  {
+    title: "Workflows need guardrails",
+    body: "Automation is only useful when someone can inspect what happened, approve the risky parts, and reverse the change if the system misunderstood the situation.",
+  },
+  {
+    title: "Small products still teach",
+    body: "A tiny app idea still has a product argument: who it helps, what current tools miss, why the flow is simpler, and what should stay out of scope.",
   },
 ];
 
@@ -429,10 +468,13 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 >
                   <a
                     href="#main"
-                    className="wordmark text-2xl font-semibold tracking-tight text-white"
+                    className="wordmark flex flex-col text-white"
                     aria-label="ACP Designs Studio — home"
                   >
-                    ACP
+                    <span className="text-2xl font-semibold tracking-tight">ACP</span>
+                    <span className="hidden text-[10px] uppercase tracking-[0.28em] text-gray-300 sm:block">
+                      Designs Studio
+                    </span>
                   </a>
 
                   <div
@@ -514,6 +556,9 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   className="hero-stage lg:grid lg:grid-cols-2 lg:items-end lg:gap-10"
                 >
                   <div>
+                    <p className="eyebrow hero-kicker mb-4 text-white/80">
+                      Properties, workflow maps, app ideas, and notes from the build.
+                    </p>
                     <h1
                       className="hero-heading max-w-[12ch] text-4xl font-normal leading-[0.95] text-white md:text-5xl lg:text-6xl xl:text-7xl"
                       style={{ letterSpacing: "-0.04em" }}
@@ -528,6 +573,18 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                     <p className="hero-sub mb-5 mt-4 max-w-2xl text-base text-gray-200 md:text-lg">
                       {activeTab.subheading}
                     </p>
+
+                    <div className="mb-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300 md:text-sm">
+                      <span className="rounded-full border border-white/15 px-3 py-2">
+                        122 units operated
+                      </span>
+                      <span className="rounded-full border border-white/15 px-3 py-2">
+                        Local-first automation
+                      </span>
+                      <span className="rounded-full border border-white/15 px-3 py-2">
+                        iPhone, web, and macOS apps
+                      </span>
+                    </div>
 
                     <div className="hero-cta flex flex-wrap gap-4">
                       <a
@@ -577,16 +634,31 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   id="projects-heading"
                   className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
                 >
-                  Tabs for the surfaces.
+                  What is on the shelf.
                   <br />
-                  Cards for the details.
+                  Take what is useful.
                 </h2>
               </div>
               <p className="max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
-                The hero points to the main lanes of work. The cards below give
-                each product a clearer snapshot: what it is, who it is for, and
-                whether it is public yet.
+                A simple place to keep the active projects visible: what they are,
+                why they exist, what is working, and what someone else might borrow.
               </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {focusAreas.map((area) => (
+                <article
+                  key={area.title}
+                  className="liquid-glass rounded-2xl border border-white/10 p-5"
+                >
+                  <p className="text-sm uppercase tracking-[0.24em] text-gray-200">
+                    {area.title}
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-gray-300">
+                    {area.body}
+                  </p>
+                </article>
+              ))}
             </div>
 
             <div className="mt-10 grid gap-6">
@@ -658,15 +730,32 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                                 rel="noreferrer"
                                 className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition hover:border-white/30 hover:bg-white/[0.06]"
                               >
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                  src={`/api/tile/${p.slug}`}
-                                  alt=""
-                                  width={800}
-                                  height={500}
-                                  loading="lazy"
-                                  className="aspect-[8/5] w-full object-cover"
-                                />
+                                {p.video ? (
+                                  <video
+                                    src={p.video}
+                                    poster={p.videoPoster}
+                                    width={960}
+                                    height={540}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    preload="metadata"
+                                    aria-hidden="true"
+                                    tabIndex={-1}
+                                    className="aspect-[8/5] w-full object-cover"
+                                  />
+                                ) : (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={`/api/tile/${p.slug}`}
+                                    alt=""
+                                    width={800}
+                                    height={500}
+                                    loading="lazy"
+                                    className="aspect-[8/5] w-full object-cover"
+                                  />
+                                )}
                                 <div className="flex items-center justify-between gap-3 px-4 py-3">
                                   <div>
                                     <p className="text-base font-medium text-white">
@@ -754,23 +843,25 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   id="approach-heading"
                   className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
                 >
-                  Products, not promises.
+                  Rough enough
+                  <br />
+                  to stay useful.
                 </h2>
-                <p className="mt-6 max-w-3xl text-base leading-8 text-gray-300">
-                  Each project here started because I needed it and stuck around
-                  because it kept earning its spot. No pitch decks, no stack of
-                  prototypes, no placeholder pages that stay placeholder.
+                <p className="mt-6 max-w-3xl text-lg leading-8 text-gray-200">
+                  This is not trying to be a glossy case study. It is a place for real
+                  operating problems, diagrams, product sketches, and the notes that make
+                  the next build sharper.
                 </p>
               </div>
 
               <div className="liquid-glass rounded-2xl border border-white/10 p-6">
                 <p className="eyebrow">Studio</p>
                 <p className="mt-4 text-3xl tracking-[-0.04em] text-white">
-                  Carson Palmer
+                  The idea shelf
                 </p>
                 <p className="mt-4 text-sm leading-7 text-gray-300">
-                  Independent builder across property ops, automation, iOS, web,
-                  and macOS.
+                  Properties create the pressure, workflows reveal the pattern, and the app
+                  ideas turn those lessons into something more focused.
                 </p>
               </div>
             </div>
@@ -792,27 +883,101 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
             </div>
           </div>
         </section>
+
+        <section
+          id="field-notes"
+          className="section-shell border-t border-white/10"
+          aria-labelledby="field-notes-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-end">
+              <div>
+                <p className="eyebrow">Field notes</p>
+                <h2
+                  id="field-notes-heading"
+                  className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
+                >
+                  What is worth
+                  <br />
+                  carrying forward.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
+                Each project should leave behind more than a link. The good stuff is usually
+                the pattern: what problem showed up, what the first version tried, and what
+                should be borrowed, avoided, or rebuilt better.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {fieldNotes.map((note, index) => (
+                <article
+                  key={note.title}
+                  className="liquid-glass rounded-2xl border border-white/10 p-6"
+                >
+                  <p className="text-sm uppercase tracking-[0.24em] text-gray-300">
+                    Note {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-4 text-2xl tracking-[-0.03em] text-white">
+                    {note.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-gray-300">
+                    {note.body}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer
         id="contact"
         className="border-t border-white/10 bg-black px-6 py-14 md:px-12 lg:px-16"
       >
-        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-          <div>
-            <p className="eyebrow">Get in touch</p>
-            <a
-              href="mailto:crsnpalmer@gmail.com"
-              className="mt-3 inline-block text-2xl tracking-[-0.02em] text-white underline-offset-4 hover:underline md:text-3xl"
-            >
-              crsnpalmer@gmail.com
-            </a>
-            <p className="mt-3 max-w-md text-sm leading-7 text-gray-300">
-              Best for product questions, collaboration, and anything tenant- or
-              automation-related.
-            </p>
+        <div className="mx-auto max-w-7xl">
+          <div className="liquid-glass rounded-[2rem] border border-white/10 p-8 md:p-10">
+            <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+              <div>
+                <p className="eyebrow">Shelf notes</p>
+                <h2 className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-5xl">
+                  The notes stay open:
+                  <br />
+                  systems, notes, ideas.
+                </h2>
+                <p className="mt-5 max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
+                  The goal is to make the work useful without making it feel performative:
+                  clear links, honest status, useful patterns, and enough context for
+                  someone else to build their own version.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300">
+                  <span className="rounded-full border border-white/15 px-3 py-2">
+                    Field notes
+                  </span>
+                  <span className="rounded-full border border-white/15 px-3 py-2">
+                    Workflow maps
+                  </span>
+                  <span className="rounded-full border border-white/15 px-3 py-2">
+                    App concepts
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <a
+                  href="mailto:crsnpalmer@gmail.com"
+                  className="inline-flex items-center rounded-lg bg-white px-6 py-3 text-base font-medium text-black transition hover:bg-gray-100"
+                >
+                  Contact Carson
+                </a>
+                <p className="mt-4 text-sm leading-7 text-gray-400">
+                  Use email for project questions, collaboration, or access to related materials.
+                </p>
+              </div>
+            </div>
           </div>
-          <p className="text-xs uppercase tracking-[0.2em] text-gray-300">
+
+          <p className="mt-8 text-xs uppercase tracking-[0.2em] text-gray-300">
             © {new Date().getFullYear()} ACP Designs Studio
           </p>
         </div>
