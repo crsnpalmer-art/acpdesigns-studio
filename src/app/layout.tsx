@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.acpdesigns.studio"),
   title: "ACP Designs Studio",
   description:
-    "A relaxed shelf for property work, workflow maps, app ideas, and notes from the build.",
+    "Projects, properties, app ideas, and workflow maps from ACP Designs Studio.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "ACP Designs Studio",
     description:
-      "A relaxed shelf for property work, workflow maps, app ideas, and notes from the build.",
+      "Projects, properties, app ideas, and workflow maps from ACP Designs Studio.",
     url: "/",
     siteName: "ACP Designs Studio",
     type: "website",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ACP Designs Studio",
     description:
-      "A relaxed shelf for property work, workflow maps, app ideas, and notes from the build.",
+      "Projects, properties, app ideas, and workflow maps from ACP Designs Studio.",
   },
 };
 
@@ -38,7 +38,7 @@ const jsonLd = {
       inLanguage: "en-US",
       publisher: { "@id": "https://www.acpdesigns.studio/#organization" },
       description:
-        "A relaxed shelf for property work, workflow maps, app ideas, and notes from the build.",
+        "Projects, properties, app ideas, and workflow maps from ACP Designs Studio.",
     },
     {
       "@type": "Organization",

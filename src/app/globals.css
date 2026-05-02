@@ -169,6 +169,14 @@ a {
   color: #fff;
 }
 
+.mobile-tabs {
+  scrollbar-width: none;
+}
+
+.mobile-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 .section-shell {
   background: #000;
   padding: 5rem 1.5rem;

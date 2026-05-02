@@ -36,7 +36,6 @@ type Project = {
   category: string;
   summary: string;
   description: string;
-  bullets: string[];
   metrics: Array<{ label: string; value: string }>;
   href?: string;
   hrefLabel?: string;
@@ -49,12 +48,12 @@ const heroTabs: HeroTab[] = [
   {
     id: "property-management",
     label: "Properties",
-    heading: "A shelf for\nwhat I am building.",
+    heading: "Projects,\nproperties, apps.",
     subheading:
-      "A laid-back home for property work, workflow maps, app ideas, and the notes that make the next version better.",
-    tag: "Projects, notes, and useful scraps from real work.",
+      "A simple home for active projects: real estate work, workflow maps, and small product ideas.",
+    tag: "Start with the active projects.",
     primaryHref: "#projects",
-    primaryLabel: "Browse the shelf",
+    primaryLabel: "View projects",
     projectTarget: "palmer-properties",
     secondaryHref: "https://palmerconstructioncompany.co",
     secondaryLabel: "Palmer Construction",
@@ -64,10 +63,10 @@ const heroTabs: HeroTab[] = [
   {
     id: "workflow-automation",
     label: "Automation",
-    heading: "Workflow maps\nwith the messy parts left in.",
+    heading: "Workflow maps\nfor real operations.",
     subheading:
-      "The automation notes show how recurring work, customer service intake, approvals, guardrails, and human follow-up can fit together.",
-    tag: "Patterns from a real operating setup.",
+      "Recurring work, calls, approvals, and handoffs mapped in plain English.",
+    tag: "A working operating playbook.",
     primaryHref: "https://openclaw-viz-mu.vercel.app/",
     primaryLabel: "View workflow map",
     projectTarget: "workflow-automation",
@@ -79,10 +78,10 @@ const heroTabs: HeroTab[] = [
   {
     id: "habitforge",
     label: "HabitForge",
-    heading: "A habit app\nstill getting sharper.",
+    heading: "A habit app\nwith less pressure.",
     subheading:
-      "HabitForge is a calm habit system idea built around structure without pressure mechanics, with the product thinking kept nearby.",
-    tag: "Screens, product notes, and the habit-system idea.",
+      "A calm habit-system idea built around daily structure, private reflection, and recovery.",
+    tag: "Structure without the scoreboard.",
     primaryHref: "https://habitforgeai.com",
     primaryLabel: "Visit HabitForgeAI.com",
     projectTarget: "habitforge",
@@ -94,10 +93,10 @@ const heroTabs: HeroTab[] = [
   {
     id: "transfer-portal",
     label: "Transfer Portal",
-    heading: "A sports app\nfrom a simple annoyance.",
+    heading: "College football\ntransfer tracking.",
     subheading:
-      "Transfer Portal started from a simple gap: transfer news is scattered, slow to scan, and awkward on mobile.",
-    tag: "132 FBS teams. iPhone-first.",
+      "An iPhone app for scanning transfer entries, commitments, rankings, and team movement.",
+    tag: "132 FBS teams. Built for quick checks.",
     primaryHref: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
     primaryLabel: "Get it on the App Store",
     projectTarget: "transfer-portal",
@@ -109,10 +108,10 @@ const heroTabs: HeroTab[] = [
   {
     id: "todotonotes",
     label: "TodoToNotes",
-    heading: "Tiny tools\nfor everyday friction.",
+    heading: "Tiny tools\nfor annoying handoffs.",
     subheading:
-      "TodoToNotes is a small macOS utility idea: snap a handwritten list, review the extracted tasks, and send clean checklists to Apple Notes.",
-    tag: "A compact idea for turning messy input into useful output.",
+      "Snap a handwritten list, review the tasks, and send a clean checklist to Apple Notes.",
+    tag: "Messy input. Clean output.",
     primaryHref: "#project-todotonotes",
     primaryLabel: "See the App",
     projectTarget: "todotonotes",
@@ -127,14 +126,9 @@ const projects: Project[] = [
     status: "Live system map",
     category: "Automation control layer",
     summary:
-      "A plain-English map for recurring work and operational follow-through.",
+      "A plain-English map for recurring work.",
     description:
-      "This system coordinates recurring operations, routed workflows, reminders, customer-service intake, and maintenance tasks. The useful part is the shape: what comes in, where it goes, what gets checked, and when a person needs to step in.",
-    bullets: [
-      "Shows how local-first automation can stay observable and reversible",
-      "Turns scattered reminders and handoffs into a visible operating loop",
-      "Leaves behind patterns other operators can borrow without copying the whole stack",
-    ],
+      "It shows how calls, reminders, approvals, and follow-up can move through one visible loop.",
     metrics: [
       { label: "Agents", value: "6 named" },
       { label: "Scheduled jobs", value: "35 live jobs + 21 launchd services" },
@@ -150,14 +144,9 @@ const projects: Project[] = [
     status: "Active builds",
     category: "iPhone app",
     summary:
-      "A focused iPhone app concept for NCAA football transfer tracking.",
+      "An iPhone app for NCAA football transfers.",
     description:
-      "Transfer Portal tracks entries, commitments, rankings, and team movement across all 132 FBS programs. The idea is simple: make roster movement fast to scan without forcing fans through scattered articles and slow pages.",
-    bullets: [
-      "Live transfer tracking for all 132 FBS teams",
-      "Rankings, team grades, and roster views in one place",
-      "A product note on turning a noisy information market into a clean mobile tool",
-    ],
+      "Entries, commitments, rankings, and team movement across all 132 FBS programs.",
     metrics: [
       { label: "Platform", value: "iOS" },
       { label: "Scope", value: "132 FBS teams" },
@@ -173,14 +162,9 @@ const projects: Project[] = [
     status: "Live brand, active product",
     category: "Habit system",
     summary:
-      "A four-pillar habit app idea for structure without pressure mechanics.",
+      "A calm habit app idea.",
     description:
-      "HabitForge organizes habits across mental, physical, spiritual, and financial life. The product note is about shape: how to create accountability without turning self-improvement into a scoreboard.",
-    bullets: [
-      "Four dimensions: mental, physical, spiritual, and financial",
-      "Daily rhythm, private reflection, and recovery from imperfect weeks",
-      "A relaxed example of turning a personal system into a product concept",
-    ],
+      "Daily structure across mental, physical, spiritual, and financial life without turning progress into a scoreboard.",
     metrics: [
       { label: "Pillars", value: "4" },
       { label: "Platforms", value: "Web + iOS" },
@@ -197,12 +181,7 @@ const projects: Project[] = [
     category: "Rental properties + construction",
     summary: "A 122-unit rental portfolio across Tuscaloosa and Northport.",
     description:
-      "Palmer Construction Company owns and operates rental properties across Tuscaloosa and Northport. The properties are the real-world lab: leasing, maintenance, tenant support, AppFolio gaps, and move-in workflows create the problems the software has to solve.",
-    bullets: [
-      "Condos, townhomes, and single-family rentals across Tuscaloosa and Northport",
-      "Each property has its own site and process for leasing, maintenance, and tenant support",
-      "The portfolio creates the operating pressure that shapes the internal tools",
-    ],
+      "The properties create the real problems: leasing, maintenance, tenant support, move-ins, and follow-up.",
     metrics: [
       { label: "Units", value: "122" },
       { label: "Markets", value: "Tuscaloosa + Northport" },
@@ -259,14 +238,9 @@ const projects: Project[] = [
     status: "Current tenants only",
     category: "Tenant companion",
     summary:
-      "A tenant companion idea shaped by move-in questions and property quirks.",
+      "A tenant guide for move-ins and property details.",
     description:
-      "KnowYourHome provides current tenants with move-in guidance, property-specific information, parking and trash rules, and common answers in one mobile-friendly place. The lesson is that support content should live where residents can actually use it.",
-    bullets: [
-      "Not public — tenants get access when their lease starts",
-      "Per-property guidance for Pinnacle Park, First and Main, The Station, Forest Lake, and storage",
-      "Move-in and move-out checklists plus practical property information",
-    ],
+      "Current tenants get parking, trash, move-in, move-out, and common answers in one mobile-friendly place.",
     metrics: [
       { label: "Audience", value: "Current tenants" },
       { label: "Coverage", value: "4 properties + storage" },
@@ -280,65 +254,15 @@ const projects: Project[] = [
     status: "Open-source app",
     category: "macOS utility",
     summary:
-      "A small macOS utility for turning handwritten lists into Apple Notes checklists.",
+      "A small macOS utility for handwritten lists.",
     description:
-      "TodoToNotes converts a photo of a handwritten list into editable tasks and saves them to Apple Notes using native checklist formatting. It is intentionally small: one annoying handoff, made clean.",
-    bullets: [
-      "Supports camera capture, drag-and-drop, and structured review before save",
-      "Uses AI vision to read handwriting and improve task extraction",
-      "Exports to Apple Notes using native checklist formatting",
-    ],
+      "Take a photo, review the extracted tasks, and save a clean checklist to Apple Notes.",
     metrics: [
       { label: "Platform", value: "macOS" },
       { label: "Input", value: "Camera or image" },
       { label: "Output", value: "Apple Notes" },
     ],
     icon: "/app-icons/todotonotes.jpg",
-  },
-];
-
-const principles = [
-  {
-    title: "Start where the problem is",
-    body: "The best ideas here come from the place where the friction is obvious: properties, calls, lists, schedules, screens, and real handoffs.",
-  },
-  {
-    title: "Leave the useful part",
-    body: "The point is not to make everything look impressive. It is to leave the diagram, note, or product shape clear enough for someone else to use.",
-  },
-  {
-    title: "Let it stay unfinished",
-    body: "A good idea does not have to arrive polished. It just needs to be honest about what exists, what is being tested, and what was learned.",
-  },
-];
-
-const focusAreas = [
-  {
-    title: "Systems",
-    body: "Workflow maps, recurring operations, customer-service routing, and guardrails that keep work from drifting.",
-  },
-  {
-    title: "App ideas",
-    body: "HabitForge, Transfer Portal, TodoToNotes, and other product ideas with the original problem still attached.",
-  },
-  {
-    title: "Properties",
-    body: "The real-world testing ground: leasing, maintenance, move-in support, tenant questions, and property-specific workflows.",
-  },
-];
-
-const fieldNotes = [
-  {
-    title: "Inputs before software",
-    body: "Most useful tools here start by naming the real input: a call, a lease question, a handwritten list, a transfer rumor, or a recurring task that keeps slipping.",
-  },
-  {
-    title: "Workflows need guardrails",
-    body: "Automation is only useful when someone can inspect what happened, approve the risky parts, and reverse the change if the system misunderstood the situation.",
-  },
-  {
-    title: "Small products still teach",
-    body: "A tiny app idea still has a product argument: who it helps, what current tools miss, why the flow is simpler, and what should stay out of scope.",
   },
 ];
 
@@ -520,7 +444,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
               <div
                 role="tablist"
                 aria-label="Project areas"
-                className="flex gap-3 overflow-x-auto pb-1"
+                className="mobile-tabs flex gap-3 overflow-x-auto pb-1"
               >
                 {heroTabs.map((tab, i) => (
                   <button
@@ -557,7 +481,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 >
                   <div>
                     <p className="eyebrow hero-kicker mb-4 text-white/80">
-                      Properties, workflow maps, app ideas, and notes from the build.
+                      Projects, properties, apps.
                     </p>
                     <h1
                       className="hero-heading max-w-[12ch] text-4xl font-normal leading-[0.95] text-white md:text-5xl lg:text-6xl xl:text-7xl"
@@ -576,13 +500,13 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
 
                     <div className="mb-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300 md:text-sm">
                       <span className="rounded-full border border-white/15 px-3 py-2">
-                        122 units operated
+                        122 rental units
                       </span>
                       <span className="rounded-full border border-white/15 px-3 py-2">
-                        Local-first automation
+                        Workflow maps
                       </span>
                       <span className="rounded-full border border-white/15 px-3 py-2">
-                        iPhone, web, and macOS apps
+                        App ideas
                       </span>
                     </div>
 
@@ -634,31 +558,12 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   id="projects-heading"
                   className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
                 >
-                  What is on the shelf.
-                  <br />
-                  Take what is useful.
+                  Current work.
                 </h2>
               </div>
               <p className="max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
-                A simple place to keep the active projects visible: what they are,
-                why they exist, what is working, and what someone else might borrow.
+                A quick look at the projects, properties, and ideas I keep coming back to.
               </p>
-            </div>
-
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {focusAreas.map((area) => (
-                <article
-                  key={area.title}
-                  className="liquid-glass rounded-2xl border border-white/10 p-5"
-                >
-                  <p className="text-sm uppercase tracking-[0.24em] text-gray-200">
-                    {area.title}
-                  </p>
-                  <p className="mt-3 text-sm leading-7 text-gray-300">
-                    {area.body}
-                  </p>
-                </article>
-              ))}
             </div>
 
             <div className="mt-10 grid gap-6">
@@ -704,21 +609,6 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                         <p className="mt-5 max-w-3xl text-base leading-8 text-gray-300">
                           {project.description}
                         </p>
-
-                        <ul className="mt-6 grid gap-3">
-                          {project.bullets.map((bullet) => (
-                            <li
-                              key={bullet}
-                              className="flex items-start gap-3 text-sm leading-7 text-gray-300"
-                            >
-                              <span
-                                aria-hidden="true"
-                                className="mt-2 block h-2 w-2 shrink-0 rounded-full bg-white"
-                              />
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
 
                         {project.properties && (
                           <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -829,106 +719,6 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
             </div>
           </div>
         </section>
-
-        <section
-          id="approach"
-          className="section-shell border-t border-white/10"
-          aria-labelledby="approach-heading"
-        >
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
-              <div>
-                <p className="eyebrow">Approach</p>
-                <h2
-                  id="approach-heading"
-                  className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
-                >
-                  Rough enough
-                  <br />
-                  to stay useful.
-                </h2>
-                <p className="mt-6 max-w-3xl text-lg leading-8 text-gray-200">
-                  This is not trying to be a glossy case study. It is a place for real
-                  operating problems, diagrams, product sketches, and the notes that make
-                  the next build sharper.
-                </p>
-              </div>
-
-              <div className="liquid-glass rounded-2xl border border-white/10 p-6">
-                <p className="eyebrow">Studio</p>
-                <p className="mt-4 text-3xl tracking-[-0.04em] text-white">
-                  The idea shelf
-                </p>
-                <p className="mt-4 text-sm leading-7 text-gray-300">
-                  Properties create the pressure, workflows reveal the pattern, and the app
-                  ideas turn those lessons into something more focused.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {principles.map((p, index) => (
-                <article
-                  key={p.title}
-                  className="liquid-glass rounded-2xl border border-white/10 p-6"
-                >
-                  <p className="text-sm uppercase tracking-[0.24em] text-gray-300">
-                    {String(index + 1).padStart(2, "0")}. {p.title}
-                  </p>
-                  <p className="mt-4 text-sm leading-7 text-gray-300">
-                    {p.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="field-notes"
-          className="section-shell border-t border-white/10"
-          aria-labelledby="field-notes-heading"
-        >
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-end">
-              <div>
-                <p className="eyebrow">Field notes</p>
-                <h2
-                  id="field-notes-heading"
-                  className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
-                >
-                  What is worth
-                  <br />
-                  carrying forward.
-                </h2>
-              </div>
-              <p className="max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
-                Each project should leave behind more than a link. The good stuff is usually
-                the pattern: what problem showed up, what the first version tried, and what
-                should be borrowed, avoided, or rebuilt better.
-              </p>
-            </div>
-
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {fieldNotes.map((note, index) => (
-                <article
-                  key={note.title}
-                  className="liquid-glass rounded-2xl border border-white/10 p-6"
-                >
-                  <p className="text-sm uppercase tracking-[0.24em] text-gray-300">
-                    Note {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-4 text-2xl tracking-[-0.03em] text-white">
-                    {note.title}
-                  </h3>
-                  <p className="mt-4 text-sm leading-7 text-gray-300">
-                    {note.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
 
       <footer
@@ -939,26 +729,24 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
           <div className="liquid-glass rounded-[2rem] border border-white/10 p-8 md:p-10">
             <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
               <div>
-                <p className="eyebrow">Shelf notes</p>
+                <p className="eyebrow">Contact</p>
                 <h2 className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-5xl">
-                  The notes stay open:
+                  Questions, ideas,
                   <br />
-                  systems, notes, ideas.
+                  or project access.
                 </h2>
                 <p className="mt-5 max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
-                  The goal is to make the work useful without making it feel performative:
-                  clear links, honest status, useful patterns, and enough context for
-                  someone else to build their own version.
+                  Email is the easiest way to ask about a project or get the right link.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300">
                   <span className="rounded-full border border-white/15 px-3 py-2">
-                    Field notes
+                    Properties
                   </span>
                   <span className="rounded-full border border-white/15 px-3 py-2">
-                    Workflow maps
+                    Workflows
                   </span>
                   <span className="rounded-full border border-white/15 px-3 py-2">
-                    App concepts
+                    Apps
                   </span>
                 </div>
               </div>
@@ -971,7 +759,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   Contact Carson
                 </a>
                 <p className="mt-4 text-sm leading-7 text-gray-400">
-                  Use email for project questions, collaboration, or access to related materials.
+                  I will point you to the right project.
                 </p>
               </div>
             </div>
