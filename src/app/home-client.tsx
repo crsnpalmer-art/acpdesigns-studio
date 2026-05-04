@@ -266,6 +266,33 @@ const projects: Project[] = [
   },
 ];
 
+const latestItems = [
+  {
+    title: "Workflow playbook",
+    body: "Sarah is now shown as its own voice intake lane.",
+    href: "https://openclaw-viz-mu.vercel.app/#workflow-images",
+    label: "Trace a workflow",
+  },
+  {
+    title: "HabitForge",
+    body: "The product site now shows the app path and build note.",
+    href: "https://habitforgeai.com/download",
+    label: "See the preview",
+  },
+  {
+    title: "Transfer Portal",
+    body: "Live iPhone app for fast college football transfer checks.",
+    href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
+    label: "App Store",
+  },
+];
+
+const startHere = [
+  { title: "Apps", body: "HabitForge, Transfer Portal, TodoToNotes.", href: "#project-habitforge" },
+  { title: "Properties", body: "The real-world operating base.", href: "#project-palmer-properties" },
+  { title: "Workflows", body: "Maps for calls, approvals, and follow-up.", href: "#project-workflow-automation" },
+];
+
 function ExternalIcon() {
   return (
     <svg
@@ -311,6 +338,23 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
       window.history.replaceState(window.history.state, "", url.toString());
     }
   }, [selectedTab]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) return;
+      document.getElementById(id)?.scrollIntoView({ block: "start" });
+    };
+    const timers = [0, 120, 450, 900].map((delay) =>
+      window.setTimeout(scrollToHash, delay),
+    );
+    window.addEventListener("hashchange", scrollToHash);
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, []);
 
   // Mobile: skip the 4.7 MB video, use the poster image only.
   useEffect(() => {
@@ -541,6 +585,69 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="latest"
+          className="section-shell border-b border-white/10"
+          aria-labelledby="latest-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+              <div>
+                <p className="eyebrow">Start here</p>
+                <h2
+                  id="latest-heading"
+                  className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
+                >
+                  Pick a lane.
+                </h2>
+                <p className="mt-5 max-w-xl text-sm leading-7 text-gray-300 md:text-base">
+                  Apps, properties, and workflow notes all connect back to the same question:
+                  what is useful enough to build?
+                </p>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                {startHere.map((item) => (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className="liquid-glass rounded-2xl border border-white/10 p-5 transition hover:border-white/30"
+                  >
+                    <p className="text-sm uppercase tracking-[0.24em] text-white">
+                      {item.title}
+                    </p>
+                    <p className="mt-3 text-sm leading-7 text-gray-300">
+                      {item.body}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {latestItems.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                  className="project-card block"
+                >
+                  <p className="eyebrow">Latest</p>
+                  <h3 className="mt-4 text-2xl tracking-[-0.03em] text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-gray-300">{item.body}</p>
+                  <p className="mt-5 inline-flex items-center text-sm font-medium text-white">
+                    {item.label}
+                    {item.href.startsWith("http") && <ExternalIcon />}
+                  </p>
+                </a>
+              ))}
             </div>
           </div>
         </section>
