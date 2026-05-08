@@ -1,6 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  changelog,
+  formatChangelogDate,
+  formatLastUpdated,
+  lastUpdated,
+} from "@/content/changelog";
+
+const HERO_VIDEO_DEFAULT = "/hero.mp4";
+const HERO_POSTER_DEFAULT = "/hero-poster.jpg";
 
 type HeroTab = {
   id: string;
@@ -15,7 +24,9 @@ type HeroTab = {
   secondaryHref?: string;
   secondaryLabel?: string;
   secondaryExternal?: boolean;
-  tint: string; // CSS color — subtle accent overlay on the hero
+  tint: string;
+  heroVideo?: string;
+  heroPoster?: string;
 };
 
 type PropertyTile = {
@@ -24,16 +35,19 @@ type PropertyTile = {
   city: string;
   units: number;
   fromPrice?: number;
+  availability?: string;
   href: string;
-  video?: string; // self-hosted mp4 path; when present, replaces the static tile
-  videoPoster?: string; // frame shown before video loads
+  video?: string;
+  videoPoster?: string;
 };
 
 type Project = {
   id: string;
   name: string;
   status: string;
+  access: string;
   category: string;
+  why: string;
   summary: string;
   description: string;
   metrics: Array<{ label: string; value: string }>;
@@ -44,36 +58,60 @@ type Project = {
   icon?: string; // optional square brand mark rendered beside the project name
 };
 
+const studioStats = [
+  { label: "Rental portfolio", value: "122 units" },
+  { label: "Flagship workspace", value: "Private login" },
+  { label: "Automation map", value: "35 live jobs" },
+  { label: "Public apps", value: "iOS + web" },
+];
+
 const heroTabs: HeroTab[] = [
   {
     id: "property-management",
-    label: "Properties",
-    heading: "Projects,\nproperties, apps.",
+    label: "Portfolio",
+    heading: "Built for\nreal work.",
     subheading:
-      "A simple home for active projects: real estate work, workflow maps, and small product ideas.",
-    tag: "Start with the active projects.",
+      "Home for my property portfolio, apps,\nautomation systems, and ideas.",
+    tag: "One place for the work.",
     primaryHref: "#projects",
-    primaryLabel: "View projects",
+    primaryLabel: "Explore",
     projectTarget: "palmer-properties",
     secondaryHref: "https://palmerconstructioncompany.co",
     secondaryLabel: "Palmer Construction",
     secondaryExternal: true,
     tint: "rgba(245, 165, 36, 0.18)",
+    heroVideo: "/property-videos/pinnacle-park.mp4",
+    heroPoster: "/property-videos/pinnacle-park.jpg",
   },
   {
     id: "workflow-automation",
-    label: "Automation",
-    heading: "Workflow maps\nfor real operations.",
+    label: "Systems",
+    heading: "Readable\noperations.",
     subheading:
-      "Recurring work, calls, approvals, and handoffs mapped in plain English.",
-    tag: "A working operating playbook.",
+      "Calls, approvals, reminders, and handoffs shown in plain English.",
+    tag: "Practical automation, explained.",
     primaryHref: "https://openclaw-viz-mu.vercel.app/",
-    primaryLabel: "View workflow map",
+    primaryLabel: "Open map",
     projectTarget: "workflow-automation",
     external: true,
     secondaryHref: "#project-workflow-automation",
-    secondaryLabel: "See the system",
+    secondaryLabel: "System card",
     tint: "rgba(192, 132, 252, 0.20)",
+  },
+  {
+    id: "control-center",
+    label: "Control Center",
+    heading: "Private\ncommand center.",
+    subheading:
+      "Palmer Control Center keeps property work, documents, and daily decisions behind one login.",
+    tag: "Secured daily work.",
+    primaryHref: "https://palmercontrolcenter.com",
+    primaryLabel: "Open site",
+    projectTarget: "palmer-control-center",
+    external: true,
+    secondaryHref: "#project-palmer-control-center",
+    secondaryLabel: "Details",
+    tint: "rgba(34, 211, 238, 0.18)",
   },
   {
     id: "habitforge",
@@ -124,11 +162,13 @@ const projects: Project[] = [
     id: "workflow-automation",
     name: "Workflow Automation",
     status: "Live system map",
+    access: "Public",
     category: "Automation control layer",
+    why: "Recurring work needs a visible path before it deserves automation.",
     summary:
-      "A plain-English map for recurring work.",
+      "A plain-English operating map.",
     description:
-      "It shows how calls, reminders, approvals, and follow-up can move through one visible loop.",
+      "The map shows how calls, reminders, approvals, and follow-up move from intake to review.",
     metrics: [
       { label: "Agents", value: "6 named" },
       { label: "Scheduled jobs", value: "35 live jobs + 21 launchd services" },
@@ -139,10 +179,30 @@ const projects: Project[] = [
     icon: "/app-icons/openclaw.jpg",
   },
   {
+    id: "palmer-control-center",
+    name: "Palmer Control Center",
+    status: "Private workspace",
+    access: "Password protected",
+    category: "Property operations command center",
+    why: "The property business needs one calm place to see the day and choose the next action.",
+    summary: "A protected workspace for property operations.",
+    description:
+      "Leasing, maintenance, documents, history, and execution live behind a password-protected web surface.",
+    metrics: [
+      { label: "Access", value: "Private login" },
+      { label: "Surface", value: "Web command center" },
+      { label: "Domain", value: "palmercontrolcenter.com" },
+    ],
+    href: "https://palmercontrolcenter.com",
+    hrefLabel: "Open site",
+  },
+  {
     id: "transfer-portal",
     name: "Transfer Portal",
     status: "Active builds",
+    access: "Public app",
     category: "iPhone app",
+    why: "Fast college football transfer checks without digging through scattered sources.",
     summary:
       "An iPhone app for NCAA football transfers.",
     description:
@@ -160,7 +220,9 @@ const projects: Project[] = [
     id: "habitforge",
     name: "HabitForge",
     status: "Live brand, active product",
+    access: "Public preview",
     category: "Habit system",
+    why: "A calmer way to build routines when real life keeps interrupting.",
     summary:
       "A calm habit app idea.",
     description:
@@ -178,10 +240,12 @@ const projects: Project[] = [
     id: "palmer-properties",
     name: "Palmer Properties",
     status: "Active portfolio",
+    access: "Public sites",
     category: "Rental properties + construction",
+    why: "The portfolio creates the real-world pressure that shapes each tool.",
     summary: "A 122-unit rental portfolio across Tuscaloosa and Northport.",
     description:
-      "The properties create the real problems: leasing, maintenance, tenant support, move-ins, and follow-up.",
+      "Leasing, maintenance, tenant support, turns, and follow-up all start here.",
     metrics: [
       { label: "Units", value: "122" },
       { label: "Markets", value: "Tuscaloosa + Northport" },
@@ -194,6 +258,7 @@ const projects: Project[] = [
         city: "Tuscaloosa",
         units: 72,
         fromPrice: 2800,
+        availability: "Inquire for availability",
         href: "https://pinnacleparknr.com",
         video: "/property-videos/pinnacle-park.mp4",
         videoPoster: "/property-videos/pinnacle-park.jpg",
@@ -204,6 +269,7 @@ const projects: Project[] = [
         city: "Northport",
         units: 30,
         fromPrice: 2700,
+        availability: "Inquire for availability",
         href: "https://firstandmaincondos.com",
         video: "/property-videos/first-and-main.mp4",
         videoPoster: "/property-videos/first-and-main.jpg",
@@ -214,6 +280,7 @@ const projects: Project[] = [
         city: "Northport",
         units: 16,
         fromPrice: 4000,
+        availability: "Inquire for availability",
         href: "https://thestationonmainave.com",
         video: "/property-videos/the-station.mp4",
         videoPoster: "/property-videos/the-station.jpg",
@@ -224,6 +291,7 @@ const projects: Project[] = [
         city: "Tuscaloosa",
         units: 4,
         fromPrice: 4000,
+        availability: "Inquire for availability",
         href: "https://forestlakerentals.com",
         video: "/property-videos/forest-lake.mp4",
         videoPoster: "/property-videos/forest-lake.jpg",
@@ -236,7 +304,9 @@ const projects: Project[] = [
     id: "knowyourhome",
     name: "KnowYourHome",
     status: "Current tenants only",
+    access: "Private",
     category: "Tenant companion",
+    why: "Move-in answers should be easy to find without a long text thread.",
     summary:
       "A tenant guide for move-ins and property details.",
     description:
@@ -252,7 +322,9 @@ const projects: Project[] = [
     id: "todotonotes",
     name: "TodoToNotes",
     status: "Open-source app",
+    access: "Prototype",
     category: "macOS utility",
+    why: "A small fix for the annoying gap between paper notes and digital tasks.",
     summary:
       "A small macOS utility for handwritten lists.",
     description:
@@ -266,32 +338,48 @@ const projects: Project[] = [
   },
 ];
 
-const latestItems = [
-  {
-    title: "Workflow playbook",
-    body: "Sarah is now shown as its own voice intake lane.",
-    href: "https://openclaw-viz-mu.vercel.app/#workflow-images",
-    label: "Trace a workflow",
-  },
-  {
-    title: "HabitForge",
-    body: "The product site now shows the app path and build note.",
-    href: "https://habitforgeai.com/download",
-    label: "See the preview",
-  },
-  {
-    title: "Transfer Portal",
-    body: "Live iPhone app for fast college football transfer checks.",
-    href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
-    label: "App Store",
-  },
+const startHere = [
+  { title: "Portfolio", body: "The property base in Tuscaloosa and Northport.", href: "#project-palmer-properties" },
+  { title: "Control", body: "The private workspace for daily decisions.", href: "#flagship" },
+  { title: "Systems", body: "How recurring work is routed and reviewed.", href: "#project-workflow-automation" },
+  { title: "Apps", body: "Small products with a practical purpose.", href: "#project-habitforge" },
 ];
 
-const startHere = [
-  { title: "Apps", body: "HabitForge, Transfer Portal, TodoToNotes.", href: "#project-habitforge" },
-  { title: "Properties", body: "The real-world operating base.", href: "#project-palmer-properties" },
-  { title: "Workflows", body: "Maps for calls, approvals, and follow-up.", href: "#project-workflow-automation" },
+const ecosystemLinks = [
+  { label: "Palmer Control Center", href: "https://palmercontrolcenter.com" },
+  { label: "Workflow map", href: "https://openclaw-viz-mu.vercel.app/" },
+  { label: "HabitForge", href: "https://habitforgeai.com" },
+  { label: "Transfer Portal", href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986" },
+  { label: "Palmer Construction", href: "https://palmerconstructioncompany.co" },
 ];
+
+type SocialLink = { label: string; href: string; external?: boolean };
+
+const socialLinks: SocialLink[] = [
+  { label: "Email", href: "mailto:crsnpalmer@gmail.com" },
+  { label: "Phone (Sarah, 24/7)", href: "tel:+18669538055" },
+  { label: "Instagram @crsnpalmer", href: "https://instagram.com/crsnpalmer", external: true },
+  { label: "X @crsnpalmer", href: "https://x.com/crsnpalmer", external: true },
+];
+
+const appShowcases: Record<
+  string,
+  { tagline: string; bullets: string[]; ctaLabel: string; ctaHref: string }
+> = {
+  habitforge: {
+    tagline: "Calm structure across four pillars.",
+    bullets: ["Web + iOS", "No streak shaming", "Daily reflection"],
+    ctaLabel: "Visit HabitForge",
+    ctaHref: "https://habitforgeai.com",
+  },
+  "transfer-portal": {
+    tagline: "Every FBS transfer, in one tap.",
+    bullets: ["132 teams", "Free, no ads", "Built for game-day checks"],
+    ctaLabel: "App Store",
+    ctaHref:
+      "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
+  },
+};
 
 function ExternalIcon() {
   return (
@@ -308,6 +396,114 @@ function ExternalIcon() {
     >
       <path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+function Monogram() {
+  return (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 36 36"
+      width="32"
+      height="32"
+      className="monogram"
+    >
+      <defs>
+        <radialGradient id="acp-bg" cx="30%" cy="25%" r="80%">
+          <stop offset="0%" stopColor="#3a3a3a" />
+          <stop offset="100%" stopColor="#000000" />
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="36" height="36" rx="9" fill="url(#acp-bg)" />
+      <rect
+        x="0.5"
+        y="0.5"
+        width="35"
+        height="35"
+        rx="8.5"
+        fill="none"
+        stroke="rgba(255,255,255,0.18)"
+      />
+      <text
+        x="18"
+        y="22.5"
+        textAnchor="middle"
+        fontFamily="Inter, system-ui, sans-serif"
+        fontSize="13"
+        fontWeight="600"
+        letterSpacing="-0.5"
+        fill="#fff"
+      >
+        ACP
+      </text>
+    </svg>
+  );
+}
+
+function WorkflowDiagram() {
+  const stages = [
+    { label: "Inbound", items: ["Phone calls", "Email triage", "Forms"] },
+    { label: "Routing", items: ["Sarah (voice AI)", "OpenClaw gateway"] },
+    { label: "Action", items: ["Approvals", "Reminders", "Work orders"] },
+    { label: "Review", items: ["Logs", "Daily summary", "Carson"] },
+  ];
+  return (
+    <div className="workflow-diagram" role="img" aria-label="Operations flow: inbound, routing, action, review">
+      {stages.map((stage, i) => (
+        <div key={stage.label} className="workflow-stage">
+          <p className="workflow-stage-label">{stage.label}</p>
+          <ul className="workflow-stage-items">
+            {stage.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          {i < stages.length - 1 && (
+            <span aria-hidden="true" className="workflow-arrow">
+              →
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AppShowcase({
+  appId,
+  iconSrc,
+  name,
+}: {
+  appId: keyof typeof appShowcases;
+  iconSrc?: string;
+  name: string;
+}) {
+  const data = appShowcases[appId];
+  if (!data) return null;
+  return (
+    <div className="app-showcase">
+      <div className="app-showcase-frame" aria-hidden="true">
+        <div className="app-showcase-screen">
+          {iconSrc && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={iconSrc}
+              alt=""
+              width={120}
+              height={120}
+              className="app-showcase-icon"
+            />
+          )}
+          <p className="app-showcase-name">{name}</p>
+          <p className="app-showcase-tagline">{data.tagline}</p>
+        </div>
+      </div>
+      <ul className="app-showcase-bullets">
+        {data.bullets.map((b) => (
+          <li key={b}>{b}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -357,13 +553,19 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
   }, []);
 
   // Mobile: skip the 4.7 MB video, use the poster image only.
+  // Also honor prefers-reduced-motion: poster image, never video.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(min-width: 768px)");
-    const update = () => setShowVideo(mq.matches);
+    const sizeMq = window.matchMedia("(min-width: 768px)");
+    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setShowVideo(sizeMq.matches && !motionMq.matches);
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    sizeMq.addEventListener("change", update);
+    motionMq.addEventListener("change", update);
+    return () => {
+      sizeMq.removeEventListener("change", update);
+      motionMq.removeEventListener("change", update);
+    };
   }, []);
 
   const handleTabKeyDown = (
@@ -394,13 +596,14 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
       <main id="main" className="bg-black text-white">
         <section
           aria-label="Studio introduction"
-          className="relative min-h-screen overflow-hidden bg-black"
+          className="relative min-h-[86svh] overflow-hidden bg-black"
         >
           {showVideo ? (
             <video
+              key={activeTab.heroVideo ?? HERO_VIDEO_DEFAULT}
               className="hero-video absolute inset-0 h-full w-full object-cover"
-              src="/hero.mp4"
-              poster="/hero-poster.jpg"
+              src={activeTab.heroVideo ?? HERO_VIDEO_DEFAULT}
+              poster={activeTab.heroPoster ?? HERO_POSTER_DEFAULT}
               autoPlay
               loop
               muted
@@ -413,7 +616,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               className="hero-video absolute inset-0 h-full w-full object-cover"
-              src="/hero-poster.jpg"
+              src={activeTab.heroPoster ?? HERO_POSTER_DEFAULT}
               alt=""
               aria-hidden="true"
             />
@@ -427,7 +630,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
             aria-hidden="true"
           />
 
-          <div className="relative z-10 flex min-h-screen flex-col">
+          <div className="relative z-10 flex min-h-[86svh] flex-col">
             <header className="px-6 pt-6 md:px-12 lg:px-16">
               <div className="liquid-glass rounded-xl px-4 py-2">
                 <nav
@@ -436,12 +639,17 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 >
                   <a
                     href="#main"
-                    className="wordmark flex flex-col text-white"
+                    className="wordmark flex items-center gap-3 text-white"
                     aria-label="ACP Designs Studio — home"
                   >
-                    <span className="text-2xl font-semibold tracking-tight">ACP</span>
-                    <span className="hidden text-[10px] uppercase tracking-[0.28em] text-gray-300 sm:block">
-                      Designs Studio
+                    <Monogram />
+                    <span className="hidden flex-col leading-tight sm:flex">
+                      <span className="text-base font-semibold tracking-normal">
+                        ACP Designs Studio
+                      </span>
+                      <span className="text-[10px] uppercase tracking-[0.28em] text-gray-300">
+                        Carson Palmer
+                      </span>
                     </span>
                   </a>
 
@@ -472,7 +680,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   </div>
 
                   <a
-                    className="inline-flex items-center rounded-lg bg-white px-6 py-2 text-sm font-medium text-black transition hover:bg-gray-100"
+                    className="hidden items-center rounded-lg bg-white px-6 py-2 text-sm font-medium text-black transition hover:bg-gray-100 sm:inline-flex"
                     href={activeTab.primaryHref}
                     target={activeTab.external ? "_blank" : undefined}
                     rel={activeTab.external ? "noreferrer" : undefined}
@@ -525,11 +733,13 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 >
                   <div>
                     <p className="eyebrow hero-kicker mb-4 text-white/80">
-                      Projects, properties, apps.
+                      ACP Designs Studio
+                    </p>
+                    <p className="hero-sub mb-3 text-sm font-medium text-white/90 md:text-base">
+                      Carson Palmer · Tuscaloosa landlord, builder of small tools.
                     </p>
                     <h1
-                      className="hero-heading max-w-[12ch] text-4xl font-normal leading-[0.95] text-white md:text-5xl lg:text-6xl xl:text-7xl"
-                      style={{ letterSpacing: "-0.04em" }}
+                      className="hero-heading max-w-[12ch] text-4xl font-medium leading-[0.95] tracking-normal text-white md:text-5xl lg:text-6xl xl:text-7xl"
                     >
                       {activeTab.heading.split("\n").map((line, i) => (
                         <span key={i} className="block">
@@ -538,8 +748,12 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                       ))}
                     </h1>
 
-                    <p className="hero-sub mb-5 mt-4 max-w-2xl text-base text-gray-200 md:text-lg">
-                      {activeTab.subheading}
+                    <p className="hero-sub mb-5 mt-4 max-w-[calc(100vw-3rem)] text-base text-gray-200 md:max-w-2xl md:text-lg">
+                      {activeTab.subheading.split("\n").map((line, i) => (
+                        <span key={i} className="block">
+                          {line}
+                        </span>
+                      ))}
                     </p>
 
                     <div className="mb-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300 md:text-sm">
@@ -547,16 +761,16 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                         122 rental units
                       </span>
                       <span className="rounded-full border border-white/15 px-3 py-2">
-                        Workflow maps
+                        Operating maps
                       </span>
                       <span className="rounded-full border border-white/15 px-3 py-2">
-                        App ideas
+                        Useful tools
                       </span>
                     </div>
 
                     <div className="hero-cta flex flex-wrap gap-4">
                       <a
-                        className="inline-flex items-center rounded-lg bg-white px-8 py-3 font-medium text-black transition hover:bg-gray-100"
+                        className="inline-flex w-full items-center justify-center rounded-lg bg-white px-8 py-3 font-medium text-black transition hover:bg-gray-100 sm:w-auto"
                         href={activeTab.primaryHref}
                         target={activeTab.external ? "_blank" : undefined}
                         rel={activeTab.external ? "noreferrer" : undefined}
@@ -565,7 +779,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                         {activeTab.external && <ExternalIcon />}
                       </a>
                       <a
-                        className="liquid-glass inline-flex items-center rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition hover:bg-white hover:text-black"
+                        className="liquid-glass inline-flex w-full items-center justify-center rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition hover:bg-white hover:text-black sm:w-auto"
                         href={activeTab.secondaryHref ?? `#project-${activeTab.projectTarget}`}
                         target={activeTab.secondaryExternal ? "_blank" : undefined}
                         rel={activeTab.secondaryExternal ? "noreferrer" : undefined}
@@ -577,7 +791,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   </div>
 
                   <div className="hero-tag mt-8 flex items-end justify-start lg:mt-0 lg:justify-end">
-                    <div className="liquid-glass rounded-xl border border-white/20 px-6 py-3">
+                    <div className="hero-tag-card liquid-glass rounded-lg border border-white/20 px-6 py-3">
                       <p className="text-lg font-light text-white md:text-xl lg:text-2xl">
                         {activeTab.tag}
                       </p>
@@ -600,22 +814,24 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 <p className="eyebrow">Start here</p>
                 <h2
                   id="latest-heading"
-                  className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
+                  className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-normal text-white md:text-6xl"
                 >
-                  Pick a lane.
+                  Start here.
                 </h2>
                 <p className="mt-5 max-w-xl text-sm leading-7 text-gray-300 md:text-base">
-                  Apps, properties, and workflow notes all connect back to the same question:
-                  what is useful enough to build?
+                  A short path into my property portfolio, apps, automation systems, and ideas.
+                </p>
+                <p className="mt-4 text-xs uppercase tracking-[0.24em] text-gray-400">
+                  Updated {formatLastUpdated(lastUpdated)}
                 </p>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {startHere.map((item) => (
                   <a
                     key={item.title}
                     href={item.href}
-                    className="liquid-glass rounded-2xl border border-white/10 p-5 transition hover:border-white/30"
+                    className="liquid-glass rounded-lg border border-white/10 p-5 transition hover:border-white/30"
                   >
                     <p className="text-sm uppercase tracking-[0.24em] text-white">
                       {item.title}
@@ -627,27 +843,117 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {latestItems.map((item) => (
-                <a
-                  key={item.title}
-                  href={item.href}
-                  target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="project-card block"
+        <section
+          id="changelog"
+          className="section-shell border-b border-white/10"
+          aria-labelledby="changelog-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+              <div>
+                <p className="eyebrow">Changelog</p>
+                <h2
+                  id="changelog-heading"
+                  className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-normal text-white md:text-6xl"
                 >
-                  <p className="eyebrow">Latest</p>
-                  <h3 className="mt-4 text-2xl tracking-[-0.03em] text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-gray-300">{item.body}</p>
-                  <p className="mt-5 inline-flex items-center text-sm font-medium text-white">
-                    {item.label}
-                    {item.href.startsWith("http") && <ExternalIcon />}
+                  What&rsquo;s actually shipped.
+                </h2>
+                <p className="mt-5 max-w-xl text-sm leading-7 text-gray-300 md:text-base">
+                  A running log of the most recent things I&rsquo;ve put live across the studio.
+                </p>
+              </div>
+
+              <ol className="changelog-list">
+                {changelog.map((entry) => (
+                  <li key={entry.date + entry.title} className="changelog-item">
+                    <time
+                      dateTime={entry.date}
+                      className="changelog-date"
+                    >
+                      {formatChangelogDate(entry.date)}
+                    </time>
+                    <div className="changelog-body">
+                      <h3 className="changelog-title">{entry.title}</h3>
+                      <p className="changelog-text">{entry.body}</p>
+                      {entry.href && (
+                        <a
+                          href={entry.href}
+                          target={entry.href.startsWith("http") ? "_blank" : undefined}
+                          rel={entry.href.startsWith("http") ? "noreferrer" : undefined}
+                          className="changelog-link"
+                        >
+                          {entry.hrefLabel ?? "Open"}
+                          {entry.href.startsWith("http") && <ExternalIcon />}
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="flagship"
+          className="section-shell border-b border-white/10"
+          aria-labelledby="flagship-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_0.95fr] lg:items-stretch">
+              <div className="project-card project-card-active flex flex-col justify-between">
+                <div>
+                  <p className="eyebrow">Flagship</p>
+                  <h2
+                    id="flagship-heading"
+                    className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-normal text-white md:text-6xl"
+                  >
+                    Palmer Control Center.
+                  </h2>
+                  <p className="mt-5 max-w-2xl text-lg leading-8 text-white md:text-xl">
+                    A private command center for leasing, maintenance, documents, and daily property decisions.
                   </p>
-                </a>
-              ))}
+                  <p className="mt-5 max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
+                    This is the piece that makes ACP Designs Studio feel different: the public site points to real properties, real apps, and a protected workspace built for the work behind them.
+                  </p>
+                </div>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <a
+                    className="inline-flex items-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-gray-100"
+                    href="https://palmercontrolcenter.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open Palmer Control Center
+                    <ExternalIcon />
+                  </a>
+                  <a
+                    className="inline-flex items-center rounded-lg border border-white/20 px-6 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-black"
+                    href="#project-palmer-control-center"
+                  >
+                    View details
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {studioStats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="liquid-glass rounded-lg border border-white/10 p-5"
+                  >
+                    <p className="text-xs uppercase tracking-[0.22em] text-gray-300">
+                      {stat.label}
+                    </p>
+                    <p className="mt-4 text-3xl font-normal tracking-normal text-white">
+                      {stat.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -660,16 +966,16 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-6 border-b border-white/10 pb-10 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-end">
               <div>
-                <p className="eyebrow">Current work</p>
+                <p className="eyebrow">Selected work</p>
                 <h2
                   id="projects-heading"
-                  className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-6xl"
+                  className="mt-4 max-w-4xl text-4xl leading-[0.98] tracking-normal text-white md:text-6xl"
                 >
-                  Current work.
+                  Built around real use.
                 </h2>
               </div>
               <p className="max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
-                A quick look at the projects, properties, and ideas I keep coming back to.
+                The businesses, tools, and operating surfaces I keep improving.
               </p>
             </div>
 
@@ -692,6 +998,9 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                           <span className="text-xs uppercase tracking-[0.24em] text-gray-300">
                             {project.category}
                           </span>
+                          <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-gray-300">
+                            {project.access}
+                          </span>
                         </div>
 
                         <div className="mt-6 flex items-center gap-5">
@@ -703,10 +1012,10 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                               width={64}
                               height={64}
                               loading="lazy"
-                              className="h-16 w-16 shrink-0 rounded-2xl object-cover ring-1 ring-white/10"
+                              className="h-16 w-16 shrink-0 rounded-lg object-cover ring-1 ring-white/10"
                             />
                           )}
-                          <h3 className="text-4xl tracking-[-0.05em] text-white md:text-5xl">
+                          <h3 className="text-4xl tracking-normal text-white md:text-5xl">
                             {project.name}
                           </h3>
                         </div>
@@ -716,6 +1025,22 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                         <p className="mt-5 max-w-3xl text-base leading-8 text-gray-300">
                           {project.description}
                         </p>
+                        <p className="mt-4 max-w-3xl border-l border-white/20 pl-4 text-sm leading-7 text-gray-300">
+                          Why it exists: {project.why}
+                        </p>
+
+                        {project.id === "workflow-automation" && (
+                          <WorkflowDiagram />
+                        )}
+
+                        {(project.id === "habitforge" ||
+                          project.id === "transfer-portal") && (
+                          <AppShowcase
+                            appId={project.id}
+                            iconSrc={project.icon}
+                            name={project.name}
+                          />
+                        )}
 
                         {project.properties && (
                           <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -764,6 +1089,11 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                                         ? ` · from $${p.fromPrice.toLocaleString()}/mo`
                                         : ""}
                                     </p>
+                                    {p.availability && (
+                                      <p className="mt-1 inline-flex items-center rounded-full border border-white/20 bg-white/[0.04] px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-white">
+                                        {p.availability}
+                                      </p>
+                                    )}
                                   </div>
                                   <ExternalIcon />
                                 </div>
@@ -773,7 +1103,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                         )}
                       </div>
 
-                      <aside className="liquid-glass rounded-2xl border border-white/10 p-5">
+                      <aside className="liquid-glass rounded-lg border border-white/10 p-5">
                         <p className="eyebrow">Snapshot</p>
                         <dl className="mt-4 space-y-3">
                           {project.metrics.map((metric) => (
@@ -833,17 +1163,17 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
         className="border-t border-white/10 bg-black px-6 py-14 md:px-12 lg:px-16"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="liquid-glass rounded-[2rem] border border-white/10 p-8 md:p-10">
+          <div className="liquid-glass rounded-lg border border-white/10 p-8 md:p-10">
             <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
               <div>
                 <p className="eyebrow">Contact</p>
-                <h2 className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-[-0.04em] text-white md:text-5xl">
-                  Questions, ideas,
+                <h2 className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-normal text-white md:text-5xl">
+                  Need a link,
                   <br />
-                  or project access.
+                  or context?
                 </h2>
                 <p className="mt-5 max-w-2xl text-sm leading-7 text-gray-300 md:text-base">
-                  Email is the easiest way to ask about a project or get the right link.
+                  Email is the easiest way to ask about a site, app, or private workspace.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300">
                   <span className="rounded-full border border-white/15 px-3 py-2">
@@ -868,6 +1198,43 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                 <p className="mt-4 text-sm leading-7 text-gray-400">
                   I will point you to the right project.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-2">
+            <div>
+              <p className="eyebrow">Projects & sites</p>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm text-gray-400">
+                {ecosystemLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center transition hover:text-white"
+                  >
+                    {link.label}
+                    <ExternalIcon />
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="eyebrow">Find Carson</p>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm text-gray-400">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noreferrer" : undefined}
+                    className="inline-flex items-center transition hover:text-white"
+                  >
+                    {link.label}
+                    {link.external && <ExternalIcon />}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
