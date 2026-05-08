@@ -59,7 +59,7 @@ type Project = {
 };
 
 const studioStats = [
-  { label: "Rental portfolio", value: "122 units" },
+  { label: "Rental portfolio", value: "108 units" },
   { label: "Flagship workspace", value: "Private login" },
   { label: "Automation map", value: "35 live jobs" },
   { label: "Public apps", value: "iOS + web" },
@@ -243,11 +243,11 @@ const projects: Project[] = [
     access: "Public sites",
     category: "Rental properties + construction",
     why: "The portfolio creates the real-world pressure that shapes each tool.",
-    summary: "A 122-unit rental portfolio across Tuscaloosa and Northport.",
+    summary: "A 108-unit rental portfolio across Tuscaloosa and Northport.",
     description:
       "Leasing, maintenance, tenant support, turns, and follow-up all start here.",
     metrics: [
-      { label: "Units", value: "122" },
+      { label: "Units", value: "108" },
       { label: "Markets", value: "Tuscaloosa + Northport" },
       { label: "Parent", value: "Palmer Construction" },
     ],
@@ -256,7 +256,7 @@ const projects: Project[] = [
         slug: "pinnacle-park",
         name: "Pinnacle Park",
         city: "Tuscaloosa",
-        units: 72,
+        units: 50,
         fromPrice: 2800,
         availability: "Inquire for availability",
         href: "https://pinnacleparknr.com",
@@ -289,7 +289,7 @@ const projects: Project[] = [
         slug: "forest-lake",
         name: "Forest Lake",
         city: "Tuscaloosa",
-        units: 4,
+        units: 12,
         fromPrice: 4000,
         availability: "Inquire for availability",
         href: "https://forestlakerentals.com",
@@ -758,7 +758,7 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
 
                     <div className="mb-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-gray-300 md:text-sm">
                       <span className="rounded-full border border-white/15 px-3 py-2">
-                        122 rental units
+                        108 rental units
                       </span>
                       <span className="rounded-full border border-white/15 px-3 py-2">
                         Operating maps
