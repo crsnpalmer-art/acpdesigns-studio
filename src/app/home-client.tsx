@@ -73,7 +73,7 @@ const heroTabs: HeroTab[] = [
     label: "Portfolio",
     heading: "Built for\nreal work.",
     subheading:
-      "Home for my property portfolio, apps,\nautomation systems, and ideas.",
+      "Home for my property portfolio, apps, automation systems, and ideas.",
     tag: "One place for the work.",
     primaryHref: "#projects",
     primaryLabel: "Explore",
@@ -645,11 +645,11 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                     aria-label="ACP Designs Studio — home"
                   >
                     <Monogram />
-                    <span className="hidden flex-col leading-tight sm:flex">
-                      <span className="text-base font-semibold tracking-normal">
+                    <span className="flex flex-col leading-tight">
+                      <span className="text-sm font-semibold tracking-normal sm:text-base">
                         ACP Designs Studio
                       </span>
-                      <span className="text-[10px] uppercase tracking-[0.28em] text-gray-300">
+                      <span className="text-[9px] uppercase tracking-[0.24em] text-gray-300 sm:text-[10px] sm:tracking-[0.28em]">
                         Carson Palmer
                       </span>
                     </span>
@@ -1021,14 +1021,14 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   >
                     <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_18rem]">
                       <div>
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="rounded-full border border-white/20 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-white">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 sm:gap-3">
+                          <span className="rounded-full border border-white/20 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.2em] text-white sm:px-3 sm:py-1 sm:text-[11px] sm:tracking-[0.24em]">
                             {project.status}
                           </span>
-                          <span className="text-xs uppercase tracking-[0.24em] text-gray-300">
+                          <span className="text-[10px] uppercase tracking-[0.2em] text-gray-300 sm:text-xs sm:tracking-[0.24em]">
                             {project.category}
                           </span>
-                          <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-gray-300">
+                          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.2em] text-gray-300 sm:px-3 sm:py-1 sm:text-[11px] sm:tracking-[0.24em]">
                             {project.access}
                           </span>
                         </div>
@@ -1139,12 +1139,12 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                           {project.metrics.map((metric) => (
                             <div
                               key={metric.label}
-                              className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-3 last:border-b-0 last:pb-0"
+                              className="flex flex-col gap-1 border-b border-white/10 pb-3 last:border-b-0 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
                             >
                               <dt className="text-[11px] uppercase tracking-[0.18em] text-gray-300">
                                 {metric.label}
                               </dt>
-                              <dd className="text-right text-sm font-medium text-white">
+                              <dd className="text-sm font-medium text-white sm:text-right">
                                 {metric.value}
                               </dd>
                             </div>
