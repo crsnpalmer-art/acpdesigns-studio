@@ -162,5 +162,8 @@ export function groupByYear(
   }
   return Array.from(map.entries())
     .sort(([a], [b]) => b.localeCompare(a))
-    .map(([year, entries]) => ({ year, entries }));
+    .map(([year, entries]) => ({
+      year,
+      entries: [...entries].sort((a, b) => b.date.localeCompare(a.date)),
+    }));
 }
