@@ -46,7 +46,7 @@ export const changelog: ChangelogEntry[] = [
     body: "The voice line learned to recognize emergencies, route alerts to me directly, and remember who has called before.",
   },
   {
-    date: "2026-04-21",
+    date: "2026-03-22",
     category: "property",
     title: "AppFolio work-order sync",
     body: "Work-order pulls now run automatically — 28 orders parsed in under a minute, ready to review in one place.",
@@ -68,19 +68,7 @@ export const changelog: ChangelogEntry[] = [
     hrefLabel: "Visit HabitForge",
   },
   {
-    date: "2026-03-10",
-    category: "systems",
-    title: "Sarah voice tuning",
-    body: "Cleaner pacing, fewer canned phrases, and a better handoff line so callers know they're being routed.",
-  },
-  {
-    date: "2026-02-22",
-    category: "systems",
-    title: "Sarah's approval relay",
-    body: "Calls that need a yes/no now ping me on Telegram with one-tap approve or decline — no more dialing back.",
-  },
-  {
-    date: "2026-02-08",
+    date: "2026-03-25",
     category: "systems",
     title: "Sarah goes live on (866) 953-8055",
     body: "A 24/7 AI voice agent answers the property line, takes details, and routes work to the right place.",
@@ -122,12 +110,6 @@ export const changelog: ChangelogEntry[] = [
     body: "Free iPhone app for tracking NCAA football transfers across all 132 FBS programs. No ads, no paywall.",
     href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
     hrefLabel: "App Store",
-  },
-  {
-    date: "2025-07-22",
-    category: "systems",
-    title: "OpenClaw foundations",
-    body: "The control plane that quietly runs the rest of the studio gets stood up — local agents, scheduling, secrets.",
   },
   {
     date: "2026-04-23",
