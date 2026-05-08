@@ -2,7 +2,8 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-export const alt = "ACP Designs Studio — Current work and systems.";
+export const alt =
+  "ACP Designs Studio — Property portfolio, apps, automation systems, and ideas.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -80,7 +81,7 @@ export default async function Image() {
                 display: "flex",
                 fontSize: 42,
                 fontWeight: 600,
-                letterSpacing: "-0.04em",
+                letterSpacing: 0,
                 color: "white",
               }}
             >
@@ -112,28 +113,28 @@ export default async function Image() {
                 display: "flex",
                 fontSize: 108,
                 fontWeight: 500,
-                letterSpacing: "-0.045em",
+                letterSpacing: 0,
                 lineHeight: 0.96,
                 color: "white",
                 maxWidth: 980,
                 textShadow: "0 2px 24px rgba(0,0,0,0.6)",
               }}
             >
-              Current work and systems.
+              Built for real work.
             </div>
             <div
               style={{
                 display: "flex",
                 marginTop: 20,
                 fontSize: 26,
-                letterSpacing: "-0.005em",
+                letterSpacing: 0,
                 color: "rgba(255,255,255,0.88)",
                 fontWeight: 400,
                 maxWidth: 900,
                 textShadow: "0 1px 12px rgba(0,0,0,0.55)",
               }}
             >
-              Projects, property operations, automation, and software products.
+              Property portfolio, apps, automation systems, and ideas.
             </div>
           </div>
         </div>

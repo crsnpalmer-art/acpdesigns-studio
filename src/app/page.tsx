@@ -7,6 +7,7 @@ import HomeClient from "./home-client";
 const TAB_IDS = [
   "property-management",
   "workflow-automation",
+  "control-center",
   "habitforge",
   "transfer-portal",
   "todotonotes",
