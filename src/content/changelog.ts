@@ -104,12 +104,6 @@ export const changelog: ChangelogEntry[] = [
     hrefLabel: "Open site",
   },
   {
-    date: "2025-12-12",
-    category: "property",
-    title: "KnowYourHome rolls out across the portfolio",
-    body: "Tenants at all four properties now have a phone-friendly page for parking, trash, move-in, and move-out answers.",
-  },
-  {
     date: "2025-11-18",
     category: "apps",
     title: "Transfer Portal v1 hits the App Store",
@@ -136,25 +130,19 @@ export const changelog: ChangelogEntry[] = [
     body: "The earliest scheduled jobs go online — daily summaries, reminder routing, and a Telegram approval inbox.",
   },
   {
-    date: "2025-08-15",
-    category: "property",
-    title: "KnowYourHome opens for First and Main",
-    body: "First property to get the tenant-facing answers page. Move-in questions stop landing in my texts.",
-  },
-  {
     date: "2025-07-22",
     category: "systems",
     title: "OpenClaw foundations",
     body: "The control plane that quietly runs the rest of the studio gets stood up — local agents, scheduling, secrets.",
   },
   {
-    date: "2025-06-04",
+    date: "2026-04-23",
     category: "site",
     title: "acpdesigns.studio publishes",
     body: "First public version of the studio's front door — a single page pointing at properties, apps, and the rest.",
   },
   {
-    date: "2025-05-12",
+    date: "2026-03-15",
     category: "property",
     title: "Palmer Construction site online",
     body: "Public site for the parent brand behind the rental portfolio — Tuscaloosa and Northport projects.",
