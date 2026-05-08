@@ -1,71 +1,177 @@
+export type ChangelogCategory = "site" | "systems" | "apps" | "property";
+
 export type ChangelogEntry = {
   date: string;
   title: string;
   body: string;
+  category?: ChangelogCategory;
   href?: string;
   hrefLabel?: string;
 };
 
+export const categoryLabel: Record<ChangelogCategory, string> = {
+  site: "Site",
+  systems: "Systems",
+  apps: "Apps",
+  property: "Property",
+};
+
 export const changelog: ChangelogEntry[] = [
   {
+    date: "2026-05-07",
+    category: "site",
+    title: "Studio site overhaul",
+    body: "Identity line, real timeline (this), app showcase mocks, per-tab hero, monogram. The site finally tells a stranger what's going on without making them click out.",
+  },
+  {
     date: "2026-04-29",
-    title: "Tightened how the studio's automation runs",
+    category: "systems",
+    title: "Tightened how the automation runs",
     body: "Six recurring jobs moved onto a stricter allowlist so the systems map only does what it is supposed to.",
     href: "https://openclaw-viz-mu.vercel.app/",
     hrefLabel: "See the map",
   },
   {
     date: "2026-04-27",
+    category: "systems",
     title: "Email triage went live",
     body: "Inbound mail now feeds the operating map directly — fewer manual checks, faster handoffs.",
     href: "https://openclaw-viz-mu.vercel.app/",
     hrefLabel: "Trace the system",
   },
   {
-    date: "2026-04-25",
-    title: "Sarah, the 24/7 voice line",
-    body: "An AI voice agent answers the property line around the clock and routes work cleanly to the right place.",
-    href: "tel:+18669538055",
-    hrefLabel: "(866) 953-8055",
+    date: "2026-04-23",
+    category: "systems",
+    title: "Sarah upgrade — emergency alerts and caller history",
+    body: "The voice line learned to recognize emergencies, route alerts to me directly, and remember who has called before.",
   },
   {
     date: "2026-04-21",
+    category: "property",
     title: "Cloud AppFolio sync",
     body: "Work-order pulls now run from the cloud — 28 orders in under a minute, parsed and ready to review.",
   },
   {
+    date: "2026-04-12",
+    category: "systems",
+    title: "Workflow map went public",
+    body: "The plain-English diagram of how calls, approvals, and reminders move is now linked from the studio site.",
+    href: "https://openclaw-viz-mu.vercel.app/",
+    hrefLabel: "Open the map",
+  },
+  {
     date: "2026-03-28",
-    title: "HabitForge teaser — \"gamer\"",
+    category: "apps",
+    title: "HabitForge “gamer” teaser",
     body: "First image-to-video teaser rendered, synced to the lyric track. Brand site is live.",
     href: "https://habitforgeai.com",
     hrefLabel: "Visit HabitForge",
   },
   {
-    date: "2026-02-14",
-    title: "Transfer Portal hits the App Store",
-    body: "Free iPhone app for tracking NCAA football transfers across all 132 FBS programs.",
+    date: "2026-03-10",
+    category: "systems",
+    title: "Sarah voice tuning",
+    body: "Cleaner pacing, fewer canned phrases, and a better handoff line so callers know they're being routed.",
+  },
+  {
+    date: "2026-02-22",
+    category: "systems",
+    title: "Sarah's approval relay",
+    body: "Calls that need a yes/no now ping me on Telegram with one-tap approve or decline — no more dialing back.",
+  },
+  {
+    date: "2026-02-08",
+    category: "systems",
+    title: "Sarah goes live on (866) 953-8055",
+    body: "A 24/7 AI voice agent answers the property line, takes details, and routes work to the right place.",
+    href: "tel:+18669538055",
+    hrefLabel: "Call Sarah",
+  },
+  {
+    date: "2026-01-22",
+    category: "apps",
+    title: "HabitForgeAI.com brand site online",
+    body: "Public-facing brand site for the habit app — explainer, screenshots, download path.",
+    href: "https://habitforgeai.com",
+    hrefLabel: "Visit site",
+  },
+  {
+    date: "2026-01-05",
+    category: "site",
+    title: "Palmer Control Center opens",
+    body: "Property leasing, maintenance, documents, and daily decisions moved behind a single private workspace.",
+    href: "https://palmercontrolcenter.com",
+    hrefLabel: "Open site",
+  },
+  {
+    date: "2025-12-12",
+    category: "property",
+    title: "KnowYourHome rolls out across the portfolio",
+    body: "Tenants at all four properties now have a phone-friendly page for parking, trash, move-in, and move-out answers.",
+  },
+  {
+    date: "2025-11-18",
+    category: "apps",
+    title: "Transfer Portal v1 hits the App Store",
+    body: "Free iPhone app for tracking NCAA football transfers across all 132 FBS programs. No ads, no paywall.",
     href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
     hrefLabel: "App Store",
   },
   {
-    date: "2026-01-12",
-    title: "Palmer Control Center opens",
-    body: "Property leasing, maintenance, and daily decisions moved behind a single private workspace.",
-    href: "https://palmercontrolcenter.com",
-    hrefLabel: "Open site",
+    date: "2025-10-30",
+    category: "apps",
+    title: "Transfer Portal beta wraps",
+    body: "Final pre-launch polish — team color theming, faster scrubbing through transfer windows, fewer empty states.",
+  },
+  {
+    date: "2025-10-15",
+    category: "apps",
+    title: "TodoToNotes prototype",
+    body: "A small macOS utility: snap a handwritten list, review the parsed tasks, save a clean checklist to Apple Notes.",
+  },
+  {
+    date: "2025-09-08",
+    category: "systems",
+    title: "First automation pipeline live",
+    body: "The earliest scheduled jobs go online — daily summaries, reminder routing, and a Telegram approval inbox.",
+  },
+  {
+    date: "2025-08-15",
+    category: "property",
+    title: "KnowYourHome opens for First and Main",
+    body: "First property to get the tenant-facing answers page. Move-in questions stop landing in my texts.",
+  },
+  {
+    date: "2025-07-22",
+    category: "systems",
+    title: "OpenClaw foundations",
+    body: "The control plane that quietly runs the rest of the studio gets stood up — local agents, scheduling, secrets.",
+  },
+  {
+    date: "2025-06-04",
+    category: "site",
+    title: "acpdesigns.studio publishes",
+    body: "First public version of the studio's front door — a single page pointing at properties, apps, and the rest.",
+  },
+  {
+    date: "2025-05-12",
+    category: "property",
+    title: "Palmer Construction site online",
+    body: "Public site for the parent brand behind the rental portfolio — Tuscaloosa and Northport projects.",
+    href: "https://palmerconstructioncompany.co",
+    hrefLabel: "Visit Palmer Construction",
   },
 ];
 
 export const lastUpdated = changelog[0]?.date ?? null;
 
-export function formatChangelogDate(iso: string): string {
+export function formatChangelogDateShort(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d));
   return dt.toLocaleDateString("en-US", {
     timeZone: "UTC",
     month: "short",
     day: "numeric",
-    year: "numeric",
   });
 }
 
@@ -78,4 +184,19 @@ export function formatLastUpdated(iso: string | null): string {
     month: "long",
     year: "numeric",
   });
+}
+
+export function groupByYear(
+  entries: ChangelogEntry[],
+): Array<{ year: string; entries: ChangelogEntry[] }> {
+  const map = new Map<string, ChangelogEntry[]>();
+  for (const e of entries) {
+    const year = e.date.slice(0, 4);
+    const existing = map.get(year);
+    if (existing) existing.push(e);
+    else map.set(year, [e]);
+  }
+  return Array.from(map.entries())
+    .sort(([a], [b]) => b.localeCompare(a))
+    .map(([year, entries]) => ({ year, entries }));
 }

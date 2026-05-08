@@ -2,9 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  categoryLabel,
   changelog,
-  formatChangelogDate,
+  formatChangelogDateShort,
   formatLastUpdated,
+  groupByYear,
   lastUpdated,
 } from "@/content/changelog";
 
@@ -853,8 +855,8 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
         >
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-              <div>
-                <p className="eyebrow">Changelog</p>
+              <div className="lg:sticky lg:top-8">
+                <p className="eyebrow">Timeline</p>
                 <h2
                   id="changelog-heading"
                   className="mt-4 max-w-3xl text-4xl leading-[0.98] tracking-normal text-white md:text-6xl"
@@ -862,37 +864,65 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                   What&rsquo;s actually shipped.
                 </h2>
                 <p className="mt-5 max-w-xl text-sm leading-7 text-gray-300 md:text-base">
-                  A running log of the most recent things I&rsquo;ve put live across the studio.
+                  A running log of the most recent things I&rsquo;ve put live across the studio. Dates before April 2026 are approximate.
                 </p>
+                <div className="timeline-legend mt-6 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.18em] text-gray-300">
+                  {(Object.keys(categoryLabel) as Array<keyof typeof categoryLabel>).map((k) => (
+                    <span key={k} className={`timeline-chip timeline-chip-${k}`}>
+                      {categoryLabel[k]}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <ol className="changelog-list">
-                {changelog.map((entry) => (
-                  <li key={entry.date + entry.title} className="changelog-item">
-                    <time
-                      dateTime={entry.date}
-                      className="changelog-date"
-                    >
-                      {formatChangelogDate(entry.date)}
-                    </time>
-                    <div className="changelog-body">
-                      <h3 className="changelog-title">{entry.title}</h3>
-                      <p className="changelog-text">{entry.body}</p>
-                      {entry.href && (
-                        <a
-                          href={entry.href}
-                          target={entry.href.startsWith("http") ? "_blank" : undefined}
-                          rel={entry.href.startsWith("http") ? "noreferrer" : undefined}
-                          className="changelog-link"
+              <div className="timeline">
+                {groupByYear(changelog).map((group) => (
+                  <section
+                    key={group.year}
+                    aria-label={`Year ${group.year}`}
+                    className="timeline-year-group"
+                  >
+                    <h3 className="timeline-year">{group.year}</h3>
+                    <ol className="timeline-list">
+                      {group.entries.map((entry) => (
+                        <li
+                          key={entry.date + entry.title}
+                          className="timeline-item"
                         >
-                          {entry.hrefLabel ?? "Open"}
-                          {entry.href.startsWith("http") && <ExternalIcon />}
-                        </a>
-                      )}
-                    </div>
-                  </li>
+                          <span aria-hidden="true" className="timeline-dot" />
+                          <time dateTime={entry.date} className="timeline-date">
+                            {formatChangelogDateShort(entry.date)}
+                          </time>
+                          <div className="timeline-content">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h4 className="timeline-title">{entry.title}</h4>
+                              {entry.category && (
+                                <span
+                                  className={`timeline-chip timeline-chip-${entry.category}`}
+                                >
+                                  {categoryLabel[entry.category]}
+                                </span>
+                              )}
+                            </div>
+                            <p className="timeline-text">{entry.body}</p>
+                            {entry.href && (
+                              <a
+                                href={entry.href}
+                                target={entry.href.startsWith("http") ? "_blank" : undefined}
+                                rel={entry.href.startsWith("http") ? "noreferrer" : undefined}
+                                className="timeline-link"
+                              >
+                                {entry.hrefLabel ?? "Open"}
+                                {entry.href.startsWith("http") && <ExternalIcon />}
+                              </a>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  </section>
                 ))}
-              </ol>
+              </div>
             </div>
           </div>
         </section>
