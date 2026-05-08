@@ -48,8 +48,8 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-04-21",
     category: "property",
-    title: "Cloud AppFolio sync",
-    body: "Work-order pulls now run from the cloud — 28 orders in under a minute, parsed and ready to review.",
+    title: "AppFolio work-order sync",
+    body: "Work-order pulls now run automatically — 28 orders parsed in under a minute, ready to review in one place.",
   },
   {
     date: "2026-04-12",
