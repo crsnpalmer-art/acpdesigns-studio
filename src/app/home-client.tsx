@@ -118,7 +118,7 @@ const heroTabs: HeroTab[] = [
     label: "HabitForge",
     heading: "A habit app\nwith less pressure.",
     subheading:
-      "A calm habit-system idea built around daily structure, private reflection, and recovery.",
+      "A daily check-in across body, mind, money, and meaning. No streaks. No leaderboards.",
     tag: "Structure without the scoreboard.",
     primaryHref: "https://habitforgeai.com",
     primaryLabel: "Visit HabitForgeAI.com",
@@ -164,11 +164,11 @@ const projects: Project[] = [
     status: "Live system map",
     access: "Public",
     category: "Automation control layer",
-    why: "Recurring work needs a visible path before it deserves automation.",
+    why: "Automation only earns its keep when you can see exactly what it's doing.",
     summary:
-      "A plain-English operating map.",
+      "The studio's nervous system, drawn out so anyone can read it.",
     description:
-      "The map shows how calls, reminders, approvals, and follow-up move from intake to review.",
+      "Inbound calls are answered 24/7 by Sarah, an AI voice agent. Emails get triaged automatically, work orders queue up for one-tap Telegram approval, and 35 scheduled jobs keep the property business moving without me checking 12 dashboards.",
     metrics: [
       { label: "Agents", value: "6 named" },
       { label: "Scheduled jobs", value: "35 live jobs + 21 launchd services" },
@@ -184,10 +184,10 @@ const projects: Project[] = [
     status: "Private workspace",
     access: "Password protected",
     category: "Property operations command center",
-    why: "The property business needs one calm place to see the day and choose the next action.",
-    summary: "A protected workspace for property operations.",
+    why: "Running a portfolio shouldn't mean keeping the whole thing in your head.",
+    summary: "Where the day's property work actually gets done.",
     description:
-      "Leasing, maintenance, documents, history, and execution live behind a password-protected web surface.",
+      "Each morning: which units need leasing focus, which work orders are overdue, which tenants are due a follow-up. Lease docs, history, and decision notes all live here so I'm not digging through email.",
     metrics: [
       { label: "Access", value: "Private login" },
       { label: "Surface", value: "Web command center" },
@@ -202,11 +202,11 @@ const projects: Project[] = [
     status: "Active builds",
     access: "Public app",
     category: "iPhone app",
-    why: "Fast college football transfer checks without digging through scattered sources.",
+    why: "Sometimes you don't need every grade and recruiting note — you just want the score.",
     summary:
-      "An iPhone app for NCAA football transfers.",
+      "Every FBS transfer, in one tap.",
     description:
-      "Entries, commitments, rankings, and team movement across all 132 FBS programs.",
+      "Built for fans and recruiting nerds who want a fast read on entries, commitments, rankings, and team movement during transfer season. All 132 FBS programs, no ads, no paywall.",
     metrics: [
       { label: "Platform", value: "iOS" },
       { label: "Scope", value: "132 FBS teams" },
@@ -222,11 +222,11 @@ const projects: Project[] = [
     status: "Live brand, active product",
     access: "Public preview",
     category: "Habit system",
-    why: "A calmer way to build routines when real life keeps interrupting.",
+    why: "Most habit apps punish you for missing a day. This one doesn't.",
     summary:
-      "A calm habit app idea.",
+      "A daily check-in across body, mind, money, and meaning.",
     description:
-      "Daily structure across mental, physical, spiritual, and financial life without turning progress into a scoreboard.",
+      "Open it in the morning, log a short reflection in each pillar, and get back to your day. No streaks to break, no leaderboards. Logs are private and stay private.",
     metrics: [
       { label: "Pillars", value: "4" },
       { label: "Platforms", value: "Web + iOS" },
@@ -242,10 +242,10 @@ const projects: Project[] = [
     status: "Active portfolio",
     access: "Public sites",
     category: "Rental properties + construction",
-    why: "The portfolio creates the real-world pressure that shapes each tool.",
+    why: "The portfolio is the live test environment for everything else in the studio.",
     summary: "A 108-unit rental portfolio across Tuscaloosa and Northport.",
     description:
-      "Leasing, maintenance, tenant support, turns, and follow-up all start here.",
+      "Leasing, maintenance, tenant support, unit turns, and follow-up — backed by Palmer Construction for renovations and new builds.",
     metrics: [
       { label: "Units", value: "108" },
       { label: "Markets", value: "Tuscaloosa + Northport" },
@@ -306,11 +306,11 @@ const projects: Project[] = [
     status: "Current tenants only",
     access: "Private",
     category: "Tenant companion",
-    why: "Move-in answers should be easy to find without a long text thread.",
+    why: "Tenants shouldn't have to wait on a reply just to find out which dumpster is theirs.",
     summary:
-      "A tenant guide for move-ins and property details.",
+      "Move-in answers without the long text thread.",
     description:
-      "Current tenants get parking, trash, move-in, move-out, and common answers in one mobile-friendly place.",
+      "Current tenants find parking rules, trash schedules, move-in steps, and the dozen other answers usually buried in email — all on a phone-friendly page tied to their property.",
     metrics: [
       { label: "Audience", value: "Current tenants" },
       { label: "Coverage", value: "4 properties + storage" },
@@ -324,7 +324,7 @@ const projects: Project[] = [
     status: "Open-source app",
     access: "Prototype",
     category: "macOS utility",
-    why: "A small fix for the annoying gap between paper notes and digital tasks.",
+    why: "Handwritten lists shouldn't need retyping — and OCR alone usually misses the structure.",
     summary:
       "A small macOS utility for handwritten lists.",
     description:
