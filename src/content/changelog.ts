@@ -107,7 +107,7 @@ export const changelog: ChangelogEntry[] = [
     date: "2026-01-14",
     category: "apps",
     title: "Transfer Portal v1 hits the App Store",
-    body: "Free iPhone app for tracking NCAA football transfers across all 132 FBS programs. No ads, no paywall.",
+    body: "Free iPhone app for tracking NCAA football transfers across all 138 FBS programs. No ads, no paywall.",
     href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
     hrefLabel: "App Store",
   },

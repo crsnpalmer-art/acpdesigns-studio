@@ -12,7 +12,7 @@ const TILES: Record<string, Tile> = {
   "pinnacle-park": {
     name: "Pinnacle Park",
     city: "Tuscaloosa, AL",
-    units: 72,
+    units: 50,
     accent: "#f5a524",
     eyebrow: "Palmer Portfolio",
   },
@@ -33,7 +33,7 @@ const TILES: Record<string, Tile> = {
   "forest-lake": {
     name: "Forest Lake",
     city: "Tuscaloosa, AL",
-    units: 4,
+    units: 12,
     accent: "#34d399",
     eyebrow: "Palmer Portfolio",
   },

@@ -63,7 +63,7 @@ type Project = {
 const studioStats = [
   { label: "Rental portfolio", value: "108 units" },
   { label: "Flagship workspace", value: "Private login" },
-  { label: "Automation map", value: "35 live jobs" },
+  { label: "Automation map", value: "24 live jobs" },
   { label: "Public apps", value: "iOS + web" },
 ];
 
@@ -93,7 +93,7 @@ const heroTabs: HeroTab[] = [
       "Calls, approvals, reminders, and handoffs shown in plain English.",
     tag: "Practical automation, explained.",
     primaryHref: "https://openclaw-viz-mu.vercel.app/",
-    primaryLabel: "Open map",
+    primaryLabel: "Private preview",
     projectTarget: "workflow-automation",
     external: true,
     secondaryHref: "#project-workflow-automation",
@@ -136,7 +136,7 @@ const heroTabs: HeroTab[] = [
     heading: "College football\ntransfer tracking.",
     subheading:
       "An iPhone app for scanning transfer entries, commitments, rankings, and team movement.",
-    tag: "132 FBS teams. Built for quick checks.",
+    tag: "138 FBS teams. Built for quick checks.",
     primaryHref: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
     primaryLabel: "Get it on the App Store",
     projectTarget: "transfer-portal",
@@ -164,16 +164,16 @@ const projects: Project[] = [
     id: "workflow-automation",
     name: "Workflow Automation",
     status: "Live system map",
-    access: "Public",
+    access: "Private preview",
     category: "Automation control layer",
     why: "Automation only earns its keep when you can see exactly what it's doing.",
     summary:
       "The studio's nervous system, drawn out so anyone can read it.",
     description:
-      "Inbound calls are answered 24/7 by Sarah, an AI voice agent. Emails get triaged automatically, work orders queue up for one-tap Telegram approval, and 35 scheduled jobs keep the property business moving without me checking 12 dashboards.",
+      "Inbound calls are answered 24/7 by Sarah, an AI voice agent. Emails get triaged automatically, work orders queue up for one-tap Telegram approval, and 24 scheduled jobs keep the property business moving without me checking 12 dashboards.",
     metrics: [
-      { label: "Agents", value: "6 named" },
-      { label: "Scheduled jobs", value: "35 live jobs + 21 launchd services" },
+      { label: "Agents", value: "8 named" },
+      { label: "Scheduled jobs", value: "24 live jobs + 31 launchd services" },
       { label: "Voice", value: "Twilio inbound" },
     ],
     href: "https://openclaw-viz-mu.vercel.app/",
@@ -208,10 +208,10 @@ const projects: Project[] = [
     summary:
       "Every FBS transfer, in one tap.",
     description:
-      "Built for fans and recruiting nerds who want a fast read on entries, commitments, rankings, and team movement during transfer season. All 132 FBS programs, no ads, no paywall.",
+      "Built for fans and recruiting nerds who want a fast read on entries, commitments, rankings, and team movement during transfer season. All 138 FBS programs, no ads, no paywall.",
     metrics: [
       { label: "Platform", value: "iOS" },
-      { label: "Scope", value: "132 FBS teams" },
+      { label: "Scope", value: "138 FBS teams" },
       { label: "Business", value: "Free, no ads" },
     ],
     href: "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
@@ -376,7 +376,7 @@ const appShowcases: Record<
   },
   "transfer-portal": {
     tagline: "Every FBS transfer, in one tap.",
-    bullets: ["132 teams", "Free, no ads", "Built for game-day checks"],
+    bullets: ["138 teams", "Free, no ads", "Built for game-day checks"],
     ctaLabel: "App Store",
     ctaHref:
       "https://apps.apple.com/us/app/the-portal-cfb-transfers/id6757326986",
