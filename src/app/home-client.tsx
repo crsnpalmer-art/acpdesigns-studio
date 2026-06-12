@@ -63,7 +63,7 @@ type Project = {
 const studioStats = [
   { label: "Rental portfolio", value: "108 units" },
   { label: "Flagship workspace", value: "Private login" },
-  { label: "Automation map", value: "24 live jobs" },
+  { label: "Automation map", value: "25+ live jobs" },
   { label: "Public apps", value: "iOS + web" },
 ];
 
@@ -93,7 +93,7 @@ const heroTabs: HeroTab[] = [
       "Calls, approvals, reminders, and handoffs shown in plain English.",
     tag: "Practical automation, explained.",
     primaryHref: "https://openclaw-viz-mu.vercel.app/",
-    primaryLabel: "Private preview",
+    primaryLabel: "Open map",
     projectTarget: "workflow-automation",
     external: true,
     secondaryHref: "#project-workflow-automation",
@@ -164,16 +164,16 @@ const projects: Project[] = [
     id: "workflow-automation",
     name: "Workflow Automation",
     status: "Live system map",
-    access: "Private preview",
+    access: "Public",
     category: "Automation control layer",
     why: "Automation only earns its keep when you can see exactly what it's doing.",
     summary:
       "The studio's nervous system, drawn out so anyone can read it.",
     description:
-      "Inbound calls are answered 24/7 by Sarah, an AI voice agent. Emails get triaged automatically, work orders queue up for one-tap Telegram approval, and 24 scheduled jobs keep the property business moving without me checking 12 dashboards.",
+      "Inbound calls are answered 24/7 by Sarah, an AI voice agent. Emails get triaged automatically, work orders queue up for one-tap Telegram approval, and more than two dozen scheduled jobs keep the property business moving without me checking 12 dashboards.",
     metrics: [
       { label: "Agents", value: "8 named" },
-      { label: "Scheduled jobs", value: "24 live jobs + 31 launchd services" },
+      { label: "Scheduled jobs", value: "25+ live jobs + 30+ launchd services" },
       { label: "Voice", value: "Twilio inbound" },
     ],
     href: "https://openclaw-viz-mu.vercel.app/",
