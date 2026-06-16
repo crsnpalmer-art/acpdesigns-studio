@@ -1265,6 +1265,12 @@ export default function HomeClient({ initialTab }: { initialTab: string }) {
                     {link.external && <ExternalIcon />}
                   </a>
                 ))}
+                <a
+                  href="/privacy"
+                  className="inline-flex items-center transition hover:text-white"
+                >
+                  Privacy policy
+                </a>
               </div>
             </div>
           </div>
