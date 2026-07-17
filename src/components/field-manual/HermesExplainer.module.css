@@ -98,7 +98,7 @@
 .explorer {
   display: grid;
   grid-template-columns: 13rem minmax(0, 1fr);
-  min-height: 43rem;
+  min-height: 38rem;
 }
 
 .tabs {
@@ -116,7 +116,7 @@
   cursor: pointer;
   display: flex;
   font: inherit;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   gap: 0.85rem;
   min-height: 4.8rem;
   padding: 1rem 1.25rem;
@@ -205,7 +205,7 @@
   display: flex;
   flex-direction: column;
   font: inherit;
-  min-height: 12rem;
+  min-height: 8.5rem;
   padding: 1rem;
   text-align: left;
   transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
@@ -229,7 +229,7 @@
 
 .agentGrid span {
   color: var(--orange);
-  font-size: 0.49rem;
+  font-size: 0.6rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -240,13 +240,13 @@
 }
 
 .agentGrid strong {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   margin-top: 0.55rem;
 }
 
 .agentGrid small {
   color: #bdb8b0;
-  font-size: 0.52rem;
+  font-size: 0.7rem;
   line-height: 1.35;
   margin-top: 0.35rem;
 }
@@ -259,7 +259,7 @@
   border-left: 1px solid rgba(243, 239, 230, 0.22);
   display: flex;
   flex-direction: column;
-  min-height: 31rem;
+  min-height: 26rem;
   padding: 1.3rem 0 1.3rem 2rem;
 }
 
@@ -283,7 +283,7 @@
 
 .agentDetail > strong {
   color: var(--hermes-blue);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.08em;
   margin-top: 0.8rem;
   text-transform: uppercase;
@@ -291,15 +291,15 @@
 
 .agentDetail > span {
   color: #d8d3ca;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   line-height: 1.7;
   margin-top: 1.3rem;
 }
 
 .agentDetail > small {
   border-top: 1px solid rgba(243, 239, 230, 0.2);
-  color: #99958e;
-  font-size: 0.5rem;
+  color: #a8a49c;
+  font-size: 0.68rem;
   line-height: 1.5;
   margin-top: 1.5rem;
   padding-top: 0.8rem;
@@ -348,13 +348,13 @@
 
 .scheduleView li strong {
   color: var(--orange);
-  font-size: 0.54rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
 }
 
 .scheduleView li span {
   color: #d8d3ca;
-  font-size: 0.65rem;
+  font-size: 0.78rem;
   line-height: 1.45;
 }
 
@@ -404,7 +404,7 @@
 
 .approvalFlow article p {
   color: #c7c2ba;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   line-height: 1.6;
   margin: 1rem 0 0;
 }
@@ -445,7 +445,7 @@
 
 .memoryView article p {
   color: #c7c2ba;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   line-height: 1.6;
 }
 
@@ -467,7 +467,7 @@
 
 .memoryLoop p {
   color: #d8d3ca;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   line-height: 1.55;
   margin: 0;
 }
@@ -494,7 +494,7 @@
 
 .dayStrip > div p {
   color: #c5c0b7;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   line-height: 1.45;
   margin: 0.55rem 0 0;
 }
@@ -503,7 +503,7 @@
   align-items: center;
   color: #929089;
   display: flex;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   gap: 0.7rem;
   line-height: 1.5;
   text-transform: uppercase;

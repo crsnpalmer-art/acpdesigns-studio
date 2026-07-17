@@ -265,7 +265,7 @@
 .heroActions p {
   display: flex;
   flex-direction: column;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   gap: 0.28rem;
   letter-spacing: 0.05em;
   line-height: 1.45;
@@ -274,7 +274,7 @@
 }
 
 .heroActions p strong {
-  font-size: 0.59rem;
+  font-size: 0.68rem;
 }
 
 .heroVisual {
@@ -403,7 +403,7 @@
 
 .workStatsGrid p {
   color: rgba(243, 239, 230, 0.65);
-  font-size: 0.62rem;
+  font-size: 0.78rem;
   line-height: 1.55;
   margin: auto 0 0;
   max-width: 24ch;
@@ -430,7 +430,7 @@
 
 .buildTrail dl {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
 }
 
@@ -445,7 +445,7 @@
 
 .buildTrail dt {
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.65rem, 2.2vw, 2.5rem);
+  font-size: clamp(1.2rem, 1.5vw, 1.7rem);
   font-variant-numeric: lining-nums tabular-nums;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -522,11 +522,11 @@
 }
 
 .chapterMap a strong {
-  font-size: 0.74rem;
+  font-size: 0.85rem;
 }
 
 .chapterMap a small {
-  font-size: 0.63rem;
+  font-size: 0.78rem;
   line-height: 1.5;
 }
 
@@ -581,7 +581,7 @@
 }
 
 .projectName {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 760;
   line-height: 1.3;
 }
@@ -592,11 +592,11 @@
 }
 
 .projectDetail {
-  font-size: 0.58rem;
+  font-size: 0.82rem;
   grid-column: 1 / -1;
   line-height: 1.45;
   margin-top: 0.9rem;
-  max-width: 15ch;
+  max-width: 18ch;
 }
 
 .projectRail em {
@@ -939,14 +939,14 @@
 
 .processList strong {
   display: block;
-  font-size: 0.74rem;
+  font-size: 0.9rem;
   margin-top: 1.5rem;
 }
 
 .processList p {
-  font-size: 0.58rem;
+  font-size: 0.8rem;
   line-height: 1.5;
-  max-width: 13ch;
+  max-width: 16ch;
 }
 
 .processList i {
@@ -1004,7 +1004,7 @@
 .manifesto li {
   align-items: center;
   display: flex;
-  font-size: 0.65rem;
+  font-size: 0.875rem;
   gap: 0.55rem;
 }
 
@@ -1084,10 +1084,10 @@
 }
 
 .systemNotes article p {
-  font-size: 0.65rem;
+  font-size: 0.82rem;
   line-height: 1.6;
   margin: 0;
-  max-width: 30ch;
+  max-width: 34ch;
 }
 
 .footer {
@@ -1145,13 +1145,25 @@
 
 .footerContact a {
   align-items: center;
-  color: var(--ink);
-  display: flex;
-  font-size: 0.72rem;
-  gap: 0.5rem;
-  text-decoration: underline;
-  text-decoration-color: var(--orange);
-  text-underline-offset: 0.3rem;
+  background: var(--orange);
+  border: 1px solid var(--orange);
+  color: white;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 720;
+  gap: 0.75rem;
+  min-height: 3.4rem;
+  padding: 0.85rem 1.2rem;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.footerContact a:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  transform: translateY(-2px);
 }
 
 .footerLocation {
@@ -1177,7 +1189,7 @@
   align-items: center;
   border-top: 1px solid var(--line);
   display: grid;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   grid-column: 1 / -1;
   grid-template-columns: 1fr 1fr auto;
   margin-top: 2.5rem;

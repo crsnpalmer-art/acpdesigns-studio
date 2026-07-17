@@ -204,13 +204,12 @@ export default function FieldManualPage() {
             <p>Build trail</p>
             <dl>
               <div><dt>1,833</dt><dd>Commits</dd></div>
-              <div><dt>9.91B+</dt><dd>AI tokens processed</dd></div>
               <div><dt>≈564</dt><dd>Logged build hours</dd></div>
             </dl>
           </div>
           <p className={styles.workStatsMethod}>
-            Build snapshot: January 1–July 17, 2026. Commits cover 16 active repositories. CodexBar supplies Codex and Claude usage;
-            Hermes comes from local model records. Cached context is included. Hours use unique 15-minute windows from human-directed AI sessions and Git history.
+            Build snapshot: January 1–July 17, 2026. Commits cover 16 active repositories.
+            Hours use unique 15-minute windows from human-directed AI sessions and Git history.
           </p>
         </div>
       </section>
