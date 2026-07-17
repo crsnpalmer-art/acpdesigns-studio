@@ -2,35 +2,54 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | OpenClaw Gmail Connect",
+  title: "Privacy | ACP Designs Studio",
   description:
-    "Privacy policy for OpenClaw Gmail Connect, a local Gmail OAuth app used for Carson Palmer's property operations.",
+    "How ACP Designs Studio handles website analytics, contact messages, and Gmail data used by the OpenClaw Gmail Connect integration.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy Policy | OpenClaw Gmail Connect",
+    title: "Privacy | ACP Designs Studio",
     description:
-      "How OpenClaw Gmail Connect uses Google account data for local property inbox automation.",
+      "How ACP Designs Studio handles website analytics, contact messages, and Gmail integration data.",
     url: "/privacy",
     siteName: "ACP Designs Studio",
     type: "article",
   },
 };
 
-const dataTypes = [
-  "Google account identity and authorized Gmail account address.",
-  "Gmail message metadata such as sender, recipient, date, labels, unread status, and message id.",
-  "Gmail subjects, snippets, and message bodies when needed to classify property or operations mail.",
+const websiteMeasurements = [
+  "The page or route visited and the site that referred the visit.",
+  "General browser, device, operating-system, and country-level information.",
+  "Anonymous performance measurements such as page speed and Core Web Vitals.",
+];
+
+const gmailDataTypes = [
+  "Google account identity and the authorized Gmail address.",
+  "Message details such as sender, recipient, date, labels, unread status, and message ID.",
+  "Gmail subjects, snippets, and message bodies when needed to sort property or operations mail.",
   "Draft or sent-message data only when Carson explicitly approves a send workflow.",
 ];
 
-const uses = [
-  "Poll property-management inboxes for unread operational mail.",
-  "Route maintenance, leasing, payment, and owner-accounting messages to the correct private OpenClaw operator channel.",
-  "Prepare review-only reply drafts or reminders that Carson can approve, edit, or skip.",
-  "Detect expired or revoked Gmail access so Carson can re-authorize the affected account.",
+const gmailUses = [
+  "Check property-management inboxes for unread operations mail.",
+  "Route maintenance, leasing, payment, and owner-accounting messages to the correct private review area.",
+  "Prepare reply drafts or reminders that Carson can approve, edit, or skip.",
+  "Detect expired or revoked Gmail access so Carson can reconnect the affected account.",
 ];
+
+function PolicyList({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="mt-4 space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-white/55" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function PrivacyPage() {
   return (
@@ -55,30 +74,90 @@ export default function PrivacyPage() {
       <section className="px-6 pb-20 pt-12 md:px-12 md:pt-20 lg:px-16">
         <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="eyebrow">Privacy policy</p>
+            <p className="eyebrow">Privacy</p>
             <h1 className="mt-5 text-4xl font-semibold leading-tight text-white md:text-6xl">
-              OpenClaw Gmail Connect
+              Privacy and data use
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/70">
-              OpenClaw Gmail Connect is a local automation app used by Carson
-              Palmer to help manage Gmail inboxes for property operations.
+              ACP Designs Studio is a public portfolio. It has no user accounts,
+              payment forms, or resident-information forms.
             </p>
             <p className="mt-6 text-sm text-white/50">
-              Last updated: June 16, 2026
+              Last updated: July 17, 2026
             </p>
           </div>
 
-          <div className="space-y-10 text-base leading-7 text-white/74">
+          <div className="space-y-12 text-base leading-7 text-white/74">
             <section>
-              <h2 className="text-xl font-semibold text-white">
-                What the app does
+              <p className="text-xs font-semibold tracking-[0.18em] text-orange-500 uppercase">
+                This website
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold text-white">
+                A small, privacy-minded measurement setup
               </h2>
               <p className="mt-4">
-                The app uses Google OAuth through the local <code>gog</code>{" "}
-                tool on Carson&apos;s Mac. It watches authorized Gmail inboxes
-                for property-management messages, helps route those messages to
-                private OpenClaw operator channels, and supports
-                approval-based reply workflows.
+                This site uses Vercel Web Analytics and Speed Insights to understand
+                which pages are useful and whether the site performs well. Vercel
+                describes Web Analytics as anonymous and cookie-free, and Speed
+                Insights as anonymous performance measurement that is not tied to an
+                individual visitor or IP address.
+              </p>
+              <PolicyList items={websiteMeasurements} />
+              <p className="mt-4 text-sm text-white/58">
+                Read Vercel&apos;s separate privacy notes for{" "}
+                <a
+                  href="https://vercel.com/docs/analytics/privacy-policy"
+                  className="text-white underline decoration-white/35 underline-offset-4 hover:decoration-white"
+                >
+                  Web Analytics
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://vercel.com/docs/speed-insights/privacy-policy"
+                  className="text-white underline decoration-white/35 underline-offset-4 hover:decoration-white"
+                >
+                  Speed Insights
+                </a>
+                .
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-white">
+                Contact and outside links
+              </h2>
+              <p className="mt-4">
+                The contact link opens your email app. If you send a message, your
+                email provider and Carson&apos;s provider handle it under their own
+                policies. Links to property websites, app stores, and other projects
+                lead to separate services with their own privacy practices.
+              </p>
+            </section>
+
+            <div className="border-t border-white/15 pt-12">
+              <p className="text-xs font-semibold tracking-[0.18em] text-orange-500 uppercase">
+                Private Gmail integration
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold text-white">
+                OpenClaw Gmail Connect
+              </h2>
+              <p className="mt-4">
+                This URL is also the privacy policy for the Google OAuth app named
+                OpenClaw Gmail Connect. The name stays here so it matches the name
+                Google shows during account connection. The current workflow runs
+                inside Carson&apos;s private Hermes setup.
+              </p>
+            </div>
+
+            <section>
+              <h2 className="text-xl font-semibold text-white">
+                What the integration does
+              </h2>
+              <p className="mt-4">
+                The integration uses Google OAuth on Carson&apos;s Mac. It checks
+                authorized Gmail inboxes for property-management messages, routes
+                useful summaries to a private review workspace, and supports
+                approval-based reply drafts.
               </p>
             </section>
 
@@ -86,79 +165,59 @@ export default function PrivacyPage() {
               <h2 className="text-xl font-semibold text-white">
                 Google user data accessed
               </h2>
-              <ul className="mt-4 space-y-3">
-                {dataTypes.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-white/55" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <PolicyList items={gmailDataTypes} />
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-white">
-                How the data is used
+                How Gmail data is used
               </h2>
-              <ul className="mt-4 space-y-3">
-                {uses.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-white/55" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <PolicyList items={gmailUses} />
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-white">
-                Storage and sharing
+                Storage, sharing, and human approval
               </h2>
               <p className="mt-4">
-                OAuth tokens, polling state, and operational logs are stored on
-                Carson&apos;s local Mac, primarily under local OpenClaw state
-                folders and the <code>gog</code> credential store. Sender and
-                subject summaries may be posted to Carson&apos;s private
-                OpenClaw/Telegram operator channels so he can review property
-                work. Gmail data is not sold, used for ads, or shared for
-                unrelated third-party marketing.
+                OAuth tokens, polling state, and operations logs are kept on
+                Carson&apos;s local Mac and in its local credential store. Sender and
+                subject summaries may be posted to Carson&apos;s private Hermes and
+                Telegram review workspace. Gmail data is not sold, used for ads, or
+                shared for unrelated marketing.
+              </p>
+              <p className="mt-4">
+                The integration may prepare drafts. It does not send resident or
+                business messages unless Carson explicitly approves them.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-white">
-                Retention
+                Retention and access removal
               </h2>
               <p className="mt-4">
-                Data is kept only as long as needed for local property
-                operations, troubleshooting, and audit history. Carson can
-                remove local logs or revoke Google access at any time.
+                Data is kept only as long as needed for property operations,
+                troubleshooting, and an audit history. Local logs can be removed at
+                any time.
               </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold text-white">
-                Revoke access
-              </h2>
               <p className="mt-4">
-                To revoke Google access, open{" "}
+                To remove Google access, open{" "}
                 <a
                   href="https://myaccount.google.com/permissions"
                   className="text-white underline decoration-white/35 underline-offset-4 hover:decoration-white"
                 >
                   Google Account third-party access
                 </a>{" "}
-                and remove OpenClaw Gmail Connect. Carson can also delete the
-                local <code>gog</code> credentials from his Mac.
+                and remove OpenClaw Gmail Connect. Carson can also remove the local
+                credentials from his Mac.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white">
-                Contact
-              </h2>
+              <h2 className="text-xl font-semibold text-white">Contact</h2>
               <p className="mt-4">
-                Questions about this policy or the app can be sent to{" "}
+                Questions about this policy or the Gmail integration can be sent to{" "}
                 <a
                   href="mailto:crsnpalmer@gmail.com"
                   className="text-white underline decoration-white/35 underline-offset-4 hover:decoration-white"
