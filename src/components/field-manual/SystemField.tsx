@@ -65,30 +65,42 @@ fn line(value: f32, width: f32) -> f32 {
   return 1.0 - smoothstep(0.0, width, abs(value));
 }
 
+fn elevation(p: vec2f, t: f32) -> f32 {
+  var q = p;
+  q += 0.16 * vec2f(sin(p.y * 3.1 + t * 0.11), cos(p.x * 2.7 - t * 0.09));
+  var e = sin(q.x * 2.3 + t * 0.05) * 0.5 + sin(q.y * 3.7 - t * 0.04) * 0.35;
+  e += sin((q.x + q.y) * 5.3 + t * 0.07) * 0.18;
+  e += sin(length(q) * 6.1 - t * 0.06) * 0.12;
+  return e;
+}
+
 @fragment
 fn fragmentMain(@builtin(position) frag: vec4f) -> @location(0) vec4f {
   let uv = frag.xy / uniforms.resolution;
   let aspect = uniforms.resolution.x / uniforms.resolution.y;
-  var p = vec2f((uv.x - 0.5) * aspect, uv.y - 0.5);
+  let p = vec2f((uv.x - 0.5) * aspect, uv.y - 0.5);
   let pointer = vec2f((uniforms.pointer.x - 0.5) * aspect, uniforms.pointer.y - 0.5);
-  p += (pointer - p) * 0.018;
 
   let t = uniforms.time * uniforms.motion;
-  let waveA = p.y + sin(p.x * 9.0 + t * 0.35) * 0.035;
-  let waveB = p.y - 0.16 + sin(p.x * 13.0 - t * 0.22) * 0.022;
-  let waveC = p.y + 0.19 + sin(p.x * 7.0 + t * 0.18) * 0.028;
-  let routes = line(waveA, 0.0022) + line(waveB, 0.0015) + line(waveC, 0.0012);
+  let d = distance(p, pointer);
+  let pull = exp(-d * 3.2);
+  let q = p + (pointer - p) * pull * 0.22;
+
+  let e = elevation(q, t);
+  let contour = line(fract(e * 4.0) - 0.5, 0.045);
+  let fine = line(fract(e * 12.0) - 0.5, 0.07) * 0.3;
+
+  let ripple = line(fract(d * 7.0 - t * 0.18) - 0.5, 0.07) * exp(-d * 2.4) * 0.45;
+  let sweep = exp(-abs(fract((p.x + p.y) * 0.22 - t * 0.012) - 0.5) * 22.0) * 0.55;
 
   let gridX = line(fract((p.x + 1.0) * 18.0) - 0.5, 0.022);
   let gridY = line(fract((p.y + 1.0) * 18.0) - 0.5, 0.022);
-  let grid = (gridX + gridY) * 0.11;
+  let grid = (gridX + gridY) * 0.09;
 
-  let radius = distance(p, vec2f(0.18, -0.04));
-  let ring = line(fract(radius * 8.0 - t * 0.025) - 0.5, 0.022) * 0.16;
   let orange = vec3f(0.95, 0.24, 0.035);
   let blue = vec3f(0.02, 0.23, 0.55);
-  let color = mix(blue, orange, smoothstep(0.55, 1.05, uv.x));
-  let alpha = clamp(routes * 0.46 + grid + ring, 0.0, 0.32);
+  let color = mix(blue, orange, smoothstep(0.55, 1.05, uv.x + pull * 0.2));
+  let alpha = clamp(contour * (0.3 + sweep * 0.4) + fine * 0.18 + ripple + grid, 0.0, 0.34);
   return vec4f(color * alpha, alpha);
 }
 `;
@@ -110,20 +122,31 @@ float line(float value, float width) {
   return 1.0 - smoothstep(0.0, width, abs(value));
 }
 
+float elevation(vec2 p, float t) {
+  vec2 q = p + 0.16 * vec2(sin(p.y * 3.1 + t * 0.11), cos(p.x * 2.7 - t * 0.09));
+  float e = sin(q.x * 2.3 + t * 0.05) * 0.5 + sin(q.y * 3.7 - t * 0.04) * 0.35;
+  e += sin((q.x + q.y) * 5.3 + t * 0.07) * 0.18;
+  e += sin(length(q) * 6.1 - t * 0.06) * 0.12;
+  return e;
+}
+
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution;
   float aspect = resolution.x / resolution.y;
   vec2 p = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
   vec2 cursor = vec2((pointer.x - 0.5) * aspect, pointer.y - 0.5);
-  p += (cursor - p) * 0.018;
   float t = time * motion;
-  float a = line(p.y + sin(p.x * 9.0 + t * 0.35) * 0.035, 0.0022);
-  float b = line(p.y - 0.16 + sin(p.x * 13.0 - t * 0.22) * 0.022, 0.0015);
-  float c = line(p.y + 0.19 + sin(p.x * 7.0 + t * 0.18) * 0.028, 0.0012);
-  float grid = (line(fract((p.x + 1.0) * 18.0) - 0.5, 0.022) + line(fract((p.y + 1.0) * 18.0) - 0.5, 0.022)) * 0.11;
-  float ring = line(fract(distance(p, vec2(0.18, -0.04)) * 8.0 - t * 0.025) - 0.5, 0.022) * 0.16;
-  vec3 color = mix(vec3(0.02, 0.23, 0.55), vec3(0.95, 0.24, 0.035), smoothstep(0.55, 1.05, uv.x));
-  float alpha = clamp((a + b + c) * 0.46 + grid + ring, 0.0, 0.32);
+  float d = distance(p, cursor);
+  float pull = exp(-d * 3.2);
+  vec2 q = p + (cursor - p) * pull * 0.22;
+  float e = elevation(q, t);
+  float contour = line(fract(e * 4.0) - 0.5, 0.045);
+  float fine = line(fract(e * 12.0) - 0.5, 0.07) * 0.3;
+  float ripple = line(fract(d * 7.0 - t * 0.18) - 0.5, 0.07) * exp(-d * 2.4) * 0.45;
+  float sweep = exp(-abs(fract((p.x + p.y) * 0.22 - t * 0.012) - 0.5) * 22.0) * 0.55;
+  float grid = (line(fract((p.x + 1.0) * 18.0) - 0.5, 0.022) + line(fract((p.y + 1.0) * 18.0) - 0.5, 0.022)) * 0.09;
+  vec3 color = mix(vec3(0.02, 0.23, 0.55), vec3(0.95, 0.24, 0.035), smoothstep(0.55, 1.05, uv.x + pull * 0.2));
+  float alpha = clamp(contour * (0.3 + sweep * 0.4) + fine * 0.18 + ripple + grid, 0.0, 0.34);
   outColor = vec4(color * alpha, alpha);
 }
 `;

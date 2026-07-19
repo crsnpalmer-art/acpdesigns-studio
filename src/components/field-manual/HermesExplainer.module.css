@@ -715,3 +715,7 @@
     transition: none;
   }
 }
+
+.panel {
+  view-transition-name: hermes-panel;
+}

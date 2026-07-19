@@ -12,6 +12,7 @@ import {
   PhoneCallIcon,
   ShieldCheckIcon,
 } from "@phosphor-icons/react/ssr";
+import DayTimeline from "./DayTimeline";
 import HermesExplainer from "./HermesExplainer";
 import PropertyShowcase from "./PropertyShowcase";
 import SystemField from "./SystemField";
@@ -116,6 +117,8 @@ export default function FieldManualPage() {
       <a className={styles.skipLink} href="#main-content">
         Skip to the work
       </a>
+
+      <span className={styles.readingLine} aria-hidden="true" />
 
       <header className={styles.header}>
         <a href="#top" className={styles.identity} aria-label="ACP Designs Studio home">
@@ -257,6 +260,8 @@ export default function FieldManualPage() {
       </section>
 
       <HermesExplainer />
+
+      <DayTimeline />
 
       <PropertyShowcase />
 

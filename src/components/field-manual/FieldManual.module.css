@@ -1635,3 +1635,243 @@
     color: var(--ink);
   }
 }
+
+/* ---- One day, on the clock ---- */
+
+.dayTimeline {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.6fr);
+  margin-left: 2.8rem;
+  padding: 5.5rem 3.5rem 4rem 2rem;
+}
+
+.dayIntro {
+  align-self: start;
+  position: sticky;
+  top: 5.5rem;
+}
+
+.dayIntro h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.6rem, 4.2vw, 5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  margin: 1.4rem 0 0;
+}
+
+.dayLead {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 1.6rem 0 0;
+  max-width: 30ch;
+}
+
+.dayTrack {
+  display: grid;
+  gap: 1.1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.7rem;
+  position: relative;
+}
+
+.dayTrack::before {
+  background: linear-gradient(var(--orange), var(--blue));
+  content: "";
+  inset: 0.4rem auto 0.4rem 0;
+  opacity: 0.4;
+  position: absolute;
+  width: 2px;
+}
+
+.dayMoment {
+  background: color-mix(in oklab, var(--paper) 82%, white);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.1rem 1.3rem 1.2rem;
+  position: relative;
+}
+
+.dayMoment::before {
+  background: var(--orange);
+  content: "";
+  height: 2px;
+  left: -1.7rem;
+  position: absolute;
+  top: 1.5rem;
+  width: 1.1rem;
+}
+
+.dayMoment > span {
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 780;
+  letter-spacing: 0.16em;
+}
+
+.dayMoment time {
+  color: var(--orange);
+  font-size: 0.62rem;
+  font-weight: 780;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.dayMoment strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.dayMoment p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.2rem 0 0;
+  max-width: 46ch;
+}
+
+.dayNote {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.68rem;
+  grid-column: 1 / -1;
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+}
+
+/* ---- Reading progress line ---- */
+
+.readingLine {
+  display: none;
+}
+
+/* ---- Modern text + texture polish ---- */
+
+.hero h1,
+.caseStudy h2,
+.processIntro h2,
+.manifesto h2,
+.systemNotes h2,
+.dayIntro h2,
+.workStatsIntro h2 {
+  text-wrap: balance;
+}
+
+.manual p {
+  text-wrap: pretty;
+}
+
+.manual::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  content: "";
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.045;
+  pointer-events: none;
+  position: fixed;
+  z-index: 70;
+}
+
+/* ---- Scroll-driven animation layer (progressive) ---- */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .readingLine {
+      animation: readGrow linear both;
+      animation-timeline: scroll(root);
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+      display: block;
+      height: 2px;
+      inset: 0 0 auto 0;
+      pointer-events: none;
+      position: fixed;
+      scale: 0 1;
+      transform-origin: 0 50%;
+      z-index: 60;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    .dayMoment,
+    .processList li,
+    .propertyDirectory li,
+    .systemNotes article,
+    .manifesto li,
+    .workStatsGrid > div,
+    .chapterMap li {
+      animation: riseIn linear both;
+      animation-range: entry 5% entry 80%;
+      animation-timeline: view();
+    }
+
+    .dayTrack::before {
+      animation: drawDown linear both;
+      animation-range: entry 0% exit 40%;
+      animation-timeline: view();
+      transform-origin: top;
+    }
+
+    .towerArt img {
+      animation: driftUp linear both;
+      animation-range: entry 0% exit 100%;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes readGrow {
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drawDown {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes driftUp {
+  from {
+    transform: translateY(3rem);
+  }
+  to {
+    transform: translateY(-3rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .dayTimeline {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+    padding: 3.5rem 1.5rem 3rem;
+  }
+
+  .dayIntro {
+    position: static;
+  }
+}
+
+.caseCopy {
+  view-transition-name: case-copy;
+}

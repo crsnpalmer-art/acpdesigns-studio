@@ -614,3 +614,41 @@ a {
     transition: none !important;
   }
 }
+
+/* View Transitions: scope motion to named elements, keep the page steady */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  ::view-transition-old(case-copy) {
+    animation: vt-fade-out 200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  ::view-transition-new(case-copy) {
+    animation: vt-rise-in 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  ::view-transition-old(hermes-panel) {
+    animation: vt-fade-out 180ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  ::view-transition-new(hermes-panel) {
+    animation: vt-rise-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+@keyframes vt-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.9rem);
+  }
+}

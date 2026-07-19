@@ -3,7 +3,26 @@
 import Image from "next/image";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { useEffect, useRef, useState, type FocusEvent } from "react";
+import { flushSync } from "react-dom";
 import styles from "./FieldManual.module.css";
+
+function withViewTransition(update: () => void) {
+  const canTransition =
+    typeof document !== "undefined" &&
+    "startViewTransition" in document &&
+    !document.hidden &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!canTransition) {
+    update();
+    return;
+  }
+  const transition = (
+    document as Document & {
+      startViewTransition: (cb: () => void) => { finished: Promise<void> };
+    }
+  ).startViewTransition(() => flushSync(update));
+  transition.finished.catch(() => {});
+}
 
 const ROTATION_INTERVAL = 9000;
 
@@ -112,7 +131,9 @@ export default function PropertyShowcase() {
 
     const interval = window.setInterval(() => {
       if (pausedRef.current || manuallySelectedRef.current || document.hidden) return;
-      setActiveIndex((current) => (current + 1) % properties.length);
+      withViewTransition(() => {
+        setActiveIndex((current) => (current + 1) % properties.length);
+      });
     }, ROTATION_INTERVAL);
 
     return () => window.clearInterval(interval);
@@ -120,7 +141,7 @@ export default function PropertyShowcase() {
 
   const selectProperty = (index: number) => {
     manuallySelectedRef.current = true;
-    setActiveIndex(index);
+    withViewTransition(() => setActiveIndex(index));
   };
 
   const showPrevious = () => {
