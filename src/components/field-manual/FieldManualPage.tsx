@@ -191,7 +191,7 @@ export default function FieldManualPage() {
             </div>
             <div>
               <dt>24/7</dt>
-              <dd>Phone answering</dd>
+              <dd>Service</dd>
               <p>Leasing and maintenance calls across four properties.</p>
             </div>
             <div>
