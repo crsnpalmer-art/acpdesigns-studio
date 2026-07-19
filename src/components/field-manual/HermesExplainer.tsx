@@ -99,19 +99,99 @@ const agents = [
   },
 ] as const;
 
-const gatewayJobs = [
-  ["Every 5 min", "Family scheduling and work-coordination sync"],
-  ["Daily", "Property digest, voice QA, memory log, failure watch"],
-  ["Weekly", "Delinquency, renewals, occupancy, P&L, memory review"],
-  ["Monthly", "Work-order history refresh"],
+const chatRoutines = [
+  {
+    group: "Main lane",
+    jobs: [
+      ["Turnover board sync", "Every 5 min", "Keeps student move-in and paint/clean boards current."],
+      ["Failure watchdog", "Daily", "Checks that every other scheduled job actually ran."],
+    ],
+  },
+  {
+    group: "Property (Work lane)",
+    jobs: [
+      ["Morning digest", "Daily", "One property briefing before the workday starts."],
+      ["Sarah call QA", "Nightly", "Reviews the day's voice-agent calls for quality."],
+      ["Business text ping", "3× weekdays", "Flags new work texts that need attention."],
+      ["Business text drafts", "Weekday mornings", "Drafts replies to work texts for approval."],
+      ["Occupancy report", "Weekly", "Where every unit stands, every Sunday."],
+      ["Tenant directory refresh", "Weekly", "Keeps the tenant roster current."],
+      ["Monday sweep", "Weekly", "Start-of-week pass over open property items."],
+      ["Lease renewal pipeline", "Weekly", "Who's coming due and what to offer."],
+      ["Work-order history sync", "Monthly", "Refreshes the long-term maintenance record."],
+    ],
+  },
+  {
+    group: "Collections lane",
+    jobs: [
+      ["Delinquency report", "Monday", "Late rent, payment plans, and follow-ups."],
+      ["P&L summary", "Friday", "The week's property finances in one note."],
+    ],
+  },
+  {
+    group: "Finance lane",
+    jobs: [
+      ["Market scan", "3× weekdays", "Research sweep of watched tickers."],
+      ["End-of-day review", "Weekdays", "What the research got right and wrong today."],
+      ["Research vault commit", "Nightly", "Saves the day's research history."],
+    ],
+  },
+  {
+    group: "Memory lane",
+    jobs: [
+      ["Daily log writer", "Nightly", "Writes the day's events to long-term memory."],
+      ["Weekly review", "Friday", "Distills the week into lessons worth keeping."],
+      ["Tenant wiki ingest", "Weekly", "Folds the week's changes into Sarah's knowledge base."],
+    ],
+  },
+  {
+    group: "Tweeter lane",
+    jobs: [["X research scan", "3× weekdays", "Market and research sweep on X."]],
+  },
 ];
 
-const launchJobs = [
-  ["Property data", "AppFolio browser sync before the workday"],
-  ["Email", "Gmail triage and leasing-draft pipeline"],
-  ["Sarah", "Emergency queue, knowledge sync, session health"],
-  ["Operations", "Backups, credential checks, wiki verification"],
-  ["Trading", "Auth, watchlists, execution guardrails, dashboards"],
+const backgroundJobs = [
+  {
+    group: "Property data",
+    jobs: [
+      ["AppFolio sync", "Daily, pre-dawn", "Pulls fresh property data before the workday."],
+      ["Browser profile monitor", "Every 6 hours", "Keeps the automation browser signed in and healthy."],
+    ],
+  },
+  {
+    group: "Email",
+    jobs: [["Email pipeline", "Every 5 min", "Gmail triage, alerts, and leasing reply drafts."]],
+  },
+  {
+    group: "Sarah",
+    jobs: [
+      ["Emergency queue drain", "Every 5 min", "Makes sure urgent maintenance calls are never stuck."],
+      ["Knowledge sync", "Weekly", "Refreshes what the voice agent knows about each property."],
+    ],
+  },
+  {
+    group: "Trading",
+    jobs: [
+      ["Auth heartbeat", "4× daily", "Confirms broker access is alive before it's needed."],
+      ["Signal rescore", "Every 5 min", "Refreshes market signal scores through the day."],
+      ["Approved-trade executor", "Market hours", "Carries out only trades Carson already approved."],
+      ["Stop-level monitor", "Market hours", "Watches exit levels on open positions."],
+      ["Watchlist sync", "Nightly", "Updates the next day's watchlist."],
+      ["Heartbeat summary", "Daily", "One end-of-day note on system activity."],
+      ["Dashboard publish", "Hourly, market hours", "Refreshes the private trading dashboard."],
+    ],
+  },
+  {
+    group: "Operations + memory",
+    jobs: [
+      ["Approval re-ping", "Daily", "Nudges any property approval still waiting on a human."],
+      ["Vendor follow-up", "Mon / Wed / Fri", "Chases open vendor work so it doesn't stall."],
+      ["Credential monitor", "Weekly", "Warns before Google access quietly expires."],
+      ["Wiki memory watcher", "Continuous", "Indexes new notes into the shared knowledge base."],
+      ["Wiki verify", "Weekly", "Checks the shared map still matches the live system."],
+      ["Weekly backup", "Sunday, pre-dawn", "Full backup of the operations workspace."],
+    ],
+  },
 ];
 
 export default function HermesExplainer() {
@@ -136,7 +216,7 @@ export default function HermesExplainer() {
 
       <dl className={styles.stats} aria-label="Hermes public snapshot">
         <div><dt>08</dt><dd>Specialized agents</dd></div>
-        <div><dt>19</dt><dd>Scheduled routines</dd></div>
+        <div><dt>20</dt><dd>Scheduled routines</dd></div>
         <div><dt>18</dt><dd>Local background jobs</dd></div>
         <div><dt>01</dt><dd>Private chat workspace</dd></div>
       </dl>
@@ -221,29 +301,51 @@ export default function HermesExplainer() {
               <article>
                 <div className={styles.viewHeading}>
                   <ClockCountdownIcon aria-hidden="true" />
-                  <span>Layer 01</span>
-                  <h3>Recurring chat tasks</h3>
+                  <span>Layer 01 · 20 routines</span>
+                  <h3>Recurring chat routines</h3>
                   <p>Scheduled work that reports back to the right private chat.</p>
                 </div>
-                <ol>
-                  {gatewayJobs.map(([cadence, job]) => (
-                    <li key={cadence}><strong>{cadence}</strong><span>{job}</span></li>
-                  ))}
-                </ol>
+                {chatRoutines.map((section) => (
+                  <div className={styles.scheduleGroup} key={section.group}>
+                    <p>{section.group}</p>
+                    <ol>
+                      {section.jobs.map(([name, cadence, job]) => (
+                        <li key={name}>
+                          <strong>{name}</strong>
+                          <em>{cadence}</em>
+                          <span>{job}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
               </article>
               <article>
                 <div className={styles.viewHeading}>
                   <HardDrivesIcon aria-hidden="true" />
-                  <span>Layer 02</span>
+                  <span>Layer 02 · 18 jobs</span>
                   <h3>Local background jobs</h3>
                   <p>Small local programs gather data, watch health, and keep the work grounded.</p>
                 </div>
-                <ol>
-                  {launchJobs.map(([lane, job]) => (
-                    <li key={lane}><strong>{lane}</strong><span>{job}</span></li>
-                  ))}
-                </ol>
+                {backgroundJobs.map((section) => (
+                  <div className={styles.scheduleGroup} key={section.group}>
+                    <p>{section.group}</p>
+                    <ol>
+                      {section.jobs.map(([name, cadence, job]) => (
+                        <li key={name}>
+                          <strong>{name}</strong>
+                          <em>{cadence}</em>
+                          <span>{job}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
               </article>
+              <p className={styles.scheduleNote}>
+                Snapshot verified July 18, 2026, against the live system. One-off reminders come and go as needed
+                and aren&apos;t listed. Names are public-friendly; private IDs and paths stay private.
+              </p>
             </div>
           )}
 
