@@ -12,10 +12,13 @@ const properties = [
     slug: "pinnacle-park",
     title: ["Pinnacle Park", "at Northriver"],
     meta: "Tuscaloosa, AL · 50 Palmer-managed units · Student living",
+    systems: [
+      ["Sarah", "Answers leasing and maintenance calls, day or night."],
+      ["AppFolio Workflow", "Turns each call into a work order ready to approve."],
+      ["Kae", "Runs student turnover and move-in checks."],
+    ],
     description:
       "At Pinnacle Park, calls are answered around the clock, maintenance requests become organized work orders, and every resident-facing message waits for a person’s approval.",
-    count: "50",
-    countLabel: "Rental units",
     href: "https://www.pinnacleparknr.com/",
     linkLabel: "Visit Pinnacle Park",
     image: "/property-videos/pinnacle-park.jpg",
@@ -25,10 +28,13 @@ const properties = [
     slug: "first-and-main",
     title: ["First and Main", "Condominiums"],
     meta: "Northport, AL · 30 condominiums · Student living",
+    systems: [
+      ["Sarah", "Answers the phone around the clock."],
+      ["Hermes", "Drafts leasing email replies for approval."],
+      ["AppFolio Workflow", "Tracks maintenance from request to done."],
+    ],
     description:
       "At First and Main, leasing questions, maintenance requests, and move-outs move through one shared workflow. A person reviews every message before it reaches a resident.",
-    count: "30",
-    countLabel: "Condominiums",
     href: "https://www.firstandmaincondos.com/",
     linkLabel: "Visit First and Main",
     image: "/property-videos/first-and-main.jpg",
@@ -38,10 +44,13 @@ const properties = [
     slug: "the-station",
     title: ["The Station", "Townhomes"],
     meta: "Northport, AL · 16 townhomes · Student living",
+    systems: [
+      ["Sarah", "Catches every inquiry, even after hours."],
+      ["Hermes", "Drafts replies and reminders for approval."],
+      ["AppFolio Workflow", "Keeps work orders moving to completion."],
+    ],
     description:
       "At The Station, a leasing inquiry can become a tour, a signed lease, and a prepared move-in checklist without losing the handoff between people.",
-    count: "16",
-    countLabel: "Townhomes",
     href: "https://www.thestationonmainave.com/",
     linkLabel: "Visit The Station",
     image: "/property-videos/the-station.jpg",
@@ -51,10 +60,13 @@ const properties = [
     slug: "forest-lake",
     title: ["Forest Lake", "Homes"],
     meta: "Tuscaloosa, AL · 12 homes · Student living",
+    systems: [
+      ["Sarah", "One number, answered day and night."],
+      ["AppFolio Workflow", "Work orders prepped for a person to approve."],
+      ["Hermes", "Weekly rent, renewal, and occupancy reports."],
+    ],
     description:
       "At Forest Lake, recurring questions, maintenance follow-up, and renewals stay organized across twelve homes—while a person still makes every final decision.",
-    count: "12",
-    countLabel: "Rental homes",
     href: "https://www.forestlakerentals.com/",
     linkLabel: "Visit Forest Lake",
     image: "/property-videos/forest-lake.jpg",
@@ -148,10 +160,11 @@ export default function PropertyShowcase() {
         </h2>
         <p className={styles.caseMeta}>{property.meta}</p>
         <p>{property.description}</p>
-        <dl>
-          <div><dt>{property.count}</dt><dd>{property.countLabel}</dd></div>
-          <div><dt>24/7</dt><dd>Calls answered</dd></div>
-          <div><dt>100%</dt><dd>Human-reviewed</dd></div>
+        <p className={styles.caseSystemsLabel}>The systems on this job</p>
+        <dl aria-label="Systems working this property">
+          {property.systems.map(([name, job]) => (
+            <div key={name}><dt>{name}</dt><dd>{job}</dd></div>
+          ))}
         </dl>
         <a href={property.href} target="_blank" rel="noreferrer">
           {property.linkLabel} <ArrowRightIcon aria-hidden="true" />

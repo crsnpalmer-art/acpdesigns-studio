@@ -666,11 +666,20 @@
   max-width: 38ch;
 }
 
+.caseSystemsLabel {
+  color: rgba(243, 239, 230, 0.62);
+  font-size: 0.6rem;
+  font-weight: 780;
+  letter-spacing: 0.14em;
+  margin: auto 0 0.7rem;
+  text-transform: uppercase;
+}
+
 .caseCopy dl {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
-  margin: auto 0 2rem;
+  margin: 0 0 2rem;
 }
 
 .caseCopy dl div {
@@ -681,13 +690,14 @@
 .caseCopy dt {
   color: var(--orange);
   font-family: var(--font-display), Georgia, serif;
-  font-size: 2.1rem;
+  font-size: 1.15rem;
 }
 
 .caseCopy dd {
-  font-size: 0.57rem;
-  margin: 0.25rem 0 0;
-  text-transform: uppercase;
+  color: rgba(243, 239, 230, 0.85);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  margin: 0.4rem 0 0;
 }
 
 .caseCopy > a {
@@ -1568,15 +1578,16 @@
   }
 
   .caseCopy dl {
-    gap: 0.7rem;
+    gap: 0.9rem;
+    grid-template-columns: 1fr;
   }
 
   .caseCopy dt {
-    font-size: 1.7rem;
+    font-size: 1.1rem;
   }
 
   .caseCopy dd {
-    font-size: 0.48rem;
+    font-size: 0.78rem;
   }
 
   .propertyDirectory ol {
