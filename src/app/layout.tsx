@@ -18,14 +18,14 @@ const bodyFont = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.acpdesigns.studio"),
-  title: "ACP Designs Studio",
+  title: "ACP Designs Studio — Systems for real property operations",
   description:
     "Carson Palmer builds useful systems for real property operations, practical software, and human-supervised AI.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "ACP Designs Studio",
+    title: "ACP Designs Studio — Real work. Better systems.",
     description:
       "Useful systems for real property operations, practical software, and human-supervised AI.",
     url: "/",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ACP Designs Studio",
+    title: "ACP Designs Studio — Real work. Better systems.",
     description:
       "Useful systems for real property operations, practical software, and human-supervised AI.",
   },

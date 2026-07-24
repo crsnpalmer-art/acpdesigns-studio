@@ -132,7 +132,7 @@ export default function FieldManualPage() {
           <ul className={styles.scrollSpy}>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#hermes">Systems</a></li>
-            <li><a href="#control-center">Control Center</a></li>
+            <li><a href="#case-studies">Case studies</a></li>
             <li><a href="#field-notes">What I&apos;ve learned</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -218,13 +218,15 @@ export default function FieldManualPage() {
       </section>
 
       <section className={styles.chapterMap} aria-labelledby="chapter-map-title">
-        <div className={styles.chapterNumber}>01</div>
+        {/* The map is the index, not a chapter — the spacer keeps the two-column
+            grid while the numbered chapters below match the page's own stamps. */}
+        <div aria-hidden="true" />
         <div>
           <p className={styles.sectionLabel} id="chapter-map-title">Chapters</p>
           <ol>
-            <li><span>01</span><a href="#systems"><strong>What I do</strong><small>Operations become systems.</small></a></li>
-            <li><span>02</span><a href="#projects"><strong>Projects</strong><small>Live work, real impact.</small></a></li>
-            <li><span>03</span><a href="#hermes"><strong>Systems</strong><small>Eight specialists, one private system.</small></a></li>
+            <li><span>01</span><a href="#projects"><strong>Projects</strong><small>Live work, real impact.</small></a></li>
+            <li><span>02</span><a href="#hermes"><strong>Systems</strong><small>Eight specialists, one private system.</small></a></li>
+            <li><span>03</span><a href="#systems"><strong>How I work</strong><small>Operations become systems.</small></a></li>
             <li><span>04</span><a href="#field-notes"><strong>What I&apos;ve learned</strong><small>Patterns worth keeping.</small></a></li>
           </ol>
         </div>
@@ -285,7 +287,7 @@ export default function FieldManualPage() {
       </nav>
 
       <section id="systems" className={styles.processSection} aria-labelledby="process-title">
-        <div className={styles.chapterNumber}>02</div>
+        <div className={styles.chapterNumber}>03</div>
         <div className={styles.processIntro}>
           <p className={styles.sectionLabel}>How I work</p>
           <h2 id="process-title">Field-tested.<br />Iterate. Ship.<br />Repeat.</h2>
@@ -303,7 +305,7 @@ export default function FieldManualPage() {
       </section>
 
       <section id="field-notes" className={styles.manifesto} aria-labelledby="manifesto-title">
-        <div className={styles.chapterNumber}>03</div>
+        <div className={styles.chapterNumber}>04</div>
         <div className={styles.manifestoCopy}>
           <p className={styles.sectionLabel}>What I&apos;ve learned</p>
           <h2 id="manifesto-title">I build systems that respect people and <em>reality.</em></h2>

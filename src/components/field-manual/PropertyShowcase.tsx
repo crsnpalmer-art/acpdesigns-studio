@@ -161,7 +161,7 @@ export default function PropertyShowcase() {
   return (
     <section
       ref={sectionRef}
-      id="control-center"
+      id="case-studies"
       className={styles.caseStudy}
       aria-labelledby="case-study-title"
       onPointerEnter={() => { pausedRef.current = true; }}

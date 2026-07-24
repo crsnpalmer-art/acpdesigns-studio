@@ -197,6 +197,14 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+.fleetNote {
+  color: rgba(243, 239, 230, 0.62);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 1rem 0 0;
+  max-width: 46ch;
+}
+
 .agentGrid button {
   background: rgba(23, 24, 23, 0.86);
   border: 1px solid rgba(243, 239, 230, 0.19);

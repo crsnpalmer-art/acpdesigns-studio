@@ -284,6 +284,10 @@ export default function HermesExplainer() {
                     );
                   })}
                 </div>
+                <p className={styles.fleetNote}>
+                  The names are nicknames. Eight lanes in one chat window are easier to
+                  run when each one answers to something you can say out loud.
+                </p>
               </div>
               <aside className={styles.agentDetail} aria-live="polite">
                 <SelectedIcon aria-hidden="true" />

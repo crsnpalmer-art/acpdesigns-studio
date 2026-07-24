@@ -3,14 +3,28 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const alt =
-  "ACP Designs Studio — Property portfolio, apps, automation systems, and ideas.";
+  "ACP Designs Studio — Real work. Better systems. Useful systems for real property operations.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Field-manual palette, mirrored from FieldManual.module.css so the share card
+// and the page it links to read as the same object.
+const PAPER = "#f3efe6";
+const INK = "#171817";
+const MUTED = "#5d5a52";
+const ORANGE = "#f04a17";
+const LINE = "rgba(23, 24, 23, 0.12)";
+
 export default async function Image() {
-  // A dedicated 1200-wide version is kept under the 500 KB ImageResponse bundle.
-  const bgData = await readFile(join(process.cwd(), "public/og-background.jpg"));
-  const bgBase64 = `data:image/jpeg;base64,${bgData.toString("base64")}`;
+  const fontDir = join(process.cwd(), "src/app/og-fonts");
+  const [display, body] = await Promise.all([
+    readFile(join(fontDir, "BodoniModa-SemiBold.ttf")),
+    readFile(join(fontDir, "Manrope-SemiBold.ttf")),
+  ]);
+
+  // Blueprint grid, drawn as discrete rules — Satori has no repeating-gradient.
+  const columns = Array.from({ length: 11 }, (_, i) => (i + 1) * 100);
+  const rows = Array.from({ length: 6 }, (_, i) => (i + 1) * 90);
 
   return new ImageResponse(
     (
@@ -20,126 +34,221 @@ export default async function Image() {
           height: "100%",
           display: "flex",
           position: "relative",
-          background: "#000",
-          fontFamily:
-            "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          background: PAPER,
+          color: INK,
+          fontFamily: "Manrope",
         }}
       >
-        {/* Background photo */}
-        <img
-          src={bgBase64}
-          alt=""
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
+        {columns.map((x) => (
+          <div
+            key={`c${x}`}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: x,
+              width: 1,
+              height: "100%",
+              background: LINE,
+            }}
+          />
+        ))}
+        {rows.map((y) => (
+          <div
+            key={`r${y}`}
+            style={{
+              position: "absolute",
+              left: 0,
+              top: y,
+              width: "100%",
+              height: 1,
+              background: LINE,
+            }}
+          />
+        ))}
 
-        {/* Gradient overlay — keep the photo visible at top, darken toward
-            bottom for legible text */}
+        {/* Left margin rail, echoing the page's vertical spine */}
         <div
           style={{
             position: "absolute",
             top: 0,
-            left: 0,
-            width: "100%",
+            left: 56,
+            width: 1,
             height: "100%",
+            background: "rgba(23, 24, 23, 0.22)",
             display: "flex",
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.92) 100%)",
           }}
         />
 
-        {/* Foreground content */}
         <div
           style={{
             position: "relative",
-            zIndex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            padding: "56px 72px",
             width: "100%",
-            color: "white",
+            padding: "52px 64px 48px 96px",
           }}
         >
-          {/* Top row */}
+          {/* Header row */}
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between",
               alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                fontSize: 42,
-                fontWeight: 600,
-                letterSpacing: 0,
-                color: "white",
-              }}
-            >
-              ACP
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 46,
+                  height: 46,
+                  background: INK,
+                  color: PAPER,
+                  fontSize: 17,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                ACP
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", marginLeft: 18 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    fontSize: 17,
+                    letterSpacing: "0.12em",
+                    color: INK,
+                  }}
+                >
+                  ACP DESIGNS STUDIO
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    fontSize: 12,
+                    letterSpacing: "0.16em",
+                    color: MUTED,
+                    marginTop: 5,
+                  }}
+                >
+                  CARSON PALMER
+                </div>
+              </div>
             </div>
+
             <div
               style={{
                 display: "flex",
-                fontSize: 14,
-                letterSpacing: "0.28em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.75)",
-                fontWeight: 500,
+                fontSize: 12,
+                letterSpacing: "0.18em",
+                color: MUTED,
+                textAlign: "right",
               }}
             >
-              Designs Studio
+              TUSCALOOSA, AL
             </div>
           </div>
 
-          {/* Bottom block */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          {/* Headline */}
+          <div style={{ display: "flex", flexDirection: "column", marginTop: 8 }}>
+            {/* Two explicit lines, matching the page hero. The accent period is a
+                sibling on its own row so it cannot get flung to the far edge when
+                a single wrapped row reflows. */}
             <div
               style={{
                 display: "flex",
-                fontSize: 108,
-                fontWeight: 500,
-                letterSpacing: 0,
-                lineHeight: 0.96,
-                color: "white",
-                maxWidth: 980,
-                textShadow: "0 2px 24px rgba(0,0,0,0.6)",
+                flexDirection: "column",
+                fontFamily: "Bodoni",
+                fontSize: 96,
+                lineHeight: 1.04,
+                letterSpacing: "-0.015em",
+                color: INK,
               }}
             >
-              Built for real work.
+              <div style={{ display: "flex" }}>Real work.</div>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <span style={{ display: "flex" }}>Better systems</span>
+                <span style={{ display: "flex", color: ORANGE }}>.</span>
+              </div>
             </div>
             <div
               style={{
                 display: "flex",
-                marginTop: 20,
-                fontSize: 26,
-                letterSpacing: 0,
-                color: "rgba(255,255,255,0.88)",
-                fontWeight: 400,
-                maxWidth: 900,
-                textShadow: "0 1px 12px rgba(0,0,0,0.55)",
+                marginTop: 26,
+                fontSize: 25,
+                lineHeight: 1.4,
+                color: MUTED,
+                maxWidth: 760,
               }}
             >
-              Property portfolio, apps, automation systems, and ideas.
+              Useful systems for real property operations — built for people, not dashboards.
+            </div>
+          </div>
+
+          {/* Proof strip */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              borderTop: `1px solid rgba(23, 24, 23, 0.22)`,
+              paddingTop: 22,
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 12,
+                  letterSpacing: "0.16em",
+                  color: ORANGE,
+                }}
+              >
+                PROOF, NOT PROMISES.
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 15,
+                  letterSpacing: "0.09em",
+                  color: MUTED,
+                  marginTop: 10,
+                }}
+              >
+                108 RENTAL UNITS · 4 PROPERTIES · HUMAN APPROVAL BUILT IN
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                border: `1px solid ${ORANGE}`,
+                color: ORANGE,
+                padding: "12px 18px",
+                fontSize: 13,
+                letterSpacing: "0.14em",
+                lineHeight: 1.35,
+              }}
+            >
+              <div style={{ display: "flex" }}>APPROVED</div>
+              <div style={{ display: "flex" }}>BY HUMAN</div>
             </div>
           </div>
         </div>
       </div>
     ),
-    { ...size },
+    {
+      ...size,
+      fonts: [
+        { name: "Bodoni", data: display, style: "normal", weight: 600 },
+        { name: "Manrope", data: body, style: "normal", weight: 600 },
+      ],
+    },
   );
 }
