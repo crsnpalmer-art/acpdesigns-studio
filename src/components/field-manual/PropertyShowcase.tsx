@@ -30,11 +30,11 @@ const properties = [
   {
     slug: "pinnacle-park",
     title: ["Pinnacle Park", "at Northriver"],
-    meta: "Tuscaloosa, AL · 50 Palmer-managed units · Student living",
+    meta: "Tuscaloosa, AL · 50 Palmer-managed townhomes · Luxury living",
     systems: [
       ["Sarah", "Answers leasing and maintenance calls, day or night."],
       ["AppFolio Workflow", "Turns each call into a work order ready to approve."],
-      ["Kae", "Runs student turnover and move-in checks."],
+      ["Lease Tracker", "Shows occupancy, renewals, and the next action."],
     ],
     description:
       "At Pinnacle Park, calls are answered around the clock, maintenance requests become organized work orders, and every resident-facing message waits for a person’s approval.",
@@ -49,8 +49,8 @@ const properties = [
     meta: "Northport, AL · 30 condominiums · Student living",
     systems: [
       ["Sarah", "Answers the phone around the clock."],
+      ["Kae", "Gives each resident a move-in page as the unit turns."],
       ["Hermes", "Drafts leasing email replies for approval."],
-      ["AppFolio Workflow", "Tracks maintenance from request to done."],
     ],
     description:
       "At First and Main, leasing questions, maintenance requests, and move-outs move through one shared workflow. A person reviews every message before it reaches a resident.",
@@ -65,8 +65,8 @@ const properties = [
     meta: "Northport, AL · 16 townhomes · Student living",
     systems: [
       ["Sarah", "Catches every inquiry, even after hours."],
+      ["Kae", "Tracks student turnover through move-in."],
       ["Hermes", "Drafts replies and reminders for approval."],
-      ["AppFolio Workflow", "Keeps work orders moving to completion."],
     ],
     description:
       "At The Station, a leasing inquiry can become a tour, a signed lease, and a prepared move-in checklist without losing the handoff between people.",
@@ -78,14 +78,14 @@ const properties = [
   {
     slug: "forest-lake",
     title: ["Forest Lake", "Homes"],
-    meta: "Tuscaloosa, AL · 12 homes · Student living",
+    meta: "Tuscaloosa, AL · 13 homes including Rosemary Circle · Student living",
     systems: [
       ["Sarah", "One number, answered day and night."],
-      ["AppFolio Workflow", "Work orders prepped for a person to approve."],
+      ["Kae", "Move-in pages and turn progress for each house."],
       ["Hermes", "Weekly rent, renewal, and occupancy reports."],
     ],
     description:
-      "At Forest Lake, recurring questions, maintenance follow-up, and renewals stay organized across twelve homes—while a person still makes every final decision.",
+      "At Forest Lake and Rosemary Circle, recurring questions, maintenance follow-up, and renewals stay organized across thirteen homes—while a person still makes every final decision.",
     href: "https://www.forestlakerentals.com/",
     linkLabel: "Visit Forest Lake",
     image: "/property-videos/forest-lake.jpg",

@@ -219,7 +219,7 @@ export default async function Image() {
                   marginTop: 10,
                 }}
               >
-                108 RENTAL UNITS · 4 PROPERTIES · HUMAN APPROVAL BUILT IN
+                109 RENTAL UNITS · 5 COMMUNITIES · HUMAN APPROVAL BUILT IN
               </div>
             </div>
 

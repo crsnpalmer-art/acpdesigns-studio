@@ -103,7 +103,10 @@ const chatRoutines = [
   {
     group: "Main lane",
     jobs: [
-      ["Turnover board sync", "Every 5 min", "Keeps student move-in and paint/clean boards current."],
+      ["Move-in portal updates", "Every 5 min", "Keeps each resident’s move-in page current as turns finish."],
+      ["Paint and clean sync", "Daytime", "Keeps vendor turnover boards current while crews are working."],
+      ["Turnover health check", "Hourly", "Flags stalled paint or clean work before it slips."],
+      ["Move-out form ping", "Every 6 hours", "Alerts when a new move-out form arrives."],
       ["Failure watchdog", "Daily", "Checks that every other scheduled job actually ran."],
     ],
   },
@@ -140,8 +143,11 @@ const chatRoutines = [
     group: "Memory lane",
     jobs: [
       ["Daily log writer", "Nightly", "Writes the day's events to long-term memory."],
+      ["Wiki synthesize", "Twice daily", "Turns new notes into shared project pages."],
+      ["Nightly curator", "Nightly", "Files the day's useful facts into the shared map."],
       ["Weekly review", "Friday", "Distills the week into lessons worth keeping."],
       ["Tenant wiki ingest", "Weekly", "Folds the week's changes into Sarah's knowledge base."],
+      ["Weekly wiki review", "Sunday", "Sunday pass over the week's curated notes."],
     ],
   },
   {
@@ -160,7 +166,10 @@ const backgroundJobs = [
   },
   {
     group: "Email",
-    jobs: [["Email pipeline", "Every 5 min", "Gmail triage, alerts, and leasing reply drafts."]],
+    jobs: [
+      ["Email pipeline", "Every 5 min", "Gmail triage, alerts, and leasing reply drafts."],
+      ["Email pipeline watchdog", "Continuous", "Restarts the mail sorter if it stalls."],
+    ],
   },
   {
     group: "Sarah",
@@ -174,7 +183,6 @@ const backgroundJobs = [
     jobs: [
       ["Auth heartbeat", "4× daily", "Confirms broker access is alive before it's needed."],
       ["Signal rescore", "Every 5 min", "Refreshes market signal scores through the day."],
-      ["Approved-trade executor", "Market hours", "Carries out only trades Carson already approved."],
       ["Stop-level monitor", "Market hours", "Watches exit levels on open positions."],
       ["Watchlist sync", "Nightly", "Updates the next day's watchlist."],
       ["Heartbeat summary", "Daily", "One end-of-day note on system activity."],
@@ -190,6 +198,7 @@ const backgroundJobs = [
       ["Wiki memory watcher", "Continuous", "Indexes new notes into the shared knowledge base."],
       ["Wiki verify", "Weekly", "Checks the shared map still matches the live system."],
       ["Weekly backup", "Sunday, pre-dawn", "Full backup of the operations workspace."],
+      ["Delivery retry", "Continuous", "Retries messages that didn't send the first time."],
     ],
   },
 ];
@@ -209,15 +218,15 @@ export default function HermesExplainer() {
         </div>
         <p className={styles.lead}>
           A self-hosted AI team running on one Mac: property operations, leasing,
-          collections, research, system health, and memory—coordinated through chat
-          and stopped by a human gate before anything leaves the system.
+          collections, research, system health, and memory—coordinated through chat.
+          Routine work can send on its own. Money, leases, and legal still wait for a person.
         </p>
       </header>
 
       <dl className={styles.stats} aria-label="Hermes public snapshot">
         <div><dt>08</dt><dd>Specialized agents</dd></div>
-        <div><dt>20</dt><dd>Scheduled routines</dd></div>
-        <div><dt>18</dt><dd>Local background jobs</dd></div>
+        <div><dt>26</dt><dd>Scheduled routines</dd></div>
+        <div><dt>19</dt><dd>Local background jobs</dd></div>
         <div><dt>01</dt><dd>Private chat workspace</dd></div>
       </dl>
 
@@ -305,7 +314,7 @@ export default function HermesExplainer() {
               <article>
                 <div className={styles.viewHeading}>
                   <ClockCountdownIcon aria-hidden="true" />
-                  <span>Layer 01 · 20 routines</span>
+                  <span>Layer 01 · 26 routines</span>
                   <h3>Recurring chat routines</h3>
                   <p>Scheduled work that reports back to the right private chat.</p>
                 </div>
@@ -327,7 +336,7 @@ export default function HermesExplainer() {
               <article>
                 <div className={styles.viewHeading}>
                   <HardDrivesIcon aria-hidden="true" />
-                  <span>Layer 02 · 18 jobs</span>
+                  <span>Layer 02 · 19 jobs</span>
                   <h3>Local background jobs</h3>
                   <p>Small local programs gather data, watch health, and keep the work grounded.</p>
                 </div>
@@ -347,7 +356,7 @@ export default function HermesExplainer() {
                 ))}
               </article>
               <p className={styles.scheduleNote}>
-                Snapshot verified July 18, 2026, against the live system. One-off reminders come and go as needed
+                Snapshot verified August 13, 2026, against the live system. One-off reminders come and go as needed
                 and aren&apos;t listed. Names are public-friendly; private IDs and paths stay private.
               </p>
             </div>
@@ -360,14 +369,14 @@ export default function HermesExplainer() {
                   <EnvelopeSimpleIcon aria-hidden="true" />
                   <span>01 · Draft</span>
                   <h3>The system prepares the work.</h3>
-                  <p>Leasing replies, business texts, family messages, and trade ideas get a review ID.</p>
+                  <p>Leasing replies, business texts, and trade ideas get a review ID.</p>
                 </article>
                 <ArrowRightIcon aria-hidden="true" />
                 <article className={styles.humanGate}>
                   <LockKeyIcon aria-hidden="true" />
                   <span>02 · Human gate</span>
-                  <h3>Approve, edit, or skip.</h3>
-                  <p>Nothing outbound moves until Carson makes the decision.</p>
+                  <h3>Approve, edit, skip — or let a checker send.</h3>
+                  <p>Routine leasing replies and short work-text thanks can send when they pass a checker. Money, leases, and legal still wait.</p>
                 </article>
                 <ArrowRightIcon aria-hidden="true" />
                 <article>
@@ -378,8 +387,9 @@ export default function HermesExplainer() {
                 </article>
               </div>
               <p className={styles.policyNote}>
-                Research and internal reporting can run alone. Anything that touches another
-                person or an account stops at the written autonomy policy.
+                Research and internal reporting can run alone. Routine messages can send
+                when they pass a checker. Anything that touches money, a lease, or the law
+                still stops at a person.
               </p>
             </div>
           )}
@@ -416,7 +426,7 @@ export default function HermesExplainer() {
       <footer className={styles.dayStrip}>
         <div><span>Before I wake</span><p>Property data syncs. The morning digest waits.</p></div>
         <div><span>Through the day</span><p>New work becomes a draft, alert, or routed specialist task.</p></div>
-        <div><span>My part</span><p>Read the signal. Type APPROVE when the work is right.</p></div>
+        <div><span>My part</span><p>Read the signal. Type APPROVE when money, a lease, or the law is on the line.</p></div>
         <small><ShieldCheckIcon aria-hidden="true" />Public map. Private IDs, paths, and topic numbers omitted.</small>
       </footer>
     </section>

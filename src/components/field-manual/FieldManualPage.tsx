@@ -37,15 +37,27 @@ const projectGroups = [
       },
       {
         name: "Kae",
-        detail: "Student turnover, move-in, and quality control.",
-        status: "Active",
-        href: "#field-notes",
+        detail: "Personalized move-in pages with turn progress.",
+        status: "Live",
+        href: "#case-studies",
+      },
+      {
+        name: "Lease Tracker",
+        detail: "Occupancy, renewals, and the next action on every unit.",
+        status: "Live",
+        href: "#hermes",
       },
       {
         name: "Palmer Control Center",
         detail: "Private command center for daily property work.",
         status: "Private",
         href: "https://palmercontrolcenter.com",
+      },
+      {
+        name: "Find Your Fit",
+        detail: "Matches prospects to the right property.",
+        status: "In review",
+        href: "#field-notes",
       },
     ],
   },
@@ -106,7 +118,7 @@ const propertySites = [
   },
   {
     name: "Forest Lake Homes",
-    type: "Property website",
+    type: "Forest Lake + Rosemary Circle",
     href: "https://www.forestlakerentals.com/",
   },
 ];
@@ -159,7 +171,7 @@ export default function FieldManualPage() {
             <a className={styles.primaryButton} href="#projects">
               See the work <ArrowRightIcon aria-hidden="true" />
             </a>
-            <p><strong>Proof, not promises.</strong><span>108 rental units · 4 properties · human approval built in</span></p>
+            <p><strong>Proof, not promises.</strong><span>109 rental units · 5 communities · human approval built in</span></p>
           </div>
         </div>
         <div className={styles.heroVisual}>
@@ -188,14 +200,14 @@ export default function FieldManualPage() {
         <div className={styles.workStatsBody}>
           <dl className={styles.workStatsGrid}>
             <div>
-              <dt>108</dt>
+              <dt>109</dt>
               <dd>Rental units</dd>
-              <p>Across four properties where these systems do real work.</p>
+              <p>Across five communities where these systems do real work.</p>
             </div>
             <div>
               <dt>24/7</dt>
               <dd>Service</dd>
-              <p>Leasing and maintenance calls across four properties.</p>
+              <p>Leasing and maintenance calls across five communities.</p>
             </div>
             <div>
               <dt>03</dt>
@@ -211,8 +223,9 @@ export default function FieldManualPage() {
             </dl>
           </div>
           <p className={styles.workStatsMethod}>
-            Build snapshot: January 1–July 17, 2026. Commits cover 16 active repositories.
+            Build snapshot through July 17, 2026. Commits cover 16 active repositories.
             Hours use unique 15-minute windows from human-directed AI sessions and Git history.
+            August field work is in the systems below, not in this count.
           </p>
         </div>
       </section>

@@ -560,7 +560,8 @@
 
 .projectRail {
   display: grid;
-  grid-template-columns: repeat(4, minmax(8.5rem, 1fr));
+  grid-template-columns: repeat(3, minmax(8.5rem, 1fr));
+  row-gap: 2.2rem;
 }
 
 .projectRail a {

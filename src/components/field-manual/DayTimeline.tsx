@@ -12,9 +12,14 @@ const moments = [
     detail: "One chat message: occupancy, work orders, money, anything overdue.",
   },
   {
+    when: "Morning",
+    title: "The occupancy board",
+    detail: "Lease Tracker shows which units are open, who's renewing, and what to do next.",
+  },
+  {
     when: "Every 5 min",
     title: "Email triage",
-    detail: "Gmail is sorted; leasing inquiries get a drafted reply for approval.",
+    detail: "Gmail is sorted; leasing inquiries get a drafted reply. Routine ones can send when they pass a checker.",
   },
   {
     when: "All day",
@@ -23,8 +28,13 @@ const moments = [
   },
   {
     when: "All day",
+    title: "Move-in pages update",
+    detail: "As a student unit turns, the resident's move-in page stays current.",
+  },
+  {
+    when: "All day",
     title: "Approvals, not busywork",
-    detail: "Drafts and work orders queue up. I read the signal, then type APPROVE.",
+    detail: "Drafts and work orders queue up. Routine thanks can send. Money, leases, and legal wait for APPROVE.",
   },
   {
     when: "Evening",
@@ -66,7 +76,8 @@ export default function DayTimeline() {
       </ol>
       <p className={styles.dayNote}>
         Pulled from the live schedule above, rounded to the rhythm of the day.
-        A person owns every outbound decision.
+        A person still owns money, leases, and legal. Routine replies can send
+        when they pass a checker.
       </p>
     </section>
   );
