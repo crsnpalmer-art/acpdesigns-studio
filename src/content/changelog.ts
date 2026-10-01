@@ -70,10 +70,8 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-04-23",
     category: "systems",
-    title: "Sarah goes live on (866) 953-8055",
+    title: "Lyra (then called Sarah) goes live on the property line",
     body: "A 24/7 AI voice agent answers the property line, takes details, and routes work to the right place.",
-    href: "tel:+18669538055",
-    hrefLabel: "Call Sarah",
   },
   {
     date: "2026-01-22",

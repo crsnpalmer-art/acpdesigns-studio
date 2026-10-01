@@ -359,7 +359,6 @@ type SocialLink = { label: string; href: string; external?: boolean };
 
 const socialLinks: SocialLink[] = [
   { label: "Email", href: "mailto:crsnpalmer@gmail.com" },
-  { label: "Phone (Sarah, 24/7)", href: "tel:+18669538055" },
   { label: "Instagram @crsnpalmer", href: "https://instagram.com/crsnpalmer", external: true },
   { label: "X @crsnpalmer", href: "https://x.com/crsnpalmer", external: true },
 ];
