@@ -7,7 +7,8 @@ export type Job = {
 export type AgentId =
   | "main"
   | "work"
-  | "sarah"
+  | "lyra"
+  | "maintenance"
   | "collections"
   | "finance"
   | "ops"
@@ -25,12 +26,12 @@ export type Agent = {
   macJobs: Job[];
 };
 
-export const snapshotDate = "August 13, 2026";
+export const snapshotDate = "October 1, 2026";
 
 export const operatingStats = {
-  agents: 8,
-  routines: 26,
-  macJobs: 19,
+  agents: 9,
+  routines: 33,
+  macJobs: 5,
   chats: 1,
 } as const;
 
@@ -41,38 +42,22 @@ export const agents: Agent[] = [
     name: "Lebot James",
     title: "Conductor",
     detail:
-      "Triages requests, routes work to specialists, handles general tasks, email digests, and side projects.",
+      "Triages requests, routes work to the right specialist, and handles side projects and the morning newsletter.",
     owns: [
       "First stop for a new ask — route it to the right specialist.",
       "Side projects and anything that does not already have an owner.",
-      "Student move-in pages and paint/clean turnover boards.",
-      "A daily check that the other schedules actually ran.",
+      "The morning newsletter.",
     ],
     chatRoutines: [
       {
-        name: "Move-in portal updates",
-        cadence: "Every 5 min",
-        detail: "Keeps each resident’s move-in page current as turns finish.",
+        name: "Morning newsletter",
+        cadence: "Daily, pre-dawn",
+        detail: "A short morning read, ready before the day starts.",
       },
       {
-        name: "Paint and clean sync",
-        cadence: "Daytime",
-        detail: "Keeps vendor turnover boards current while crews are working.",
-      },
-      {
-        name: "Turnover health check",
-        cadence: "Hourly",
-        detail: "Flags stalled paint or clean work before it slips.",
-      },
-      {
-        name: "Move-out form ping",
-        cadence: "Every 6 hours",
-        detail: "Alerts when a new move-out form arrives.",
-      },
-      {
-        name: "Failure watchdog",
-        cadence: "Daily",
-        detail: "Checks that every other scheduled job actually ran.",
+        name: "Weekly failure review",
+        cadence: "Sunday",
+        detail: "Looks back at anything that failed during the week.",
       },
     ],
     macJobs: [],
@@ -83,12 +68,11 @@ export const agents: Agent[] = [
     name: "Eddie Morra",
     title: "Property operations",
     detail:
-      "Owns AppFolio workflows, occupancy, renewals, operating reports, and review-ready business message drafts.",
+      "Owns AppFolio workflows, occupancy, renewals, the tenant directory, and operating reports.",
     owns: [
       "Occupancy, renewals, and the next action on every unit.",
       "The morning property briefing.",
-      "Business-text drafts waiting for a person.",
-      "Quality review of the day’s leasing and maintenance calls.",
+      "A current tenant directory.",
     ],
     chatRoutines: [
       {
@@ -97,29 +81,14 @@ export const agents: Agent[] = [
         detail: "One property briefing before the workday starts.",
       },
       {
-        name: "Sarah call QA",
-        cadence: "Nightly",
-        detail: "Reviews the day's voice-agent calls for quality.",
-      },
-      {
-        name: "Business text ping",
-        cadence: "3× weekdays",
-        detail: "Flags new work texts that need attention.",
-      },
-      {
-        name: "Business text drafts",
-        cadence: "Weekday mornings",
-        detail: "Drafts replies to work texts for approval.",
+        name: "Tenant directory refresh",
+        cadence: "Daily",
+        detail: "Keeps the tenant roster current.",
       },
       {
         name: "Occupancy report",
-        cadence: "Weekly",
+        cadence: "Sunday",
         detail: "Where every unit stands, every Sunday.",
-      },
-      {
-        name: "Tenant directory refresh",
-        cadence: "Weekly",
-        detail: "Keeps the tenant roster current.",
       },
       {
         name: "Monday sweep",
@@ -128,12 +97,79 @@ export const agents: Agent[] = [
       },
       {
         name: "Lease renewal pipeline",
-        cadence: "Weekly",
+        cadence: "Monday",
         detail: "Who's coming due and what to offer.",
+      },
+    ],
+    macJobs: [],
+  },
+  {
+    id: "lyra",
+    lane: "Lyra",
+    name: "Lyra",
+    title: "Leasing + resident line",
+    detail: "Leasing, resident calls and texts, and quality checks on the 24/7 line.",
+    owns: [
+      "The 24/7 voice and text line for leasing and maintenance.",
+      "Routine leasing answers; anything about money, a lease, or the law waits for a person.",
+      "Keeping Lyra’s property facts current.",
+    ],
+    chatRoutines: [
+      {
+        name: "Call + text QA",
+        cadence: "Twice daily",
+        detail: "Reviews recent calls and texts for quality.",
+      },
+      {
+        name: "Message reply digest",
+        cadence: "3× daily",
+        detail: "Rounds up messages that need a reply.",
+      },
+      {
+        name: "Urgent message scan",
+        cadence: "Every 15 min, daytime",
+        detail: "Flags anything urgent so it is never stuck.",
+      },
+      {
+        name: "Email pipeline watchdog",
+        cadence: "Hourly",
+        detail: "Makes sure leasing email keeps flowing.",
+      },
+      {
+        name: "Improvement drafts",
+        cadence: "Twice daily",
+        detail: "Drafts fixes to Lyra’s answers for review.",
+      },
+    ],
+    macJobs: [
+      {
+        name: "Knowledge sync",
+        cadence: "Weekly",
+        detail: "Refreshes what Lyra knows about each property.",
+      },
+    ],
+  },
+  {
+    id: "maintenance",
+    lane: "Maintenance",
+    name: "Rocky",
+    title: "Maintenance + turns",
+    detail:
+      "Owns work-order history, the daily vendor sheets, and the unit turn board.",
+    owns: [
+      "Work-order history and a daily sheet of open work for each vendor.",
+      "The unit turn board: each turning unit’s checklist.",
+      "Seasonal move-in jobs, paused off-season.",
+    ],
+    chatRoutines: [
+      {
+        name: "Turn board digest",
+        cadence: "Daily, morning",
+        detail: "Where every turning unit stands.",
       },
       {
         name: "Work-order history sync",
-        cadence: "Monthly",
+        cadence: "Monday",
         detail: "Refreshes the long-term maintenance record.",
       },
     ],
@@ -141,50 +177,14 @@ export const agents: Agent[] = [
       {
         name: "AppFolio sync",
         cadence: "Daily, pre-dawn",
-        detail: "Pulls fresh property data before the workday.",
-      },
-      {
-        name: "Approval re-ping",
-        cadence: "Daily",
-        detail: "Nudges any property approval still waiting on a human.",
-      },
-      {
-        name: "Vendor follow-up",
-        cadence: "Mon / Wed / Fri",
-        detail: "Chases open vendor work so it doesn't stall.",
-      },
-    ],
-  },
-  {
-    id: "sarah",
-    lane: "Sarah",
-    name: "Sarah",
-    title: "Leasing + intake",
-    detail:
-      "Handles leasing inquiries, maintenance intake, and quality checks for the phone-based voice assistant.",
-    owns: [
-      "The 24/7 voice line for leasing and maintenance.",
-      "Turning a call into an organized request.",
-      "Keeping the voice agent’s property facts current.",
-    ],
-    chatRoutines: [],
-    macJobs: [
-      {
-        name: "Emergency queue drain",
-        cadence: "Every 5 min",
-        detail: "Makes sure urgent maintenance calls are never stuck.",
-      },
-      {
-        name: "Knowledge sync",
-        cadence: "Weekly",
-        detail: "Refreshes what the voice agent knows about each property.",
+        detail: "Pulls open work orders and sorts them by vendor.",
       },
     ],
   },
   {
     id: "collections",
     lane: "Collections",
-    name: "Collections Desk",
+    name: "Tony Montana",
     title: "Late rent + payment plans",
     detail:
       "Prepares late-rent reports, payment-plan follow-up, balance summaries, and property financial snapshots.",
@@ -194,6 +194,11 @@ export const agents: Agent[] = [
       "Every outbound money notice still waits for a person.",
     ],
     chatRoutines: [
+      {
+        name: "Daily rent roll",
+        cadence: "Daily",
+        detail: "Who has paid and who has not.",
+      },
       {
         name: "Delinquency report",
         cadence: "Monday",
@@ -211,63 +216,11 @@ export const agents: Agent[] = [
     id: "finance",
     lane: "Finance",
     name: "Michael Burry",
-    title: "Trading research",
-    detail:
-      "Runs market scans, reviews signals, keeps research organized, and puts every possible trade behind approval.",
-    owns: [
-      "Research sweeps of watched markets.",
-      "A same-day note on what the research got right and wrong.",
-      "Every possible trade waits for a person.",
-    ],
-    chatRoutines: [
-      {
-        name: "Market scan",
-        cadence: "3× weekdays",
-        detail: "Research sweep of watched tickers.",
-      },
-      {
-        name: "End-of-day review",
-        cadence: "Weekdays",
-        detail: "What the research got right and wrong today.",
-      },
-      {
-        name: "Research vault commit",
-        cadence: "Nightly",
-        detail: "Saves the day's research history.",
-      },
-    ],
-    macJobs: [
-      {
-        name: "Auth heartbeat",
-        cadence: "4× daily",
-        detail: "Confirms broker access is alive before it's needed.",
-      },
-      {
-        name: "Signal rescore",
-        cadence: "Every 5 min",
-        detail: "Refreshes market signal scores through the day.",
-      },
-      {
-        name: "Stop-level monitor",
-        cadence: "Market hours",
-        detail: "Watches exit levels on open positions.",
-      },
-      {
-        name: "Watchlist sync",
-        cadence: "Nightly",
-        detail: "Updates the next day's watchlist.",
-      },
-      {
-        name: "Heartbeat summary",
-        cadence: "Daily",
-        detail: "One end-of-day note on system activity.",
-      },
-      {
-        name: "Dashboard publish",
-        cadence: "Hourly, market hours",
-        detail: "Refreshes the private trading dashboard.",
-      },
-    ],
+    title: "Trading research (paused)",
+    detail: "Market research lane. Paused — no routines are running.",
+    owns: ["Nothing scheduled while the lane is paused."],
+    chatRoutines: [],
+    macJobs: [],
   },
   {
     id: "ops",
@@ -278,30 +231,19 @@ export const agents: Agent[] = [
       "Watches connections, schedules, credentials, backups, and failures so the operations center can report on itself.",
     owns: [
       "Keep the studio Mac signed in, backed up, and talking to the outside world.",
-      "Sort inbound mail so leasing drafts can be prepared.",
-      "Retry anything that did not send the first time.",
+      "Sort inbound mail so leasing replies can be prepared.",
+      "Re-run missed jobs and retry anything that did not send the first time.",
     ],
-    chatRoutines: [],
-    macJobs: [
+    chatRoutines: [
+      {
+        name: "Credential monitor",
+        cadence: "Daily",
+        detail: "Warns before Google access quietly expires.",
+      },
       {
         name: "Browser profile monitor",
         cadence: "Every 6 hours",
         detail: "Keeps the automation browser signed in and healthy.",
-      },
-      {
-        name: "Email pipeline",
-        cadence: "Every 5 min",
-        detail: "Gmail triage, alerts, and leasing reply drafts.",
-      },
-      {
-        name: "Email pipeline watchdog",
-        cadence: "Continuous",
-        detail: "Restarts the mail sorter if it stalls.",
-      },
-      {
-        name: "Credential monitor",
-        cadence: "Weekly",
-        detail: "Warns before Google access quietly expires.",
       },
       {
         name: "Weekly backup",
@@ -309,8 +251,35 @@ export const agents: Agent[] = [
         detail: "Full backup of the operations workspace.",
       },
       {
+        name: "Approval re-ping",
+        cadence: "Monday",
+        detail: "Nudges any approval still waiting on a person.",
+      },
+      {
+        name: "Missed-job re-run",
+        cadence: "Every 20 min",
+        detail: "Re-runs any scheduled job that missed its slot.",
+      },
+      {
+        name: "Power check",
+        cadence: "Nightly",
+        detail: "Makes sure the Mac is plugged in for overnight work.",
+      },
+      {
+        name: "Voice-line spend watch",
+        cadence: "Daily",
+        detail: "Keeps an eye on what the voice line costs.",
+      },
+    ],
+    macJobs: [
+      {
+        name: "Email pipeline",
+        cadence: "Every 5 min",
+        detail: "Gmail triage, alerts, and leasing reply drafts.",
+      },
+      {
         name: "Delivery retry",
-        cadence: "Continuous",
+        cadence: "Every 2 min",
         detail: "Retries messages that didn't send the first time.",
       },
     ],
@@ -325,7 +294,7 @@ export const agents: Agent[] = [
     owns: [
       "Write down what happened today so tomorrow’s work starts from the truth.",
       "Turn new notes into shared project pages.",
-      "Keep Sarah’s property knowledge in step with the week’s changes.",
+      "Keep Lyra’s property knowledge in step with the week’s changes.",
     ],
     chatRoutines: [
       {
@@ -335,7 +304,7 @@ export const agents: Agent[] = [
       },
       {
         name: "Wiki synthesize",
-        cadence: "Twice daily",
+        cadence: "Daily",
         detail: "Turns new notes into shared project pages.",
       },
       {
@@ -344,31 +313,41 @@ export const agents: Agent[] = [
         detail: "Files the day's useful facts into the shared map.",
       },
       {
+        name: "Nightly wiki save",
+        cadence: "Nightly",
+        detail: "Saves the day's wiki changes.",
+      },
+      {
         name: "Weekly review",
         cadence: "Friday",
         detail: "Distills the week into lessons worth keeping.",
       },
       {
         name: "Tenant wiki ingest",
-        cadence: "Weekly",
-        detail: "Folds the week's changes into Sarah's knowledge base.",
+        cadence: "Sunday",
+        detail: "Folds the week's changes into Lyra's knowledge base.",
       },
       {
         name: "Weekly wiki review",
         cadence: "Sunday",
         detail: "Sunday pass over the week's curated notes.",
       },
+      {
+        name: "Stale-page re-read",
+        cadence: "Sunday",
+        detail: "Re-reads pages that have not been checked in a while.",
+      },
+      {
+        name: "Wiki verify",
+        cadence: "Monday",
+        detail: "Checks the shared map still matches the live system.",
+      },
     ],
     macJobs: [
       {
         name: "Wiki memory watcher",
-        cadence: "Continuous",
+        cadence: "Hourly",
         detail: "Indexes new notes into the shared knowledge base.",
-      },
-      {
-        name: "Wiki verify",
-        cadence: "Weekly",
-        detail: "Checks the shared map still matches the live system.",
       },
     ],
   },
@@ -376,19 +355,10 @@ export const agents: Agent[] = [
     id: "tweeter",
     lane: "Tweeter",
     name: "Tweeter",
-    title: "X research",
-    detail: "Runs X research and market scans with the tool best suited to that source.",
-    owns: [
-      "Research sweeps on X for the same markets the finance lane watches.",
-      "A different source, same rule: nothing trades itself.",
-    ],
-    chatRoutines: [
-      {
-        name: "X research scan",
-        cadence: "3× weekdays",
-        detail: "Market and research sweep on X.",
-      },
-    ],
+    title: "X research (paused)",
+    detail: "X research lane. Paused — no routines are running.",
+    owns: ["Nothing scheduled while the lane is paused."],
+    chatRoutines: [],
     macJobs: [],
   },
 ];

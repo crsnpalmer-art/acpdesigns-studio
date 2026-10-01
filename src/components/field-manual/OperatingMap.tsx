@@ -8,6 +8,7 @@ import {
   PhoneCallIcon,
   ShieldCheckIcon,
   TrendUpIcon,
+  WrenchIcon,
   XLogoIcon,
 } from "@phosphor-icons/react/ssr";
 import {
@@ -23,7 +24,8 @@ import styles from "./OperatingMap.module.css";
 const icons = {
   main: CirclesThreePlusIcon,
   work: BuildingsIcon,
-  sarah: PhoneCallIcon,
+  lyra: PhoneCallIcon,
+  maintenance: WrenchIcon,
   collections: CurrencyDollarIcon,
   finance: TrendUpIcon,
   ops: ShieldCheckIcon,
@@ -32,14 +34,16 @@ const icons = {
 } as const;
 
 const emptyChat: Partial<Record<AgentId, string>> = {
-  sarah: "No chat routines on this lane. Quality review of Sarah’s calls lives on Eddie’s schedule.",
-  ops: "No chat routines on this lane. Health work runs as background jobs on the studio Mac.",
+  finance: "No chat routines. This lane is paused.",
+  tweeter: "No chat routines. This lane is paused.",
 };
 
 const emptyMac: Partial<Record<AgentId, string>> = {
   main: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
+  work: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
   collections: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
-  tweeter: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
+  finance: "No background jobs. This lane is paused.",
+  tweeter: "No background jobs. This lane is paused.",
 };
 
 function JobList({ jobs, empty }: { jobs: Job[]; empty?: string }) {
@@ -64,6 +68,8 @@ function Dossier({ agent }: { agent: Agent }) {
   const Icon = icons[agent.id];
 
   return (
+    <>
+    {agent.id === "lyra" && <span id="sarah" aria-hidden="true" />}
     <article className={styles.dossier} id={agent.id} aria-labelledby={`${agent.id}-title`}>
       <header>
         <Icon aria-hidden="true" />
@@ -95,6 +101,7 @@ function Dossier({ agent }: { agent: Agent }) {
         </section>
       </div>
     </article>
+    </>
   );
 }
 
@@ -104,10 +111,10 @@ export default function OperatingMap() {
       <header className={styles.intro}>
         <div>
           <p>Operating map · Hermes</p>
-          <h1 id="systems-title">One Mac.<br />Eight specialists.</h1>
+          <h1 id="systems-title">One Mac.<br />A conductor and eight specialists.</h1>
         </div>
         <p className={styles.lead}>
-          One private chat, eight named lanes, and a human gate for money, leases, and legal.
+          One private chat, nine named lanes, and a human gate for money, leases, and legal.
           This page is the public map: what each specialist owns, when they check in, and
           which background jobs keep the studio Mac honest.
         </p>
@@ -116,7 +123,7 @@ export default function OperatingMap() {
       <dl className={styles.stats} aria-label="Hermes public snapshot">
         <div><dt>{String(operatingStats.agents).padStart(2, "0")}</dt><dd>Specialized agents</dd></div>
         <div><dt>{operatingStats.routines}</dt><dd>Chat routines</dd></div>
-        <div><dt>{operatingStats.macJobs}</dt><dd>Mac background jobs</dd></div>
+        <div><dt>{String(operatingStats.macJobs).padStart(2, "0")}</dt><dd>Mac background jobs</dd></div>
         <div><dt>{String(operatingStats.chats).padStart(2, "0")}</dt><dd>Private chat workspace</dd></div>
       </dl>
 

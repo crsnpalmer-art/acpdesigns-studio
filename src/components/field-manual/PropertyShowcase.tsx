@@ -32,12 +32,12 @@ const properties = [
     title: ["Pinnacle Park", "at Northriver"],
     meta: "Tuscaloosa, AL · 50 Palmer-managed townhomes · Luxury living",
     systems: [
-      ["Sarah", "Answers leasing and maintenance calls, day or night."],
-      ["AppFolio Workflow", "Turns each call into a work order ready to approve."],
+      ["Lyra", "Answers leasing and maintenance calls and texts, day or night."],
+      ["AppFolio Workflow", "Sorts open work orders into a daily sheet for each vendor."],
       ["Lease Tracker", "Shows occupancy, renewals, and the next action."],
     ],
     description:
-      "At Pinnacle Park, calls are answered around the clock, maintenance requests become organized work orders, and every resident-facing message waits for a person’s approval.",
+      "At Pinnacle Park, calls are answered around the clock, maintenance requests become organized work orders, and routine answers go out on their own while anything about money, a lease, or the law waits for a person.",
     href: "https://www.pinnacleparknr.com/",
     linkLabel: "Visit Pinnacle Park",
     image: "/property-videos/pinnacle-park.jpg",
@@ -48,12 +48,12 @@ const properties = [
     title: ["First and Main", "Condominiums"],
     meta: "Northport, AL · 30 condominiums · Student living",
     systems: [
-      ["Sarah", "Answers the phone around the clock."],
+      ["Lyra", "Answers the phone around the clock."],
       ["Kae", "Gives each resident a move-in page as the unit turns."],
       ["Hermes", "Drafts leasing email replies for approval."],
     ],
     description:
-      "At First and Main, leasing questions, maintenance requests, and move-outs move through one shared workflow. A person reviews every message before it reaches a resident.",
+      "At First and Main, leasing questions, maintenance requests, and move-outs move through one shared workflow. Routine answers send on their own; anything about money, a lease, or the law waits for a person.",
     href: "https://www.firstandmaincondos.com/",
     linkLabel: "Visit First and Main",
     image: "/property-videos/first-and-main.jpg",
@@ -64,7 +64,7 @@ const properties = [
     title: ["The Station", "Townhomes"],
     meta: "Northport, AL · 16 townhomes · Student living",
     systems: [
-      ["Sarah", "Catches every inquiry, even after hours."],
+      ["Lyra", "Catches every inquiry, even after hours."],
       ["Kae", "Tracks student turnover through move-in."],
       ["Hermes", "Drafts replies and reminders for approval."],
     ],
@@ -80,12 +80,12 @@ const properties = [
     title: ["Forest Lake", "Homes"],
     meta: "Tuscaloosa, AL · 13 homes including Rosemary Circle · Student living",
     systems: [
-      ["Sarah", "One number, answered day and night."],
+      ["Lyra", "One number, answered day and night."],
       ["Kae", "Move-in pages and turn progress for each house."],
       ["Hermes", "Weekly rent, renewal, and occupancy reports."],
     ],
     description:
-      "At Forest Lake and Rosemary Circle, recurring questions, maintenance follow-up, and renewals stay organized across thirteen homes—while a person still makes every final decision.",
+      "At Forest Lake and Rosemary Circle, recurring questions, maintenance follow-up, and renewals stay organized across thirteen homes—while a person still decides anything about money, a lease, or the law.",
     href: "https://www.forestlakerentals.com/",
     linkLabel: "Visit Forest Lake",
     image: "/property-videos/forest-lake.jpg",

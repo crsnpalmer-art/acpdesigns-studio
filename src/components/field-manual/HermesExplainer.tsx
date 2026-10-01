@@ -17,6 +17,7 @@ import {
   PhoneCallIcon,
   ShieldCheckIcon,
   TrendUpIcon,
+  WrenchIcon,
   XLogoIcon,
 } from "@phosphor-icons/react";
 import { agents, operatingStats, snapshotDate, type AgentId } from "@/content/operating-map";
@@ -33,7 +34,8 @@ type ViewId = (typeof views)[number]["id"];
 const icons = {
   main: CirclesThreePlusIcon,
   work: BuildingsIcon,
-  sarah: PhoneCallIcon,
+  lyra: PhoneCallIcon,
+  maintenance: WrenchIcon,
   collections: CurrencyDollarIcon,
   finance: TrendUpIcon,
   ops: ShieldCheckIcon,
@@ -52,11 +54,11 @@ export default function HermesExplainer() {
       <header className={styles.intro}>
         <div>
           <p>System map · Hermes</p>
-          <h2 id="hermes-title">Eight specialists.<br />One operating center.</h2>
+          <h2 id="hermes-title">A conductor and eight specialists.<br />One operating center.</h2>
         </div>
         <p className={styles.lead}>
           A self-hosted AI team running on one Mac: property operations, leasing,
-          collections, research, system health, and memory—coordinated through chat.
+          maintenance, collections, system health, and memory—coordinated through chat.
           Routine work can send on its own. Money, leases, and legal still wait for a person.
         </p>
       </header>
@@ -64,7 +66,7 @@ export default function HermesExplainer() {
       <dl className={styles.stats} aria-label="Hermes public snapshot">
         <div><dt>{String(operatingStats.agents).padStart(2, "0")}</dt><dd>Specialized agents</dd></div>
         <div><dt>{operatingStats.routines}</dt><dd>Scheduled routines</dd></div>
-        <div><dt>{operatingStats.macJobs}</dt><dd>Local background jobs</dd></div>
+        <div><dt>{String(operatingStats.macJobs).padStart(2, "0")}</dt><dd>Local background jobs</dd></div>
         <div><dt>{String(operatingStats.chats).padStart(2, "0")}</dt><dd>Private chat workspace</dd></div>
       </dl>
 
@@ -119,7 +121,7 @@ export default function HermesExplainer() {
                   <span>One private Telegram group</span>
                   <strong>Ask once. Route to the right lane.</strong>
                 </div>
-                <div className={styles.agentGrid} aria-label="Eight Hermes agents">
+                <div className={styles.agentGrid} aria-label="Nine Hermes lanes">
                   {agents.map((agent) => {
                     const AgentIcon = icons[agent.id];
                     return (
@@ -138,7 +140,7 @@ export default function HermesExplainer() {
                   })}
                 </div>
                 <p className={styles.fleetNote}>
-                  The names are nicknames. Eight lanes in one chat window are easier to
+                  The names are nicknames. Nine lanes in one chat window are easier to
                   run when each one answers to something you can say out loud.
                 </p>
               </div>
@@ -160,21 +162,21 @@ export default function HermesExplainer() {
                   <EnvelopeSimpleIcon aria-hidden="true" />
                   <span>01 · Draft</span>
                   <h3>The system prepares the work.</h3>
-                  <p>Leasing replies, business texts, and trade ideas get a review ID.</p>
+                  <p>Leasing replies and resident messages get a review ID.</p>
                 </article>
                 <ArrowRightIcon aria-hidden="true" />
                 <article className={styles.humanGate}>
                   <LockKeyIcon aria-hidden="true" />
                   <span>02 · Human gate</span>
                   <h3>Approve, edit, skip — or let a checker send.</h3>
-                  <p>Routine leasing replies and short work-text thanks can send when they pass a checker. Money, leases, and legal still wait.</p>
+                  <p>Routine leasing replies and simple resident text answers can send when they pass a checker. Money, leases, and legal still wait.</p>
                 </article>
                 <ArrowRightIcon aria-hidden="true" />
                 <article>
                   <CheckCircleIcon aria-hidden="true" />
                   <span>03 · Act</span>
                   <h3>One narrow action runs.</h3>
-                  <p>The approved message sends—or the approved trade executes—with a receipt.</p>
+                  <p>The approved message sends, with a receipt.</p>
                 </article>
               </div>
               <p className={styles.policyNote}>

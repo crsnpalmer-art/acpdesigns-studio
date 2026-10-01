@@ -83,7 +83,7 @@ export default function PrivacyPage() {
               payment forms, or resident-information forms.
             </p>
             <p className="mt-6 text-sm text-white/50">
-              Last updated: July 17, 2026
+              Last updated: October 1, 2026
             </p>
           </div>
 
@@ -187,8 +187,10 @@ export default function PrivacyPage() {
                 shared for unrelated marketing.
               </p>
               <p className="mt-4">
-                The integration may prepare drafts. It does not send resident or
-                business messages unless Carson explicitly approves them.
+                The integration may prepare drafts. It sends only through workflows
+                Carson has approved: routine leasing replies that pass an automatic
+                checker, and drafts he approves one by one. Messages about money,
+                leases, or legal matters always wait for him.
               </p>
             </section>
 

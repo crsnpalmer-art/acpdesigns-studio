@@ -23,28 +23,28 @@ const moments = [
   },
   {
     when: "All day",
-    title: "Sarah answers the phone",
-    detail: "Leasing and maintenance calls become organized requests, day or night.",
+    title: "Lyra answers the phone",
+    detail: "Leasing and maintenance calls and texts become organized requests, day or night.",
   },
   {
-    when: "All day",
-    title: "Move-in pages update",
-    detail: "As a student unit turns, the resident's move-in page stays current.",
+    when: "Morning",
+    title: "The turn board lands",
+    detail: "Each turning unit's checklist, printed for the crew.",
   },
   {
     when: "All day",
     title: "Approvals, not busywork",
-    detail: "Drafts and work orders queue up. Routine thanks can send. Money, leases, and legal wait for APPROVE.",
+    detail: "Drafts queue up. Routine answers can send. Money, leases, and legal wait for APPROVE.",
   },
   {
     when: "Evening",
     title: "Follow-up sweep",
-    detail: "Vendors get chased, voice calls get quality-checked, stuck work gets flagged.",
+    detail: "Calls and texts get quality-checked, and missed jobs get re-run.",
   },
   {
     when: "Overnight",
     title: "The system tends itself",
-    detail: "Backups run, memory logs write, the shared wiki is verified.",
+    detail: "Memory logs write, the shared wiki is filed and saved; weekly backups run.",
   },
   {
     when: "Weekly",

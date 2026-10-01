@@ -21,21 +21,21 @@ const projectGroups = [
     slug: "property-workflows",
     projects: [
       {
-        name: "Sarah",
-        detail: "Voice AI for leasing and maintenance intake.",
+        name: "Lyra",
+        detail: "AI voice and text line for leasing and maintenance.",
         status: "Live",
         href: "#hermes",
       },
       {
         name: "AppFolio Workflow",
-        detail: "Work orders prepared for a person to approve.",
+        detail: "Open work orders organized for each vendor, every morning.",
         status: "Live",
         href: "#hermes",
       },
       {
         name: "Kae",
-        detail: "Personalized move-in pages with turn progress.",
-        status: "Live",
+        detail: "Move-in pages and turn checklists for student units.",
+        status: "Seasonal",
         href: "#case-studies",
       },
       {
@@ -208,7 +208,7 @@ export default function FieldManualPage() {
           <p className={styles.sectionLabel} id="chapter-map-title">Chapters</p>
           <ol>
             <li><span>01</span><a href="#projects"><strong>Projects</strong><small>Live work, real impact.</small></a></li>
-            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>Eight specialists, one private system.</small></a></li>
+            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>A conductor and eight specialists, one private system.</small></a></li>
             <li><span>03</span><a href="#systems"><strong>How I work</strong><small>Operations become systems.</small></a></li>
             <li><span>04</span><a href="#field-notes"><strong>What I&apos;ve learned</strong><small>Patterns worth keeping.</small></a></li>
           </ol>
