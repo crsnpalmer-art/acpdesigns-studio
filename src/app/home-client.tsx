@@ -221,8 +221,8 @@ const projects: Project[] = [
   {
     id: "habitforge",
     name: "HabitForge",
-    status: "Live brand, active product",
-    access: "Public preview",
+    status: "Brand site live",
+    access: "iOS launching soon",
     category: "Habit system",
     why: "Most habit apps punish you for missing a day. This one doesn't.",
     summary:
@@ -231,7 +231,7 @@ const projects: Project[] = [
       "Open it in the morning, log a short reflection in each pillar, and get back to your day. No streaks to break, no leaderboards. Logs are private and stay private.",
     metrics: [
       { label: "Pillars", value: "4" },
-      { label: "Platforms", value: "Web + iOS" },
+      { label: "Platforms", value: "Web live · iOS soon" },
       { label: "Domain", value: "HabitForgeAI.com" },
     ],
     href: "https://habitforgeai.com",
@@ -370,7 +370,7 @@ const appShowcases: Record<
 > = {
   habitforge: {
     tagline: "Calm structure across four pillars.",
-    bullets: ["Web + iOS", "No streak shaming", "Daily reflection"],
+    bullets: ["Web live", "iOS launching soon", "No streak shaming"],
     ctaLabel: "Visit HabitForge",
     ctaHref: "https://habitforgeai.com",
   },

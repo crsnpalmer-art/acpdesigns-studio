@@ -1,0 +1,358 @@
+.map {
+  --hermes-blue: #4f83ce;
+  background:
+    linear-gradient(rgba(79, 131, 206, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 131, 206, 0.08) 1px, transparent 1px),
+    var(--ink);
+  background-size: 3rem 3rem;
+  color: var(--paper);
+  margin: 5.25rem 3.5rem 0 4.8rem;
+  overflow: visible;
+  position: relative;
+}
+
+.map::before {
+  border: 1px solid rgba(79, 131, 206, 0.28);
+  border-radius: 50%;
+  content: "";
+  height: 36rem;
+  pointer-events: none;
+  position: absolute;
+  right: -18rem;
+  top: -17rem;
+  width: 36rem;
+}
+
+.intro {
+  align-items: end;
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: 1.2fr 0.8fr;
+  padding: clamp(2rem, 4vw, 4.5rem);
+  position: relative;
+}
+
+.intro > div > p,
+.dossier header > p,
+.blocks > section > p {
+  color: var(--orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+.intro h1 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3.2rem, 6vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+  margin: 0;
+  max-width: 11ch;
+}
+
+.lead {
+  color: #d8d3ca;
+  font-size: clamp(0.86rem, 1.2vw, 1.05rem);
+  line-height: 1.75;
+  margin: 0;
+  max-width: 43ch;
+}
+
+.stats {
+  border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+  border-top: 1px solid rgba(243, 239, 230, 0.2);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+}
+
+.stats div {
+  border-right: 1px solid rgba(243, 239, 230, 0.2);
+  padding: 1.35rem clamp(1rem, 2vw, 2rem);
+}
+
+.stats div:last-child {
+  border-right: 0;
+}
+
+.stats dt {
+  color: var(--orange);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 3vw, 3.25rem);
+  line-height: 1;
+}
+
+.stats dd {
+  color: #cfc9c0;
+  font-size: 0.81rem;
+  letter-spacing: 0.06em;
+  margin: 0.45rem 0 0;
+  text-transform: uppercase;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  position: relative;
+}
+
+.laneNav {
+  align-self: start;
+  border-right: 1px solid rgba(243, 239, 230, 0.2);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.laneNav a {
+  align-items: center;
+  border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+  color: #d8d3ca;
+  display: grid;
+  gap: 0.15rem 0.85rem;
+  grid-template-columns: 1.4rem 1fr;
+  min-height: 4.2rem;
+  padding: 0.85rem 1.1rem;
+}
+
+.laneNav a:hover,
+.laneNav a:focus-visible {
+  background: rgba(243, 239, 230, 0.06);
+  color: var(--paper);
+}
+
+.laneNav svg {
+  color: var(--orange);
+  grid-row: span 2;
+  height: 1.15rem;
+  width: 1.15rem;
+}
+
+.laneNav span {
+  color: var(--orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.laneNav strong {
+  font-size: 0.86rem;
+  font-weight: 620;
+}
+
+.dossiers {
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier {
+  border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+  padding: clamp(1.6rem, 3vw, 3rem);
+  scroll-margin-top: 1rem;
+}
+
+.dossier header {
+  margin-bottom: 1.8rem;
+  max-width: 42rem;
+}
+
+.dossier header svg {
+  color: var(--hermes-blue);
+  height: 2rem;
+  margin-bottom: 0.85rem;
+  width: 2rem;
+}
+
+.dossier h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  margin: 0 0 0.45rem;
+}
+
+.dossier header strong {
+  color: #cfc9c0;
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 620;
+}
+
+.blocks {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.blocks > section {
+  border: 1px solid rgba(243, 239, 230, 0.16);
+  padding: 1.15rem 1.2rem 1.3rem;
+}
+
+.blocks > section > span,
+.blocks > section li,
+.empty {
+  color: #d8d3ca;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.blocks ul,
+.blocks ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blocks ul li + li {
+  margin-top: 0.65rem;
+}
+
+.blocks ol li {
+  border-top: 1px solid rgba(243, 239, 230, 0.12);
+  display: grid;
+  gap: 0.2rem 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 0.85rem 0 0;
+}
+
+.blocks ol li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.blocks ol strong {
+  color: var(--paper);
+  font-size: 0.92rem;
+  font-weight: 680;
+}
+
+.blocks ol em {
+  color: var(--orange);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  max-width: 14ch;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.blocks ol span {
+  color: #c5c0b7;
+  font-size: 0.84rem;
+  grid-column: 1 / -1;
+  line-height: 1.5;
+}
+
+.empty {
+  margin: 0;
+}
+
+.note {
+  align-items: center;
+  border-top: 1px solid rgba(243, 239, 230, 0.2);
+  color: #c5c0b7;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto 1fr auto;
+  padding: 1.4rem 1.6rem;
+}
+
+.note p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.note a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.note svg {
+  color: var(--hermes-blue);
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+  .blocks {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .map {
+    margin: 1rem 1rem 0;
+  }
+
+  .intro,
+  .layout,
+  .stats,
+  .note {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    gap: 1.5rem;
+    padding: 1.6rem 1.2rem;
+  }
+
+  .stats div,
+  .stats div:last-child {
+    border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+    border-right: 0;
+  }
+
+  .laneNav {
+    background: var(--ink);
+    border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+    border-right: 0;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    top: 0;
+  }
+
+  .laneNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .laneNav a {
+    border-bottom: 0;
+    border-right: 1px solid rgba(243, 239, 230, 0.2);
+    min-width: 10.5rem;
+  }
+
+  .dossier {
+    padding: 1.4rem 1.1rem 1.6rem;
+    scroll-margin-top: 5.2rem;
+  }
+
+  .blocks ol li {
+    grid-template-columns: 1fr;
+  }
+
+  .blocks ol em {
+    text-align: left;
+  }
+
+  .note {
+    gap: 0.75rem;
+    padding: 1.1rem;
+  }
+
+  .note svg:last-child {
+    display: none;
+  }
+}

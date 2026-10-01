@@ -9,205 +9,43 @@ import {
   ChatCircleDotsIcon,
   CheckCircleIcon,
   CirclesThreePlusIcon,
-  ClockCountdownIcon,
   CurrencyDollarIcon,
   DatabaseIcon,
   EnvelopeSimpleIcon,
   GitMergeIcon,
-  HardDrivesIcon,
   LockKeyIcon,
   PhoneCallIcon,
   ShieldCheckIcon,
   TrendUpIcon,
   XLogoIcon,
 } from "@phosphor-icons/react";
+import { agents, operatingStats, snapshotDate, type AgentId } from "@/content/operating-map";
 import styles from "./HermesExplainer.module.css";
 
 const views = [
   { id: "fleet", label: "The fleet" },
-  { id: "schedule", label: "The schedule" },
   { id: "approval", label: "Approval gates" },
   { id: "memory", label: "Memory + review" },
 ] as const;
 
 type ViewId = (typeof views)[number]["id"];
 
-const agents = [
-  {
-    id: "main",
-    lane: "Main",
-    name: "Lebot James",
-    title: "Conductor",
-    detail: "Triages requests, routes work to specialists, handles general tasks, email digests, and side projects.",
-    icon: CirclesThreePlusIcon,
-  },
-  {
-    id: "work",
-    lane: "Work",
-    name: "Eddie Morra",
-    title: "Property operations",
-    detail: "Owns AppFolio workflows, occupancy, renewals, operating reports, and review-ready business message drafts.",
-    icon: BuildingsIcon,
-  },
-  {
-    id: "sarah",
-    lane: "Sarah",
-    name: "Sarah",
-    title: "Leasing + intake",
-    detail: "Handles leasing inquiries, maintenance intake, and quality checks for the phone-based voice assistant.",
-    icon: PhoneCallIcon,
-  },
-  {
-    id: "collections",
-    lane: "Collections",
-    name: "Collections Desk",
-    title: "Late rent + payment plans",
-    detail: "Prepares late-rent reports, payment-plan follow-up, balance summaries, and property financial snapshots.",
-    icon: CurrencyDollarIcon,
-  },
-  {
-    id: "finance",
-    lane: "Finance",
-    name: "Michael Burry",
-    title: "Trading research",
-    detail: "Runs market scans, reviews signals, keeps research organized, and puts every possible trade behind approval.",
-    icon: TrendUpIcon,
-  },
-  {
-    id: "ops",
-    lane: "Ops",
-    name: "Guardian Zero",
-    title: "System health",
-    detail: "Watches connections, schedules, credentials, backups, and failures so the operations center can report on itself.",
-    icon: ShieldCheckIcon,
-  },
-  {
-    id: "memory",
-    lane: "Memory",
-    name: "Archive Monk",
-    title: "Shared knowledge",
-    detail: "Maintains daily logs, long-term memory, the planning wiki, and the lessons that every coding lane can reuse.",
-    icon: BrainIcon,
-  },
-  {
-    id: "tweeter",
-    lane: "Tweeter",
-    name: "Tweeter",
-    title: "X research",
-    detail: "Runs X research and market scans with the tool best suited to that source.",
-    icon: XLogoIcon,
-  },
-] as const;
-
-const chatRoutines = [
-  {
-    group: "Main lane",
-    jobs: [
-      ["Move-in portal updates", "Every 5 min", "Keeps each resident’s move-in page current as turns finish."],
-      ["Paint and clean sync", "Daytime", "Keeps vendor turnover boards current while crews are working."],
-      ["Turnover health check", "Hourly", "Flags stalled paint or clean work before it slips."],
-      ["Move-out form ping", "Every 6 hours", "Alerts when a new move-out form arrives."],
-      ["Failure watchdog", "Daily", "Checks that every other scheduled job actually ran."],
-    ],
-  },
-  {
-    group: "Property (Work lane)",
-    jobs: [
-      ["Morning digest", "Daily", "One property briefing before the workday starts."],
-      ["Sarah call QA", "Nightly", "Reviews the day's voice-agent calls for quality."],
-      ["Business text ping", "3× weekdays", "Flags new work texts that need attention."],
-      ["Business text drafts", "Weekday mornings", "Drafts replies to work texts for approval."],
-      ["Occupancy report", "Weekly", "Where every unit stands, every Sunday."],
-      ["Tenant directory refresh", "Weekly", "Keeps the tenant roster current."],
-      ["Monday sweep", "Weekly", "Start-of-week pass over open property items."],
-      ["Lease renewal pipeline", "Weekly", "Who's coming due and what to offer."],
-      ["Work-order history sync", "Monthly", "Refreshes the long-term maintenance record."],
-    ],
-  },
-  {
-    group: "Collections lane",
-    jobs: [
-      ["Delinquency report", "Monday", "Late rent, payment plans, and follow-ups."],
-      ["P&L summary", "Friday", "The week's property finances in one note."],
-    ],
-  },
-  {
-    group: "Finance lane",
-    jobs: [
-      ["Market scan", "3× weekdays", "Research sweep of watched tickers."],
-      ["End-of-day review", "Weekdays", "What the research got right and wrong today."],
-      ["Research vault commit", "Nightly", "Saves the day's research history."],
-    ],
-  },
-  {
-    group: "Memory lane",
-    jobs: [
-      ["Daily log writer", "Nightly", "Writes the day's events to long-term memory."],
-      ["Wiki synthesize", "Twice daily", "Turns new notes into shared project pages."],
-      ["Nightly curator", "Nightly", "Files the day's useful facts into the shared map."],
-      ["Weekly review", "Friday", "Distills the week into lessons worth keeping."],
-      ["Tenant wiki ingest", "Weekly", "Folds the week's changes into Sarah's knowledge base."],
-      ["Weekly wiki review", "Sunday", "Sunday pass over the week's curated notes."],
-    ],
-  },
-  {
-    group: "Tweeter lane",
-    jobs: [["X research scan", "3× weekdays", "Market and research sweep on X."]],
-  },
-];
-
-const backgroundJobs = [
-  {
-    group: "Property data",
-    jobs: [
-      ["AppFolio sync", "Daily, pre-dawn", "Pulls fresh property data before the workday."],
-      ["Browser profile monitor", "Every 6 hours", "Keeps the automation browser signed in and healthy."],
-    ],
-  },
-  {
-    group: "Email",
-    jobs: [
-      ["Email pipeline", "Every 5 min", "Gmail triage, alerts, and leasing reply drafts."],
-      ["Email pipeline watchdog", "Continuous", "Restarts the mail sorter if it stalls."],
-    ],
-  },
-  {
-    group: "Sarah",
-    jobs: [
-      ["Emergency queue drain", "Every 5 min", "Makes sure urgent maintenance calls are never stuck."],
-      ["Knowledge sync", "Weekly", "Refreshes what the voice agent knows about each property."],
-    ],
-  },
-  {
-    group: "Trading",
-    jobs: [
-      ["Auth heartbeat", "4× daily", "Confirms broker access is alive before it's needed."],
-      ["Signal rescore", "Every 5 min", "Refreshes market signal scores through the day."],
-      ["Stop-level monitor", "Market hours", "Watches exit levels on open positions."],
-      ["Watchlist sync", "Nightly", "Updates the next day's watchlist."],
-      ["Heartbeat summary", "Daily", "One end-of-day note on system activity."],
-      ["Dashboard publish", "Hourly, market hours", "Refreshes the private trading dashboard."],
-    ],
-  },
-  {
-    group: "Operations + memory",
-    jobs: [
-      ["Approval re-ping", "Daily", "Nudges any property approval still waiting on a human."],
-      ["Vendor follow-up", "Mon / Wed / Fri", "Chases open vendor work so it doesn't stall."],
-      ["Credential monitor", "Weekly", "Warns before Google access quietly expires."],
-      ["Wiki memory watcher", "Continuous", "Indexes new notes into the shared knowledge base."],
-      ["Wiki verify", "Weekly", "Checks the shared map still matches the live system."],
-      ["Weekly backup", "Sunday, pre-dawn", "Full backup of the operations workspace."],
-      ["Delivery retry", "Continuous", "Retries messages that didn't send the first time."],
-    ],
-  },
-];
+const icons = {
+  main: CirclesThreePlusIcon,
+  work: BuildingsIcon,
+  sarah: PhoneCallIcon,
+  collections: CurrencyDollarIcon,
+  finance: TrendUpIcon,
+  ops: ShieldCheckIcon,
+  memory: BrainIcon,
+  tweeter: XLogoIcon,
+} as const;
 
 export default function HermesExplainer() {
   const [view, setView] = useState<ViewId>("fleet");
-  const [agentId, setAgentId] = useState<(typeof agents)[number]["id"]>("main");
+  const [agentId, setAgentId] = useState<AgentId>("main");
   const selectedAgent = agents.find((agent) => agent.id === agentId) ?? agents[0];
-  const SelectedIcon = selectedAgent.icon;
+  const SelectedIcon = icons[selectedAgent.id];
 
   return (
     <section id="hermes" className={styles.hermes} aria-labelledby="hermes-title">
@@ -224,11 +62,17 @@ export default function HermesExplainer() {
       </header>
 
       <dl className={styles.stats} aria-label="Hermes public snapshot">
-        <div><dt>08</dt><dd>Specialized agents</dd></div>
-        <div><dt>26</dt><dd>Scheduled routines</dd></div>
-        <div><dt>19</dt><dd>Local background jobs</dd></div>
-        <div><dt>01</dt><dd>Private chat workspace</dd></div>
+        <div><dt>{String(operatingStats.agents).padStart(2, "0")}</dt><dd>Specialized agents</dd></div>
+        <div><dt>{operatingStats.routines}</dt><dd>Scheduled routines</dd></div>
+        <div><dt>{operatingStats.macJobs}</dt><dd>Local background jobs</dd></div>
+        <div><dt>{String(operatingStats.chats).padStart(2, "0")}</dt><dd>Private chat workspace</dd></div>
       </dl>
+
+      <a className={styles.mapCta} href="/systems">
+        <span>Open the operating map</span>
+        <small>Every specialist, their chat schedule, and their Mac jobs.</small>
+        <ArrowRightIcon aria-hidden="true" />
+      </a>
 
       <div className={styles.explorer}>
         <div className={styles.tabs} role="tablist" aria-label="Explore the Hermes system">
@@ -277,7 +121,7 @@ export default function HermesExplainer() {
                 </div>
                 <div className={styles.agentGrid} aria-label="Eight Hermes agents">
                   {agents.map((agent) => {
-                    const AgentIcon = agent.icon;
+                    const AgentIcon = icons[agent.id];
                     return (
                       <button
                         key={agent.id}
@@ -306,59 +150,6 @@ export default function HermesExplainer() {
                 <span>{selectedAgent.detail}</span>
                 <small>Runs on the AI that best fits the job.</small>
               </aside>
-            </div>
-          )}
-
-          {view === "schedule" && (
-            <div className={styles.scheduleView}>
-              <article>
-                <div className={styles.viewHeading}>
-                  <ClockCountdownIcon aria-hidden="true" />
-                  <span>Layer 01 · 26 routines</span>
-                  <h3>Recurring chat routines</h3>
-                  <p>Scheduled work that reports back to the right private chat.</p>
-                </div>
-                {chatRoutines.map((section) => (
-                  <div className={styles.scheduleGroup} key={section.group}>
-                    <p>{section.group}</p>
-                    <ol>
-                      {section.jobs.map(([name, cadence, job]) => (
-                        <li key={name}>
-                          <strong>{name}</strong>
-                          <em>{cadence}</em>
-                          <span>{job}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </article>
-              <article>
-                <div className={styles.viewHeading}>
-                  <HardDrivesIcon aria-hidden="true" />
-                  <span>Layer 02 · 19 jobs</span>
-                  <h3>Local background jobs</h3>
-                  <p>Small local programs gather data, watch health, and keep the work grounded.</p>
-                </div>
-                {backgroundJobs.map((section) => (
-                  <div className={styles.scheduleGroup} key={section.group}>
-                    <p>{section.group}</p>
-                    <ol>
-                      {section.jobs.map(([name, cadence, job]) => (
-                        <li key={name}>
-                          <strong>{name}</strong>
-                          <em>{cadence}</em>
-                          <span>{job}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </article>
-              <p className={styles.scheduleNote}>
-                Snapshot verified August 13, 2026, against the live system. One-off reminders come and go as needed
-                and aren&apos;t listed. Names are public-friendly; private IDs and paths stay private.
-              </p>
             </div>
           )}
 
@@ -427,7 +218,7 @@ export default function HermesExplainer() {
         <div><span>Before I wake</span><p>Property data syncs. The morning digest waits.</p></div>
         <div><span>Through the day</span><p>New work becomes a draft, alert, or routed specialist task.</p></div>
         <div><span>My part</span><p>Read the signal. Type APPROVE when money, a lease, or the law is on the line.</p></div>
-        <small><ShieldCheckIcon aria-hidden="true" />Public map. Private IDs, paths, and topic numbers omitted.</small>
+        <small><ShieldCheckIcon aria-hidden="true" />Snapshot {snapshotDate}. Public names only.</small>
       </footer>
     </section>
   );

@@ -21,6 +21,10 @@
   container-type: inline-size;
 }
 
+.manualScroll {
+  overflow: visible;
+}
+
 .manual ::selection {
   background: var(--orange);
   color: white;
@@ -126,7 +130,8 @@
 
 .primaryNav a:hover::after,
 .primaryNav a:focus-visible::after,
-.primaryNav a[aria-current="true"]::after {
+.primaryNav a[aria-current="true"]::after,
+.primaryNav a[aria-current="page"]::after {
   transform: scaleX(1);
 }
 
@@ -1324,6 +1329,10 @@
     display: block;
     min-height: 2.5rem;
     padding: 0.75rem 0.85rem;
+  }
+
+  .primaryNav a[aria-current="page"] {
+    border-color: var(--orange);
   }
 
   .primaryNav a::after,

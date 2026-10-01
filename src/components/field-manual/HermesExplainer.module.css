@@ -89,10 +89,45 @@
 
 .stats dd {
   color: #cfc9c0;
-  font-size: 0.53rem;
-  letter-spacing: 0.08em;
+  font-size: 0.81rem;
+  letter-spacing: 0.06em;
   margin: 0.45rem 0 0;
   text-transform: uppercase;
+}
+
+.mapCta {
+  align-items: center;
+  border-bottom: 1px solid rgba(243, 239, 230, 0.2);
+  color: var(--paper);
+  display: grid;
+  gap: 0.15rem 1.2rem;
+  grid-template-columns: 1fr auto;
+  padding: 1.15rem clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.mapCta span {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.mapCta small {
+  color: #c5c0b7;
+  font-size: 0.84rem;
+  grid-column: 1;
+  line-height: 1.45;
+}
+
+.mapCta svg {
+  color: var(--orange);
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.mapCta:hover,
+.mapCta:focus-visible {
+  background: rgba(243, 239, 230, 0.06);
 }
 
 .explorer {

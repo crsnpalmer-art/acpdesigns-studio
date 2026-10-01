@@ -68,7 +68,7 @@ export const changelog: ChangelogEntry[] = [
     hrefLabel: "Visit HabitForge",
   },
   {
-    date: "2026-03-25",
+    date: "2026-04-23",
     category: "systems",
     title: "Sarah goes live on (866) 953-8055",
     body: "A 24/7 AI voice agent answers the property line, takes details, and routes work to the right place.",

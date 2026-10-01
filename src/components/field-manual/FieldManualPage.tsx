@@ -2,17 +2,14 @@ import Image from "next/image";
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
-  BuildingsIcon,
   CheckCircleIcon,
-  CirclesThreePlusIcon,
   ClipboardTextIcon,
   FlowArrowIcon,
-  GlobeHemisphereWestIcon,
-  MapPinIcon,
   PhoneCallIcon,
   ShieldCheckIcon,
 } from "@phosphor-icons/react/ssr";
 import DayTimeline from "./DayTimeline";
+import FieldManualChrome from "./FieldManualChrome";
 import HermesExplainer from "./HermesExplainer";
 import PropertyShowcase from "./PropertyShowcase";
 import SystemField from "./SystemField";
@@ -125,39 +122,12 @@ const propertySites = [
 
 export default function FieldManualPage() {
   return (
-    <main id="top" className={styles.manual}>
-      <a className={styles.skipLink} href="#main-content">
-        Skip to the work
-      </a>
-
-      <span className={styles.readingLine} aria-hidden="true" />
-
-      <header className={styles.header}>
-        <a href="#top" className={styles.identity} aria-label="ACP Designs Studio home">
-          <Image src="/apple-icon" width={36} height={36} alt="" className={styles.mark} />
-          <span>
-            <strong>ACP Designs Studio</strong>
-            <small>Carson Palmer</small>
-          </span>
-        </a>
-        <nav aria-label="Primary" className={styles.primaryNav}>
-          <ul className={styles.scrollSpy}>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#hermes">Systems</a></li>
-            <li><a href="#case-studies">Case studies</a></li>
-            <li><a href="#field-notes">What I&apos;ve learned</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-        <p className={styles.location}>Tuscaloosa, AL<br />Property systems studio</p>
-      </header>
-
-      <aside className={styles.marginRail} aria-hidden="true">
-        <span>v1.0</span>
-        <span>Field Manual</span>
-        <span>Real Property Operations</span>
-      </aside>
-
+    <FieldManualChrome
+      page="home"
+      skipHref="#main-content"
+      skipLabel="Skip to the work"
+      rail={["v1.0", "Field Manual", "Real Property Operations"]}
+    >
       <section id="main-content" className={styles.hero} aria-labelledby="hero-title">
         <SystemField />
         <div className={styles.heroCopy}>
@@ -238,7 +208,7 @@ export default function FieldManualPage() {
           <p className={styles.sectionLabel} id="chapter-map-title">Chapters</p>
           <ol>
             <li><span>01</span><a href="#projects"><strong>Projects</strong><small>Live work, real impact.</small></a></li>
-            <li><span>02</span><a href="#hermes"><strong>Systems</strong><small>Eight specialists, one private system.</small></a></li>
+            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>Eight specialists, one private system.</small></a></li>
             <li><span>03</span><a href="#systems"><strong>How I work</strong><small>Operations become systems.</small></a></li>
             <li><span>04</span><a href="#field-notes"><strong>What I&apos;ve learned</strong><small>Patterns worth keeping.</small></a></li>
           </ol>
@@ -369,34 +339,6 @@ export default function FieldManualPage() {
         </article>
       </section>
 
-      <footer id="contact" className={styles.footer}>
-        <div className={styles.footerBrand}>
-          <Image src="/apple-icon" width={54} height={54} alt="" />
-          <p>ACP Designs Studio<small>Carson Palmer</small></p>
-        </div>
-        <div className={styles.footerStatement}>
-          <p>Let&apos;s build something<br />useful together.</p>
-        </div>
-        <div className={styles.footerContact}>
-          <p className={styles.sectionLabel}>Tell me about your work.</p>
-          <a href="mailto:crsnpalmer@gmail.com">
-            Start a conversation <ArrowRightIcon aria-hidden="true" />
-          </a>
-        </div>
-        <div className={styles.footerLocation}>
-          <MapPinIcon aria-hidden="true" />
-          <p>33.2098° N<br />87.5692° W</p>
-        </div>
-        <div className={styles.footerRule}>
-          <p>© 2026 ACP Designs Studio</p>
-          <p>Built in Tuscaloosa. Working wherever better systems help.</p>
-          <a href="/privacy">Privacy &amp; data use</a>
-        </div>
-      </footer>
-
-      <div className={styles.decorativeIcons} aria-hidden="true">
-        <BuildingsIcon /><CirclesThreePlusIcon /><GlobeHemisphereWestIcon />
-      </div>
-    </main>
+    </FieldManualChrome>
   );
 }
