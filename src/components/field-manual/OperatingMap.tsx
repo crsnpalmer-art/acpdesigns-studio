@@ -20,6 +20,7 @@ import {
   type Job,
 } from "@/content/operating-map";
 import styles from "./OperatingMap.module.css";
+import SystemsSections, { RequestLoop } from "./SystemsSections";
 
 const icons = {
   main: CirclesThreePlusIcon,
@@ -34,16 +35,16 @@ const icons = {
 } as const;
 
 const emptyChat: Partial<Record<AgentId, string>> = {
-  finance: "No chat routines. This lane is paused.",
-  tweeter: "No chat routines. This lane is paused.",
+  finance: "No scheduled jobs. Scans are paused; this lane works on request.",
+  tweeter: "No scheduled jobs. Scans are paused; this lane works on request.",
 };
 
 const emptyMac: Partial<Record<AgentId, string>> = {
-  main: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
-  work: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
-  collections: "No background jobs on this lane. Studio Mac health lives with Guardian Zero.",
-  finance: "No background jobs. This lane is paused.",
-  tweeter: "No background jobs. This lane is paused.",
+  main: "No background jobs on this lane. Studio Mac health lives with System Health.",
+  work: "No background jobs on this lane. Studio Mac health lives with System Health.",
+  collections: "No background jobs on this lane. Studio Mac health lives with System Health.",
+  finance: "No background jobs.",
+  tweeter: "No background jobs.",
 };
 
 function JobList({ jobs, empty }: { jobs: Job[]; empty?: string }) {
@@ -53,13 +54,31 @@ function JobList({ jobs, empty }: { jobs: Job[]; empty?: string }) {
 
   return (
     <ol>
-      {jobs.map((job) => (
-        <li key={job.name}>
-          <strong>{job.name}</strong>
-          <em>{job.cadence}</em>
-          <span>{job.detail}</span>
-        </li>
-      ))}
+      {jobs.map((job) =>
+        job.guide ? (
+          <li key={job.name} className={styles.jobItem}>
+            <details className={styles.job}>
+              <summary>
+                <strong>{job.name}</strong>
+                <em>{job.cadence}</em>
+                <span>{job.detail}</span>
+              </summary>
+              <dl className={styles.guide}>
+                <div><dt>Reads</dt><dd>{job.guide.reads}</dd></div>
+                <div><dt>How it works</dt><dd>{job.guide.how}</dd></div>
+                <div><dt>Result</dt><dd>{job.guide.result}</dd></div>
+                <div><dt>Carson&rsquo;s part</dt><dd>{job.guide.you}</dd></div>
+              </dl>
+            </details>
+          </li>
+        ) : (
+          <li key={job.name}>
+            <strong>{job.name}</strong>
+            <em>{job.cadence}</em>
+            <span>{job.detail}</span>
+          </li>
+        ),
+      )}
     </ol>
   );
 }
@@ -76,6 +95,7 @@ function Dossier({ agent }: { agent: Agent }) {
         <p>{agent.lane} lane</p>
         <h2 id={`${agent.id}-title`}>{agent.name}</h2>
         <strong>{agent.title}</strong>
+        {agent.model && <small className={styles.model}>Runs on {agent.model}</small>}
       </header>
 
       <div className={styles.blocks}>
@@ -92,7 +112,7 @@ function Dossier({ agent }: { agent: Agent }) {
           </ul>
         </section>
         <section>
-          <p>Chat schedules</p>
+          <p>Scheduled jobs · open one to see how it works</p>
           <JobList jobs={agent.chatRoutines} empty={emptyChat[agent.id]} />
         </section>
         <section>
@@ -111,21 +131,23 @@ export default function OperatingMap() {
       <header className={styles.intro}>
         <div>
           <p>Operating map · Hermes</p>
-          <h1 id="systems-title">One Mac.<br />A conductor and eight specialists.</h1>
+          <h1 id="systems-title">One Mac.<br />Nine lanes.</h1>
         </div>
         <p className={styles.lead}>
-          One private chat, nine named lanes, and a human gate for money, leases, and legal.
-          This page is the public map: what each specialist owns, when they check in, and
-          which background jobs keep the studio Mac honest.
+          One private chat, a dispatcher and eight specialists, and a human gate for money,
+          leases, and legal. This page is the public map: what each lane owns, what every
+          scheduled job does and how, and the background jobs that keep the studio Mac honest.
         </p>
       </header>
 
       <dl className={styles.stats} aria-label="Hermes public snapshot">
-        <div><dt>{String(operatingStats.agents).padStart(2, "0")}</dt><dd>Specialized agents</dd></div>
-        <div><dt>{operatingStats.routines}</dt><dd>Chat routines</dd></div>
-        <div><dt>{String(operatingStats.macJobs).padStart(2, "0")}</dt><dd>Mac background jobs</dd></div>
+        <div><dt>{String(operatingStats.agents).padStart(2, "0")}</dt><dd>Hermes lanes</dd></div>
+        <div><dt>{operatingStats.routines}</dt><dd>Scheduled jobs</dd></div>
+        <div><dt>{String(operatingStats.macJobs).padStart(2, "0")}</dt><dd>Mac services</dd></div>
         <div><dt>{String(operatingStats.chats).padStart(2, "0")}</dt><dd>Private chat workspace</dd></div>
       </dl>
+
+      <RequestLoop />
 
       <div className={styles.layout}>
         <nav className={styles.laneNav} aria-label="Specialists">
@@ -147,6 +169,8 @@ export default function OperatingMap() {
           ))}
         </div>
       </div>
+
+      <SystemsSections />
 
       <footer className={styles.note}>
         <ChatCircleDotsIcon aria-hidden="true" />

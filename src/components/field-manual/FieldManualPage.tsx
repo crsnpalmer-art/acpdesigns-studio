@@ -13,6 +13,7 @@ import FieldManualChrome from "./FieldManualChrome";
 import HermesExplainer from "./HermesExplainer";
 import PropertyShowcase from "./PropertyShowcase";
 import SystemField from "./SystemField";
+import WorkflowFilm from "./WorkflowFilm";
 import styles from "./FieldManual.module.css";
 
 const projectGroups = [
@@ -131,35 +132,35 @@ export default function FieldManualPage() {
       <section id="main-content" className={styles.hero} aria-labelledby="hero-title">
         <SystemField />
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>ACP Designs Studio</p>
-          <h1 id="hero-title">Real work.<br />Better systems<span>.</span></h1>
+          <p className={styles.eyebrow}>ACP Designs Studio · Tuscaloosa, Alabama</p>
+          <p className={styles.heroWordmark} aria-hidden="true">ACP</p>
+          <h1 id="hero-title">Real work. <em>Better systems</em><span>.</span></h1>
           <p className={styles.heroLead}>
             I go into the messy parts of property operations and come back with calm,
             useful systems—built for people, not dashboards.
           </p>
           <div className={styles.heroActions}>
-            <a className={styles.primaryButton} href="#projects">
-              See the work <ArrowRightIcon aria-hidden="true" />
+            <a className={styles.primaryButton} href="#workflow">
+              Enter the field <ArrowRightIcon aria-hidden="true" />
             </a>
-            <p><strong>Proof, not promises.</strong><span>109 rental units · 5 communities · human approval built in</span></p>
+            <a className={styles.secondaryButton} href="/systems">
+              Systems map <ArrowUpRightIcon aria-hidden="true" />
+            </a>
           </div>
-        </div>
-        <div className={styles.heroVisual}>
-          <Image
-            src="/editorial/field-system-collage.png"
-            width={1536}
-            height={1024}
-            priority
-            sizes="(max-width: 900px) 100vw, 60vw"
-            alt="Editorial field diagram connecting a phone call, work order, checklist, property, and operator"
-          />
+          <dl className={styles.heroProof} aria-label="ACP field snapshot">
+            <div><dt>109</dt><dd>Palmer-managed rentals</dd></div>
+            <div><dt>05</dt><dd>Communities</dd></div>
+            <div><dt>24/7</dt><dd>Answered calls</dd></div>
+          </dl>
           <div className={styles.approvalStamp}>
             <ShieldCheckIcon aria-hidden="true" />
-            <span>Approved<br />by human</span>
+            <span>Human judgment<br />stays in the loop</span>
           </div>
         </div>
-        <div className={styles.scaleNote} aria-hidden="true">Scale 1:100</div>
+        <div className={styles.scaleNote} aria-hidden="true">Scroll · One continuous field manual</div>
       </section>
+
+      <WorkflowFilm />
 
       <section id="work-stats" className={styles.workStats} aria-labelledby="work-stats-title">
         <div className={styles.workStatsIntro}>
@@ -175,14 +176,14 @@ export default function FieldManualPage() {
               <p>Across five communities where these systems do real work.</p>
             </div>
             <div>
+              <dt>05</dt>
+              <dd>Communities</dd>
+              <p>Across Tuscaloosa and Northport, each with its own real workflow.</p>
+            </div>
+            <div>
               <dt>24/7</dt>
               <dd>Service</dd>
               <p>Leasing and maintenance calls across five communities.</p>
-            </div>
-            <div>
-              <dt>03</dt>
-              <dd>Side projects</dd>
-              <p>Transfer Portal, HabitForge, and TodoToNotes.</p>
             </div>
           </dl>
           <div className={styles.buildTrail}>
@@ -208,7 +209,7 @@ export default function FieldManualPage() {
           <p className={styles.sectionLabel} id="chapter-map-title">Chapters</p>
           <ol>
             <li><span>01</span><a href="#projects"><strong>Projects</strong><small>Live work, real impact.</small></a></li>
-            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>A conductor and eight specialists, one private system.</small></a></li>
+            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>A dispatcher and eight specialists, one private system.</small></a></li>
             <li><span>03</span><a href="#systems"><strong>How I work</strong><small>Operations become systems.</small></a></li>
             <li><span>04</span><a href="#field-notes"><strong>What I&apos;ve learned</strong><small>Patterns worth keeping.</small></a></li>
           </ol>
@@ -234,7 +235,17 @@ export default function FieldManualPage() {
                       <span className={styles.projectName}>{project.name}</span>
                       <ArrowRightIcon aria-hidden="true" />
                       <span className={styles.projectDetail}>{project.detail}</span>
-                      <em>{project.status}</em>
+                      <em
+                        className={
+                          project.status === "Live"
+                            ? styles.statusLive
+                            : project.status === "In review"
+                              ? styles.statusReview
+                              : undefined
+                        }
+                      >
+                        {project.status}
+                      </em>
                     </a>
                   );
                 })}

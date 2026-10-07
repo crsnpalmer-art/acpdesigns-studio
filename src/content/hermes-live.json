@@ -1,0 +1,312 @@
+{
+  "verified": "2026-10-07",
+  "systemName": "Hermes",
+  "hermesVersion": "v0.21.5",
+  "gateway": {
+    "processes": 1,
+    "servedProfiles": 9
+  },
+  "agents": [
+    {
+      "id": "main",
+      "persona": "Dispatcher",
+      "emoji": "🎩",
+      "profile": "default",
+      "model": "anthropic/claude-opus-5-5"
+    },
+    {
+      "id": "work",
+      "persona": "Leasing Back Office",
+      "emoji": "🧠",
+      "profile": "work",
+      "model": "anthropic/claude-opus-5-5"
+    },
+    {
+      "id": "lyra",
+      "persona": "Lyra",
+      "emoji": "🌷",
+      "profile": "lyra",
+      "model": "anthropic/claude-opus-5-5"
+    },
+    {
+      "id": "finance",
+      "persona": "Trading",
+      "emoji": "📊",
+      "profile": "finance",
+      "model": "openai-codex/gpt-6.1-sol"
+    },
+    {
+      "id": "collections",
+      "persona": "Collections & Books",
+      "emoji": "💸",
+      "profile": "collections",
+      "model": "anthropic/claude-opus-5-5"
+    },
+    {
+      "id": "ops",
+      "persona": "System Health",
+      "emoji": "🛡️",
+      "profile": "ops",
+      "model": "openai-codex/gpt-6.1-sol"
+    },
+    {
+      "id": "memory",
+      "persona": "Memory & Wiki",
+      "emoji": "📚",
+      "profile": "memory",
+      "model": "anthropic/claude-opus-5-5"
+    },
+    {
+      "id": "maintenance",
+      "persona": "Maintenance",
+      "emoji": "🥊",
+      "profile": "maintenance",
+      "model": "openai-codex/gpt-6.1-sol"
+    },
+    {
+      "id": "tweeter",
+      "persona": "Research",
+      "emoji": "🐦",
+      "profile": "tweeter",
+      "model": "xai/grok-4.7"
+    }
+  ],
+  "agentCount": 9,
+  "crons": [
+    {
+      "name": "Comms - Email Pipeline Watchdog",
+      "agentId": "lyra",
+      "kind": "cron",
+      "h": 0,
+      "cadence": "Hourly at :00"
+    },
+    {
+      "name": "Ops - Cron offline re-fire sweeper",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 0,
+      "cadence": "Every 20 minutes"
+    },
+    {
+      "name": "Ops - Playwright Profile Monitor",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 0,
+      "cadence": "Every 6 hours at :00"
+    },
+    {
+      "name": "Ops - Hermes Weekly Backup",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 4,
+      "cadence": "Sundays 4:00 AM"
+    },
+    {
+      "name": "Lyra - Tenant Wiki Delta Ingest",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 5,
+      "cadence": "Sundays 5:00 AM"
+    },
+    {
+      "name": "The Front Porch",
+      "agentId": "main",
+      "kind": "cron",
+      "h": 5.5,
+      "cadence": "Daily 5:30 AM"
+    },
+    {
+      "name": "Ops - Gog Credential Monitor",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 6,
+      "cadence": "Daily 6:00 AM"
+    },
+    {
+      "name": "Unit turn board digest",
+      "agentId": "maintenance",
+      "kind": "cron",
+      "h": 6.75,
+      "cadence": "Daily 6:45 AM"
+    },
+    {
+      "name": "Comms - Message Reply Digest",
+      "agentId": "lyra",
+      "kind": "cron",
+      "h": 7,
+      "cadence": "Daily 7:00 AM, 11:00 AM, 4:00 PM"
+    },
+    {
+      "name": "Comms - Urgent Message Scan",
+      "agentId": "lyra",
+      "kind": "cron",
+      "h": 7,
+      "cadence": "Every 15 minutes, 7 AM–9 PM"
+    },
+    {
+      "name": "Property - Daily Rent Roll",
+      "agentId": "collections",
+      "kind": "cron",
+      "h": 7,
+      "cadence": "Daily 7:00 AM"
+    },
+    {
+      "name": "Ops - Lyra Spend Watch",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 7.5,
+      "cadence": "Daily 7:30 AM"
+    },
+    {
+      "name": "Ops - Weekly failure refine",
+      "agentId": "main",
+      "kind": "cron",
+      "h": 8,
+      "cadence": "Sundays 8:00 AM"
+    },
+    {
+      "name": "Wiki - Re-read stale pages",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 8,
+      "cadence": "Sundays 8:00 AM"
+    },
+    {
+      "name": "Property - Ops Daily Digest",
+      "agentId": "work",
+      "kind": "cron",
+      "h": 8.5,
+      "cadence": "Daily 8:30 AM"
+    },
+    {
+      "name": "Property - Weekly Delinquency Report",
+      "agentId": "collections",
+      "kind": "cron",
+      "h": 8.5,
+      "cadence": "Mondays 8:30 AM"
+    },
+    {
+      "name": "Wiki - Auto synthesize staged memory",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 9,
+      "cadence": "Daily 9:00 AM"
+    },
+    {
+      "name": "Wiki - Curator weekly review",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 9,
+      "cadence": "Sundays 9:00 AM"
+    },
+    {
+      "name": "Wiki - Verify Weekly",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 9,
+      "cadence": "Mondays 9:00 AM"
+    },
+    {
+      "name": "Property - Occupancy Report",
+      "agentId": "work",
+      "kind": "cron",
+      "h": 9.5,
+      "cadence": "Sundays 9:30 AM"
+    },
+    {
+      "name": "Weekly Collections Snapshot",
+      "agentId": "collections",
+      "kind": "cron",
+      "h": 9.75,
+      "cadence": "Fridays 9:45 AM"
+    },
+    {
+      "name": "Property - Tenant Directory Refresh",
+      "agentId": "work",
+      "kind": "cron",
+      "h": 9.833333333333334,
+      "cadence": "Daily 9:50 AM"
+    },
+    {
+      "name": "Property - WO History Sync",
+      "agentId": "maintenance",
+      "kind": "cron",
+      "h": 10,
+      "cadence": "Mondays 10:00 AM"
+    },
+    {
+      "name": "Property - Lease Renewal Pipeline",
+      "agentId": "work",
+      "kind": "cron",
+      "h": 10.5,
+      "cadence": "Mondays 10:30 AM"
+    },
+    {
+      "name": "Property - Lyra QA Review",
+      "agentId": "lyra",
+      "kind": "cron",
+      "h": 12.75,
+      "cadence": "Daily 12:45 PM, 8:45 PM"
+    },
+    {
+      "name": "Ops - Approval Re-ping",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 13,
+      "cadence": "Mondays 1:00 PM"
+    },
+    {
+      "name": "Property - Lyra Improvement Drafter",
+      "agentId": "lyra",
+      "kind": "cron",
+      "h": 13.25,
+      "cadence": "Daily 1:15 PM, 9:15 PM"
+    },
+    {
+      "name": "Memory - Weekly Review",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 17,
+      "cadence": "Fridays 5:00 PM"
+    },
+    {
+      "name": "Ops - Plug-in reminder",
+      "agentId": "ops",
+      "kind": "cron",
+      "h": 21.5,
+      "cadence": "Daily 9:30 PM"
+    },
+    {
+      "name": "Wiki - Curator (chronicle)",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 22.333333333333332,
+      "cadence": "Daily 10:20 PM"
+    },
+    {
+      "name": "Memory - Daily Log Writer",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 23,
+      "cadence": "Daily 11:00 PM"
+    },
+    {
+      "name": "Wiki - Nightly auto-commit",
+      "agentId": "memory",
+      "kind": "cron",
+      "h": 23.5,
+      "cadence": "Daily 11:30 PM"
+    }
+  ],
+  "cronEnabledCount": 32,
+  "cronDisabledCount": 8,
+  "macServices": [
+    "hermes-gateway",
+    "email-pipeline",
+    "hermes-delivery-respooler",
+    "ops-lyra-kb-sync",
+    "ops-wiki-memory-watcher",
+    "property-appfolio-sync"
+  ],
+  "launchdCount": 6
+}

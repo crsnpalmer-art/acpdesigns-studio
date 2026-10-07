@@ -49,7 +49,7 @@ const moments = [
   {
     when: "Weekly",
     title: "The ledger lands",
-    detail: "Late rent, renewals, occupancy, and P&L reports arrive in chat.",
+    detail: "Late rent, renewals, occupancy, and the weekly collections snapshot arrive in chat.",
   },
 ] as const;
 

@@ -762,3 +762,412 @@
 .panel {
   view-transition-name: hermes-panel;
 }
+
+/* Cinematic homepage treatment: ruled instruments, not a card dashboard. */
+.hermes {
+  --hermes-blue: #8a8680;
+  background:
+    radial-gradient(72% 45% at 50% 100%, rgba(240, 74, 23, 0.055), transparent 68%),
+    #070708;
+  color: #f3efe6;
+  margin: 0;
+  min-height: 100svh;
+  overflow: clip;
+  padding: clamp(7rem, 16vh, 13rem) clamp(1.4rem, 6vw, 7.5rem);
+  scroll-margin-top: 5rem;
+}
+
+.hermes::before {
+  border: 0;
+  background: radial-gradient(circle, rgba(243, 239, 230, 0.035), transparent 68%);
+  height: 70rem;
+  right: -30rem;
+  top: -28rem;
+  width: 70rem;
+}
+
+.intro {
+  align-items: end;
+  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.55fr);
+  padding: 0 0 clamp(4rem, 9vh, 7rem);
+}
+
+.intro > div > p,
+.agentDetail > p,
+.memoryView article > span,
+.approvalFlow article > span {
+  color: #8a8680;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+}
+
+.intro h2 {
+  font-size: clamp(3.4rem, 8vw, 8.5rem);
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+  max-width: 10ch;
+}
+
+.lead {
+  color: rgba(243, 239, 230, 0.62);
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  line-height: 1.75;
+}
+
+.stats {
+  border-color: rgba(243, 239, 230, 0.12);
+}
+
+.stats div {
+  border-color: rgba(243, 239, 230, 0.08);
+  padding: 1.4rem clamp(0.8rem, 2vw, 1.8rem);
+}
+
+.stats dt {
+  color: #f3efe6;
+  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+  font-weight: 400;
+}
+
+.stats dd {
+  color: #8a8680;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+
+.mapCta {
+  border-color: rgba(243, 239, 230, 0.12);
+  color: #f3efe6;
+  padding: 1.4rem 0.4rem;
+}
+
+.mapCta span {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.7rem, 3vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.mapCta small {
+  color: #8a8680;
+}
+
+.mapCta:hover,
+.mapCta:focus-visible {
+  background: rgba(243, 239, 230, 0.025);
+}
+
+.explorer {
+  display: block;
+  min-height: 0;
+}
+
+.tabs {
+  border-bottom: 1px solid rgba(243, 239, 230, 0.12);
+  border-right: 0;
+  flex-direction: row;
+}
+
+.tabs button {
+  border-bottom: 0;
+  border-right: 1px solid rgba(243, 239, 230, 0.08);
+  color: #8a8680;
+  flex: 1 1 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  min-height: 4.6rem;
+  padding: 1rem 1.2rem;
+  text-transform: uppercase;
+  transition: background-color 450ms cubic-bezier(0.19, 1, 0.22, 1), color 450ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.tabs button span {
+  color: #f04a17;
+}
+
+.tabs button[aria-selected="true"] {
+  background: rgba(243, 239, 230, 0.055);
+  color: #f3efe6;
+}
+
+.tabs button[aria-selected="true"] span {
+  color: #f04a17;
+}
+
+.panel {
+  padding: clamp(2rem, 5vw, 5rem) 0 0;
+}
+
+.fleetView {
+  gap: clamp(3rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.55fr);
+}
+
+.chatHub {
+  border: 0;
+  border-bottom: 1px solid rgba(243, 239, 230, 0.1);
+  border-top: 1px solid rgba(243, 239, 230, 0.12);
+  margin-bottom: 0;
+  padding: 1.4rem 0.4rem;
+}
+
+.chatHub > svg {
+  color: #f04a17;
+}
+
+.chatHub span,
+.fleetNote,
+.agentGrid small,
+.agentDetail > span,
+.agentDetail > small,
+.approvalFlow article p,
+.memoryView article p,
+.memoryLoop p,
+.dayStrip > div p {
+  color: rgba(243, 239, 230, 0.52);
+}
+
+.chatHub strong {
+  font-size: clamp(1.5rem, 2.7vw, 2.7rem);
+}
+
+.agentGrid {
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.agentGrid button {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(243, 239, 230, 0.08);
+  min-height: 9.5rem;
+  padding: 1.2rem 0.4rem;
+  transition: background-color 450ms cubic-bezier(0.19, 1, 0.22, 1), color 450ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.agentGrid button:nth-child(odd) {
+  border-right: 1px solid rgba(243, 239, 230, 0.08);
+  padding-right: 1.2rem;
+}
+
+.agentGrid button:nth-child(even) {
+  padding-left: 1.2rem;
+}
+
+.agentGrid button:hover {
+  background: rgba(243, 239, 230, 0.03);
+  border-color: rgba(243, 239, 230, 0.16);
+  transform: none;
+}
+
+.agentGrid button[aria-pressed="true"] {
+  background: rgba(243, 239, 230, 0.065);
+  border-color: rgba(243, 239, 230, 0.18);
+}
+
+.agentGrid svg,
+.agentGrid span,
+.agentDetail > svg {
+  color: #f04a17;
+}
+
+.agentGrid button[aria-pressed="true"] span {
+  color: #f04a17;
+}
+
+.agentGrid strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.3rem, 2.2vw, 2.1rem);
+  font-weight: 400;
+}
+
+.agentDetail {
+  border-left-color: rgba(243, 239, 230, 0.12);
+  min-height: 33rem;
+  padding-left: clamp(1.5rem, 3vw, 3rem);
+}
+
+.agentDetail h3,
+.approvalFlow h3,
+.memoryView h3 {
+  font-size: clamp(2.3rem, 4.2vw, 4.4rem);
+  letter-spacing: -0.04em;
+}
+
+.agentDetail > strong {
+  color: #8a8680;
+}
+
+.approvalView {
+  min-height: 0;
+}
+
+.approvalFlow {
+  gap: 0;
+}
+
+.approvalFlow > svg {
+  color: #f04a17;
+}
+
+.approvalFlow article {
+  background: transparent;
+  border-color: rgba(243, 239, 230, 0.1);
+  min-height: 28rem;
+  padding: clamp(1.4rem, 3vw, 3rem);
+}
+
+.approvalFlow article > svg,
+.memoryView article > svg {
+  color: #f04a17;
+}
+
+.approvalFlow .humanGate {
+  background: rgba(240, 74, 23, 0.08);
+  border-color: rgba(240, 74, 23, 0.38);
+}
+
+.approvalFlow .humanGate > span,
+.approvalFlow .humanGate > svg {
+  color: #f04a17;
+}
+
+.approvalFlow .humanGate p {
+  color: rgba(243, 239, 230, 0.62);
+}
+
+.policyNote {
+  border-left-color: #f04a17;
+  color: rgba(243, 239, 230, 0.72);
+  font-size: clamp(1.3rem, 2.5vw, 2.1rem);
+  margin-top: 3rem;
+}
+
+.memoryView {
+  gap: 0;
+}
+
+.memoryView article {
+  background: transparent;
+  border-color: rgba(243, 239, 230, 0.1);
+  min-height: 27rem;
+}
+
+.memoryLoop {
+  border-color: rgba(240, 74, 23, 0.42);
+}
+
+.memoryLoop svg {
+  color: #f04a17;
+}
+
+.dayStrip {
+  border-color: rgba(243, 239, 230, 0.12);
+  margin-top: clamp(4rem, 9vh, 7rem);
+}
+
+.dayStrip > div,
+.dayStrip > small {
+  border-color: rgba(243, 239, 230, 0.08);
+}
+
+.dayStrip > div span,
+.dayStrip > small svg {
+  color: #f04a17;
+}
+
+@media (max-width: 900px) {
+  .hermes {
+    margin: 0;
+    padding-inline: clamp(1.2rem, 4vw, 2rem);
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .tabs button {
+    flex: 0 0 11rem;
+  }
+
+  .fleetView {
+    grid-template-columns: 1fr;
+  }
+
+  .agentDetail {
+    border-left: 0;
+    border-top: 1px solid rgba(243, 239, 230, 0.12);
+    min-height: 25rem;
+    padding: 2rem 0 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .hermes {
+    padding: 6rem 1.2rem;
+  }
+
+  .intro {
+    padding: 0 0 3rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stats div {
+    min-width: 0;
+    padding: 1rem 0.6rem;
+  }
+
+  .stats dd {
+    letter-spacing: 0.12em;
+  }
+
+  .mapCta {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .mapCta span {
+    font-size: 1.7rem;
+  }
+
+  .panel {
+    padding: 2rem 0 0;
+  }
+
+  .agentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .agentGrid button:nth-child(odd),
+  .agentGrid button:nth-child(even) {
+    border-right: 0;
+    padding-inline: 0.25rem;
+  }
+
+  .approvalFlow article,
+  .memoryView article {
+    min-height: 22rem;
+  }
+
+  .dayStrip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .agentGrid button,
+  .tabs button {
+    animation: none !important;
+    transition: none !important;
+  }
+}

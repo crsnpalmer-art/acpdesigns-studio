@@ -36,7 +36,10 @@ export default function FieldManualChrome({
   const onHome = page === "home";
 
   return (
-    <main id={onHome ? "top" : undefined} className={`${styles.manual}${onHome ? "" : ` ${styles.manualScroll}`}`}>
+    <main
+      id={onHome ? "top" : undefined}
+      className={`${styles.manual} ${onHome ? styles.homeManual : styles.manualScroll}`}
+    >
       <a className={styles.skipLink} href={skipHref}>
         {skipLabel}
       </a>

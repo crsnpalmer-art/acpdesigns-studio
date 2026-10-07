@@ -7,7 +7,10 @@
   background-size: 3rem 3rem;
   color: var(--paper);
   margin: 5.25rem 3.5rem 0 4.8rem;
-  overflow: visible;
+  /* clip, not hidden: the corner circle can't widen the page, and the sticky
+     lane nav still works (clip doesn't create a scroll container) */
+  overflow-x: clip;
+  overflow-y: visible;
   position: relative;
 }
 
@@ -241,7 +244,7 @@
   font-weight: 750;
   letter-spacing: 0.08em;
   line-height: 1.35;
-  max-width: 14ch;
+  max-width: 20ch;
   text-align: right;
   text-transform: uppercase;
 }
@@ -355,4 +358,93 @@
   .note svg:last-child {
     display: none;
   }
+}
+
+/* ── Lane model + expandable job write-ups (from job-guide.json) ── */
+.dossier header .model {
+  color: var(--orange);
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+.blocks ol li.jobItem {
+  display: block;
+}
+
+.job summary {
+  cursor: pointer;
+  display: grid;
+  gap: 0.2rem 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  list-style: none;
+}
+
+.job summary::-webkit-details-marker {
+  display: none;
+}
+
+.job summary strong::before {
+  color: var(--hermes-blue);
+  content: "+";
+  display: inline-block;
+  font-weight: 700;
+  width: 1.1em;
+}
+
+.job[open] summary strong::before {
+  content: "−";
+}
+
+.job summary:hover strong,
+.job summary:focus-visible strong {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.guide {
+  border-left: 2px solid var(--hermes-blue);
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.85rem 0 0.4rem;
+  padding-left: 0.9rem;
+}
+
+.guide dt {
+  color: var(--orange);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.guide dd {
+  color: #d8d3ca;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin: 0.15rem 0 0;
+}
+
+@media (max-width: 900px) {
+  .job summary {
+    grid-template-columns: 1fr;
+  }
+
+  .job summary em {
+    text-align: left;
+  }
+}
+
+/* The empty-state sentence is body copy, not a section label. */
+.blocks > section > p.empty {
+  color: #d8d3ca;
+  font-size: 0.86rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+  margin: 0;
+  text-transform: none;
 }

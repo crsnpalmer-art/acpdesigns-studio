@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 import FieldManualChrome from "@/components/field-manual/FieldManualChrome";
 import OperatingMap from "@/components/field-manual/OperatingMap";
+import { operatingStats } from "@/content/operating-map";
+
+const description = `A dispatcher and eight specialists, ${operatingStats.routines} scheduled jobs, and ${operatingStats.macJobs} Mac background services — the public map of how ACP Designs Studio runs, and how every job works.`;
 
 export const metadata: Metadata = {
   title: "Operating map | ACP Designs Studio",
   description:
-    "A conductor and eight specialists, 33 scheduled routines, and 5 Mac background jobs — the public map of how ACP Designs Studio runs.",
+    description,
   alternates: {
     canonical: "/systems",
   },
   openGraph: {
     title: "Operating map | ACP Designs Studio",
     description:
-      "A conductor and eight specialists, 33 scheduled routines, and 5 Mac background jobs — the public map of how ACP Designs Studio runs.",
+      description,
     url: "/systems",
     siteName: "ACP Designs Studio",
     type: "article",

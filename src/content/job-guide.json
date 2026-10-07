@@ -1,0 +1,226 @@
+{
+  "The Front Porch": {
+    "does": "The daily morning paper, written fresh at 5:30 AM.",
+    "reads": "The day's calendar, weather, flagged email, property numbers (occupancy, late rent, renewals), open tasks, overnight job results, and Carson's replies to yesterday's paper.",
+    "how": "A script gathers everything into labeled sections. An AI writer turns it into a short, friendly paper — headlines, a news wire, a sports desk, a mailbag — with at most a couple of web searches.",
+    "result": "Posted to its own Telegram topic every morning; a print edition is made too.",
+    "you": "Read it. Nothing is sent to tenants or vendors."
+  },
+  "Ops - Weekly failure refine": {
+    "does": "Reviews the week's failed runs and turns them into fixes.",
+    "reads": "Hermes's own record of every failed or flaky scheduled run across all nine profiles.",
+    "how": "If nothing failed, it stops before any AI runs. Otherwise an AI groups the failures, decides whether each was the environment (Mac asleep, network drop, login) or a gap in a procedure, and writes one lasting rule into the responsible skill for each real gap.",
+    "result": "A short list in the System Health lane of what it patched and what it left alone — or nothing at all.",
+    "you": "Skim the list. It only edits Hermes's own skill notes; nothing outside the Mac."
+  },
+  "Property - Ops Daily Digest": {
+    "does": "Morning property dashboard: queues, urgent items, top approvals, overnight health.",
+    "reads": "The property-ops inbox and approval queue, today's calendar, scheduled-job health, the latest AppFolio sync, work-order aging, and occupancy.",
+    "how": "A script refreshes each source and builds one card: counts, new approvals since yesterday, collections, calendar, and anything broken overnight (plus work-order detail on Mondays). It remembers what it showed last time so only new items are listed. No AI.",
+    "result": "One card in the Leasing Back Office lane at 8:30 AM.",
+    "you": "Every listed approval still waits for your APPROVE — the digest never approves anything."
+  },
+  "Property - Occupancy Report": {
+    "does": "Portfolio occupancy: leased / empty / pending and signed revenue.",
+    "reads": "The occupancy tracker spreadsheet.",
+    "how": "A script totals beds per property, signed monthly rent, and which property has the most empty beds, and warns if the tracker hasn't been edited lately. No AI.",
+    "result": "A Sunday card in the Leasing Back Office lane, plus an archived copy in Notes.",
+    "you": "Nothing to approve. It never edits the tracker."
+  },
+  "Property - Tenant Directory Refresh": {
+    "does": "Rebuilds the tenant directory and lease alerts.",
+    "reads": "A fresh tenant-directory export from AppFolio, pulled by the Mac's browser.",
+    "how": "A script exports the directory, drops past residents, updates the shared directory sheet and Lyra's local copy (so she recognizes callers), then rebuilds the lease-expiration list. No AI.",
+    "result": "A lease list in the Leasing Back Office lane only when it changed (always on Mondays).",
+    "you": "Nothing to approve. It never messages tenants or writes to AppFolio."
+  },
+  "Property - Lease Renewal Pipeline": {
+    "does": "Flags leases coming up for renewal in 30 / 60 / 90 days.",
+    "reads": "The lease-expiration list built by the morning directory refresh.",
+    "how": "A script groups every lease ending in the next 90 days into under-30, 30–60 and 60–90 day tiers, soonest first. No AI.",
+    "result": "A Monday list in Lyra's leasing lane (or one line saying nothing is ending).",
+    "you": "Decide on renewals. Renewal mailings are a separate step you approve."
+  },
+  "Property - Lyra QA Review": {
+    "does": "Scores Lyra's recent calls and texts twice a day.",
+    "reads": "Lyra's call records and the voice platform's pass/fail checks on each call, plus her leasing-draft queue.",
+    "how": "A script looks for slips: unlogged calls, failed fair-housing or privacy checks, or a line that's gone quiet. Any check that fails on two or more calls in a week becomes a fix packet for the improvement drafter. No AI.",
+    "result": "A note in Lyra's lane only when something needs a look; silent when she's healthy.",
+    "you": "Read the flags. It changes nothing."
+  },
+  "Property - Lyra Improvement Drafter": {
+    "does": "Drafts prompt and knowledge fixes from QA findings for Carson's review.",
+    "reads": "The QA review's fix packets, the call transcripts behind them, and Lyra's current knowledge and instructions.",
+    "how": "If there's no packet, it stops before any AI runs. Otherwise an AI works out why each check failed (missing knowledge, unclear instructions, a tool problem, or a too-strict check) and writes the smallest exact fix, with a fair-housing note when relevant.",
+    "result": "A proposal in Lyra's lane.",
+    "you": "Approve or reject. It can't edit anything; approved fixes go live after 5 PM."
+  },
+  "Comms - Message Reply Digest": {
+    "does": "Business-text digest at 7, 11, and 4.",
+    "reads": "The Mac's Messages app (read-only), filtered to work and resident contacts.",
+    "how": "A script finds threads still waiting on a reply, hides door codes and amounts, and flags urgent ones. It stays quiet unless something is new since the last digest. No AI.",
+    "result": "A short list in the Leasing Back Office lane.",
+    "you": "Ask for a draft if you want one — any reply goes through APPROVE / EDIT / SKIP before it's sent."
+  },
+  "Comms - Urgent Message Scan": {
+    "does": "Every 15 minutes in the daytime, flags urgent texts.",
+    "reads": "The Mac's Messages app (read-only), work and resident contacts only.",
+    "how": "A script checks for threads that look urgent and alerts only when the newest message is new since the last alert. No AI.",
+    "result": "An alert in the Leasing Back Office lane, or nothing.",
+    "you": "Respond yourself. It never sends a text."
+  },
+  "Comms - Email Pipeline Watchdog": {
+    "does": "Hourly check that the email pipeline is healthy.",
+    "reads": "The email pipeline's heartbeat and whether the Mac is actually awake.",
+    "how": "A script checks that the five-minute email poller is running and fresh. It ignores blips while the Mac is half-asleep, re-alerts at most every six hours, and sends one all-clear when it recovers. No AI.",
+    "result": "An alert in Lyra's lane only when something's wrong.",
+    "you": "Nothing unless it alerts."
+  },
+  "Property - Daily Rent Roll": {
+    "does": "Daily rent-roll snapshot.",
+    "reads": "AppFolio's late-rent report, pulled by the Mac's browser.",
+    "how": "A script refreshes the report and compares it to the last one it posted. It only posts when the total moved meaningfully. No AI, no drafts, no sends.",
+    "result": "A card in the Collections & Books lane when numbers move; otherwise silent.",
+    "you": "Nothing to approve."
+  },
+  "Property - Weekly Delinquency Report": {
+    "does": "Monday past-due report, tiered by severity.",
+    "reads": "AppFolio's late-rent report and each late account's ledger.",
+    "how": "A script refreshes the report, compares it with last week, updates the balance sheet Lyra uses for payment questions, and prepares notice emails with the ledger attached — as drafts only. No AI.",
+    "result": "A summary card in the Collections & Books lane; a monthly copy is archived.",
+    "you": "Review the drafted notices and send them yourself. Nothing goes to a tenant automatically."
+  },
+  "Weekly Collections Snapshot": {
+    "does": "Friday collections snapshot from the latest late-rent and sync data.",
+    "reads": "The most recent late-rent report and AppFolio sync, already on the Mac.",
+    "how": "A script summarizes late-rent totals and says how old the data is. It doesn't compute profit or loss. No AI.",
+    "result": "A Friday card in the Collections & Books lane.",
+    "you": "Nothing to approve."
+  },
+  "Ops - Cron offline re-fire sweeper": {
+    "does": "Re-runs scheduled jobs missed while the Mac slept.",
+    "reads": "Every profile's job history.",
+    "how": "Every 20 minutes a script looks for script jobs that failed with an offline-type error in the last few hours and re-runs them (a few at a time, never twice for the same miss). It also reports any job whose slot was skipped entirely. No AI.",
+    "result": "One line per re-run in the System Health lane; silent when all is well.",
+    "you": "Nothing."
+  },
+  "Ops - Playwright Profile Monitor": {
+    "does": "Browser-profile health check every 6 hours.",
+    "reads": "The Mac's AppFolio browser profile: its size, login cookies, two-factor 'remember me' expiry, and the last sync's result.",
+    "how": "A script checks for a damaged profile, stale logins, a two-factor expiry coming up, or a failed sync, and alerts only on new problems. No AI.",
+    "result": "An alert in the System Health lane, or nothing.",
+    "you": "Log in again when it says so."
+  },
+  "Ops - Gog Credential Monitor": {
+    "does": "Daily Gmail-auth health check.",
+    "reads": "Every connected Google account.",
+    "how": "A script makes a tiny read-only call on each account to prove the login still works, and alerts on new failures with what will stop working. No AI.",
+    "result": "An alert in the System Health lane, or nothing.",
+    "you": "Reconnect the account when asked."
+  },
+  "Ops - Lyra Spend Watch": {
+    "does": "Daily voice and AI spend check.",
+    "reads": "Lyra's voice-platform credits and call volume, the test-spend log, and her worker's health.",
+    "how": "A script checks credits against a floor, test spending against a monthly cap, and call volume against limits that would catch a spam caller. It posts only when something changed. No AI.",
+    "result": "A note in the System Health lane when a limit is near.",
+    "you": "Top up or investigate when warned."
+  },
+  "Ops - Approval Re-ping": {
+    "does": "Monday nudge on stale approvals.",
+    "reads": "The approval queue — anything waiting more than two days.",
+    "how": "A script groups old approvals by owner and posts one rolled-up reminder per lane, never twice in the same week. No AI.",
+    "result": "A reminder in each lane that has stale items.",
+    "you": "Approve, decline, or snooze. It never decides for you."
+  },
+  "Ops - Hermes Weekly Backup": {
+    "does": "Sunday backup.",
+    "reads": "All of Hermes (profiles, memory, jobs), the workspace, and the planning repos.",
+    "how": "A script builds three backups, checks each one, keeps the newest four of each, and trims old logs. No AI.",
+    "result": "A success note in the System Health lane — which also proves alerts still work — or a plain-English failure alert.",
+    "you": "Nothing. Backups stay on the Mac."
+  },
+  "Ops - Plug-in reminder": {
+    "does": "Evening reminder to keep the Mac on power.",
+    "reads": "Whether the MacBook is on battery.",
+    "how": "At 9:30 PM a script checks the power source. No AI.",
+    "result": "A reminder in the general lane only if it's on battery.",
+    "you": "Plug it in, so the early-morning jobs run on time."
+  },
+  "Memory - Daily Log Writer": {
+    "does": "Writes the day's activity log.",
+    "reads": "Today's log file and the latest AppFolio sync status.",
+    "how": "If the day's log is missing or nearly empty at 11 PM, a script writes a basic one so there's never a gap. No AI.",
+    "result": "A local log file; nothing posted.",
+    "you": "Nothing."
+  },
+  "Memory - Weekly Review": {
+    "does": "Updates the long-term memory file with the week's events.",
+    "reads": "This week's approval count, how full each profile's memory is, and each lane's recent activity.",
+    "how": "An AI reports the week's approvals, compacts any profile memory that's nearly full, checks the fact store for contradictions, and flags lanes whose memory hasn't changed in months.",
+    "result": "A Friday report in the Memory & Wiki lane.",
+    "you": "Read it. Everything except memory compaction is report-only."
+  },
+  "Lyra - Tenant Wiki Delta Ingest": {
+    "does": "Sunday ingest of new resident Q&A into the knowledge base.",
+    "reads": "New resident messages and email since last week (read-only).",
+    "how": "A script adds the new messages to a private, per-resident knowledge base and refreshes its pages and topic links. No AI, nothing sent.",
+    "result": "Silent unless it fails.",
+    "you": "Nothing."
+  },
+  "Wiki - Auto synthesize staged memory": {
+    "does": "Turns staged lane notes into wiki updates.",
+    "reads": "Notes the profiles saved during the day, plus the wiki's index.",
+    "how": "If nothing is queued, it stops before any AI runs. Otherwise an AI pulls out lasting decisions and risks, adds them to the right wiki pages with dates and sources, and marks each note done.",
+    "result": "Wiki edits only; nothing posted.",
+    "you": "Nothing — the nightly commit keeps a history you can roll back."
+  },
+  "Wiki - Curator (chronicle)": {
+    "does": "Nightly curation of the planning wiki.",
+    "reads": "Summaries of the day's work sessions on the Mac.",
+    "how": "If nothing is new, it stops before any AI runs. Otherwise an AI keeps only facts that are lasting, non-obvious and costly to forget — dropping anything about people, contact details or secrets — and files them in the wiki or the lessons list. Most nights it keeps nothing.",
+    "result": "Wiki edits only; you see them in Sunday's weekly review.",
+    "you": "Fix any line you disagree with."
+  },
+  "Wiki - Curator weekly review": {
+    "does": "Weekly wiki curation pass.",
+    "reads": "What the nightly curator and Sunday re-read changed this week.",
+    "how": "A script summarizes the week's wiki additions and the re-read digest. No AI.",
+    "result": "A Sunday summary in the Memory & Wiki lane; silent when nothing changed.",
+    "you": "Correct anything that looks wrong."
+  },
+  "Wiki - Re-read stale pages": {
+    "does": "Re-reads wiki pages that haven't been verified lately.",
+    "reads": "Wiki project pages not checked in 45+ days (up to four a week).",
+    "how": "If none are due, it stops before any AI runs. Otherwise an AI re-checks every claim on each page against the live system, marks anything outdated as superseded (never deleting), and stamps the page as verified.",
+    "result": "Wiki edits; a short digest appears in Sunday's weekly review.",
+    "you": "Nothing."
+  },
+  "Wiki - Verify Weekly": {
+    "does": "Compares wiki claims to live state and flags drift.",
+    "reads": "The whole planning wiki: links, stale pages, open risks, job state, and memory limits.",
+    "how": "A script runs the wiki's checks, counts drift, and regenerates the wiki's one-page summary every week. No AI.",
+    "result": "A Mac notification when drift is found; snapshots saved locally.",
+    "you": "Nothing unless it flags drift."
+  },
+  "Wiki - Nightly auto-commit": {
+    "does": "Nightly version-control commit of the wiki.",
+    "reads": "Uncommitted changes in the planning wiki and the tenant knowledge base.",
+    "how": "At 11:30 PM a script commits any changes so every edit has a history. It never pushes anywhere. No AI.",
+    "result": "Local commits only.",
+    "you": "Nothing."
+  },
+  "Unit turn board digest": {
+    "does": "Daily unit-turn status digest.",
+    "reads": "Upcoming move-outs from the tenant directory, and the turn-board document where checklists get ticked.",
+    "how": "A script adds a checklist section for each new upcoming turn (codes, filters, paint, clean, keys) without touching anything already there, then counts progress. No AI.",
+    "result": "A digest in the Maintenance lane when the board changed (always on Mondays).",
+    "you": "Tick items off on the board. No vendors or tenants are contacted."
+  },
+  "Property - WO History Sync": {
+    "does": "Weekly work-order history refresh.",
+    "reads": "The last 60 days of AppFolio work orders, every status.",
+    "how": "A script pulls new and changed work orders into a local history database and counts open versus total per property. No AI.",
+    "result": "A Monday digest in the Maintenance lane, archived to Notes.",
+    "you": "Nothing. It never contacts vendors or tenants."
+  }
+}

@@ -1,7 +1,24 @@
+// Public map of the Hermes setup. Counts, models, and each lane's scheduled jobs
+// come from hermes-live.json (generated on the studio Mac by
+// `node scripts/gen-hermes-data.mjs`); each job's plain-English write-up comes
+// from job-guide.json, keyed by the job's exact Hermes name. Lane copy below is
+// hand-written. Public names only: no paths, IDs, chat numbers, or phone numbers.
+import live from "./hermes-live.json";
+import jobGuide from "./job-guide.json";
+
+export type JobGuide = {
+  does: string;
+  reads: string;
+  how: string;
+  result: string;
+  you: string;
+};
+
 export type Job = {
   name: string;
   cadence: string;
   detail: string;
+  guide?: JobGuide;
 };
 
 export type AgentId =
@@ -22,352 +39,244 @@ export type Agent = {
   title: string;
   detail: string;
   owns: string[];
+  model: string;
   chatRoutines: Job[];
   macJobs: Job[];
 };
 
-export const snapshotDate = "October 1, 2026";
+type LiveCron = { name: string; agentId: string; h: number; cadence: string };
+type LiveAgent = { id: string; model: string };
+
+const guides = jobGuide as Record<string, JobGuide>;
+
+// "Property - Daily Rent Roll" -> "Daily Rent Roll"
+const displayName = (name: string) => name.replace(/^[A-Za-z]+ (?:-|—) /, "");
+
+// "anthropic/claude-opus-5-5" -> "Claude Opus 5.5"; "openai-codex/gpt-6.1-sol" -> "Codex GPT-6.1"
+function modelLabel(id: string): string {
+  const name = id.split("/").pop() ?? id;
+  if (name.startsWith("claude-")) {
+    const [family, ...version] = name.replace("claude-", "").split("-");
+    return `Claude ${family.charAt(0).toUpperCase()}${family.slice(1)} ${version.join(".")}`;
+  }
+  if (name.startsWith("gpt-")) return `Codex ${name.replace(/^gpt-/, "GPT-").replace(/-sol$/, "")}`;
+  if (name.startsWith("grok-")) return `Grok ${name.replace("grok-", "")}`;
+  return name;
+}
+
+const crons = live.crons as LiveCron[];
+const liveAgents = live.agents as LiveAgent[];
+const macServices = new Set(live.macServices as string[]);
+
+function routinesFor(id: AgentId): Job[] {
+  return crons
+    .filter((c) => c.agentId === id)
+    .sort((a, b) => a.h - b.h)
+    .map((c) => ({
+      name: displayName(c.name),
+      cadence: c.cadence,
+      detail: guides[c.name]?.does ?? "",
+      guide: guides[c.name],
+    }));
+}
+
+// Mac background services, by owning lane (public slugs from hermes-live.json). Listed only while loaded.
+const MAC_JOBS: { label: string; lane: AgentId; job: Job }[] = [
+  {
+    label: "hermes-gateway",
+    lane: "ops",
+    job: {
+      name: "Hermes gateway",
+      cadence: "Always on",
+      detail: "One process serves all nine lanes: it listens for messages, routes work, runs the schedules, and restarts itself if it crashes.",
+    },
+  },
+  {
+    label: "email-pipeline",
+    lane: "ops",
+    job: {
+      name: "Email pipeline",
+      cadence: "Every 5 min",
+      detail: "Polls six Gmail accounts, sorts what arrives, and prepares leasing reply drafts.",
+    },
+  },
+  {
+    label: "hermes-delivery-respooler",
+    lane: "ops",
+    job: {
+      name: "Delivery retry",
+      cadence: "Every 2 min",
+      detail: "Retries messages that didn't send the first time.",
+    },
+  },
+  {
+    label: "ops-lyra-kb-sync",
+    lane: "lyra",
+    job: {
+      name: "Knowledge sync",
+      cadence: "Weekly",
+      detail: "Pushes the current property rules and FAQs to Lyra's voice and text line.",
+    },
+  },
+  {
+    label: "property-appfolio-sync",
+    lane: "maintenance",
+    job: {
+      name: "AppFolio sync",
+      cadence: "Daily, 6:05 AM",
+      detail: "Pulls the AppFolio export in a local browser, then builds one work-order sheet per vendor.",
+    },
+  },
+  {
+    label: "ops-wiki-memory-watcher",
+    lane: "memory",
+    job: {
+      name: "Wiki memory watcher",
+      cadence: "On change",
+      detail: "Queues new lane notes so the morning wiki pass can fold them in.",
+    },
+  },
+];
+
+const macJobsFor = (id: AgentId): Job[] =>
+  MAC_JOBS.filter((m) => m.lane === id && macServices.has(m.label)).map((m) => m.job);
+
+const modelFor = (id: AgentId) => modelLabel(liveAgents.find((a) => a.id === id)?.model ?? "");
+
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+export const snapshotDate = formatDate(live.verified);
 
 export const operatingStats = {
-  agents: 9,
-  routines: 33,
-  macJobs: 5,
+  agents: live.agentCount,
+  routines: live.cronEnabledCount,
+  macJobs: MAC_JOBS.filter((m) => macServices.has(m.label)).length,
   chats: 1,
 } as const;
 
-export const agents: Agent[] = [
+type LaneCopy = Omit<Agent, "model" | "chatRoutines" | "macJobs">;
+
+const lanes: LaneCopy[] = [
   {
     id: "main",
     lane: "Main",
-    name: "Lebot James",
-    title: "Conductor",
+    name: "Dispatcher",
+    title: "Front desk for the whole team",
     detail:
-      "Triages requests, routes work to the right specialist, and handles side projects and the morning newsletter.",
+      "Triages every new ask, answers what's its own, and hands the rest to the right lane fast. Also writes The Front Porch, the daily morning paper.",
     owns: [
-      "First stop for a new ask — route it to the right specialist.",
+      "First stop for a new ask — route it to the right lane.",
       "Side projects and anything that does not already have an owner.",
-      "The morning newsletter.",
+      "The Front Porch, every morning.",
     ],
-    chatRoutines: [
-      {
-        name: "Morning newsletter",
-        cadence: "Daily, pre-dawn",
-        detail: "A short morning read, ready before the day starts.",
-      },
-      {
-        name: "Weekly failure review",
-        cadence: "Sunday",
-        detail: "Looks back at anything that failed during the week.",
-      },
-    ],
-    macJobs: [],
   },
   {
     id: "work",
     lane: "Work",
-    name: "Eddie Morra",
-    title: "Property operations",
+    name: "Leasing Back Office",
+    title: "Occupancy, renewals, lease packets",
     detail:
-      "Owns AppFolio workflows, occupancy, renewals, the tenant directory, and operating reports.",
+      "Owns occupancy, renewals, the lease pipeline, applications, lease packets, and the tenant directory.",
     owns: [
-      "Occupancy, renewals, and the next action on every unit.",
+      "Occupancy, renewals, and the next step on every lease.",
       "The morning property briefing.",
       "A current tenant directory.",
     ],
-    chatRoutines: [
-      {
-        name: "Morning digest",
-        cadence: "Daily",
-        detail: "One property briefing before the workday starts.",
-      },
-      {
-        name: "Tenant directory refresh",
-        cadence: "Daily",
-        detail: "Keeps the tenant roster current.",
-      },
-      {
-        name: "Occupancy report",
-        cadence: "Sunday",
-        detail: "Where every unit stands, every Sunday.",
-      },
-      {
-        name: "Monday sweep",
-        cadence: "Weekly",
-        detail: "Start-of-week pass over open property items.",
-      },
-      {
-        name: "Lease renewal pipeline",
-        cadence: "Monday",
-        detail: "Who's coming due and what to offer.",
-      },
-    ],
-    macJobs: [],
   },
   {
     id: "lyra",
     lane: "Lyra",
     name: "Lyra",
     title: "Leasing + resident line",
-    detail: "Leasing, resident calls and texts, and quality checks on the 24/7 line.",
+    detail:
+      "Leasing and every resident-facing message — prospects, tenants, tours, move-ins and move-outs — plus the 24/7 voice and text line.",
     owns: [
       "The 24/7 voice and text line for leasing and maintenance.",
       "Routine leasing answers; anything about money, a lease, or the law waits for a person.",
       "Keeping Lyra’s property facts current.",
     ],
-    chatRoutines: [
-      {
-        name: "Call + text QA",
-        cadence: "Twice daily",
-        detail: "Reviews recent calls and texts for quality.",
-      },
-      {
-        name: "Message reply digest",
-        cadence: "3× daily",
-        detail: "Rounds up messages that need a reply.",
-      },
-      {
-        name: "Urgent message scan",
-        cadence: "Every 15 min, daytime",
-        detail: "Flags anything urgent so it is never stuck.",
-      },
-      {
-        name: "Email pipeline watchdog",
-        cadence: "Hourly",
-        detail: "Makes sure leasing email keeps flowing.",
-      },
-      {
-        name: "Improvement drafts",
-        cadence: "Twice daily",
-        detail: "Drafts fixes to Lyra’s answers for review.",
-      },
-    ],
-    macJobs: [
-      {
-        name: "Knowledge sync",
-        cadence: "Weekly",
-        detail: "Refreshes what Lyra knows about each property.",
-      },
-    ],
   },
   {
     id: "maintenance",
     lane: "Maintenance",
-    name: "Rocky",
-    title: "Maintenance + turns",
+    name: "Maintenance",
+    title: "Work orders, vendors, turns",
     detail:
-      "Owns work-order history, the daily vendor sheets, and the unit turn board.",
+      "Owns work orders, appliance repair claims, vendors, unit turns, and the health of the AppFolio sync.",
     owns: [
       "Work-order history and a daily sheet of open work for each vendor.",
       "The unit turn board: each turning unit’s checklist.",
-      "Seasonal move-in jobs, paused off-season.",
-    ],
-    chatRoutines: [
-      {
-        name: "Turn board digest",
-        cadence: "Daily, morning",
-        detail: "Where every turning unit stands.",
-      },
-      {
-        name: "Work-order history sync",
-        cadence: "Monday",
-        detail: "Refreshes the long-term maintenance record.",
-      },
-    ],
-    macJobs: [
-      {
-        name: "AppFolio sync",
-        cadence: "Daily, pre-dawn",
-        detail: "Pulls open work orders and sorts them by vendor.",
-      },
+      "Emergencies first, and plainly — safety and habitability before cosmetics.",
     ],
   },
   {
     id: "collections",
     lane: "Collections",
-    name: "Tony Montana",
-    title: "Late rent + payment plans",
+    name: "Collections & Books",
+    title: "Late rent, payment plans, the books",
     detail:
-      "Prepares late-rent reports, payment-plan follow-up, balance summaries, and property financial snapshots.",
+      "Owns late rent, payment plans, owner accounting, and money risk, with a weekly collections snapshot.",
     owns: [
       "Late rent, payment plans, and who needs a follow-up.",
-      "The week’s property finances in one note.",
+      "The week’s collections picture in one note.",
       "Every outbound money notice still waits for a person.",
     ],
-    chatRoutines: [
-      {
-        name: "Daily rent roll",
-        cadence: "Daily",
-        detail: "Who has paid and who has not.",
-      },
-      {
-        name: "Delinquency report",
-        cadence: "Monday",
-        detail: "Late rent, payment plans, and follow-ups.",
-      },
-      {
-        name: "P&L summary",
-        cadence: "Friday",
-        detail: "The week's property finances in one note.",
-      },
-    ],
-    macJobs: [],
   },
   {
     id: "finance",
     lane: "Finance",
-    name: "Michael Burry",
-    title: "Trading research (paused)",
-    detail: "Market research lane. Paused — no routines are running.",
-    owns: ["Nothing scheduled while the lane is paused."],
-    chatRoutines: [],
-    macJobs: [],
+    name: "Trading",
+    title: "Market research (paused)",
+    detail: "Market research and trade ideas. Its scheduled scans are paused, so it works on request.",
+    owns: ["Research on request; nothing scheduled while the scans are paused."],
   },
   {
     id: "ops",
     lane: "Ops",
-    name: "Guardian Zero",
-    title: "System health",
+    name: "System Health",
+    title: "Gateway, jobs, backups, alerts",
     detail:
-      "Watches connections, schedules, credentials, backups, and failures so the operations center can report on itself.",
+      "Watches the gateway, scheduled jobs, logins, backups, and failures. Every report starts with OK, WATCH, or FAIL.",
     owns: [
       "Keep the studio Mac signed in, backed up, and talking to the outside world.",
       "Sort inbound mail so leasing replies can be prepared.",
       "Re-run missed jobs and retry anything that did not send the first time.",
     ],
-    chatRoutines: [
-      {
-        name: "Credential monitor",
-        cadence: "Daily",
-        detail: "Warns before Google access quietly expires.",
-      },
-      {
-        name: "Browser profile monitor",
-        cadence: "Every 6 hours",
-        detail: "Keeps the automation browser signed in and healthy.",
-      },
-      {
-        name: "Weekly backup",
-        cadence: "Sunday, pre-dawn",
-        detail: "Full backup of the operations workspace.",
-      },
-      {
-        name: "Approval re-ping",
-        cadence: "Monday",
-        detail: "Nudges any approval still waiting on a person.",
-      },
-      {
-        name: "Missed-job re-run",
-        cadence: "Every 20 min",
-        detail: "Re-runs any scheduled job that missed its slot.",
-      },
-      {
-        name: "Power check",
-        cadence: "Nightly",
-        detail: "Makes sure the Mac is plugged in for overnight work.",
-      },
-      {
-        name: "Voice-line spend watch",
-        cadence: "Daily",
-        detail: "Keeps an eye on what the voice line costs.",
-      },
-    ],
-    macJobs: [
-      {
-        name: "Email pipeline",
-        cadence: "Every 5 min",
-        detail: "Gmail triage, alerts, and leasing reply drafts.",
-      },
-      {
-        name: "Delivery retry",
-        cadence: "Every 2 min",
-        detail: "Retries messages that didn't send the first time.",
-      },
-    ],
   },
   {
     id: "memory",
     lane: "Memory",
-    name: "Archive Monk",
-    title: "Shared knowledge",
+    name: "Memory & Wiki",
+    title: "Logs, wiki, lasting decisions",
     detail:
-      "Maintains daily logs, long-term memory, the planning wiki, and the lessons that every coding lane can reuse.",
+      "Keeps the daily logs, the planning wiki, memory health across the lanes, and the decisions worth remembering. It records; System Health acts.",
     owns: [
       "Write down what happened today so tomorrow’s work starts from the truth.",
       "Turn new notes into shared project pages.",
       "Keep Lyra’s property knowledge in step with the week’s changes.",
     ],
-    chatRoutines: [
-      {
-        name: "Daily log writer",
-        cadence: "Nightly",
-        detail: "Writes the day's events to long-term memory.",
-      },
-      {
-        name: "Wiki synthesize",
-        cadence: "Daily",
-        detail: "Turns new notes into shared project pages.",
-      },
-      {
-        name: "Nightly curator",
-        cadence: "Nightly",
-        detail: "Files the day's useful facts into the shared map.",
-      },
-      {
-        name: "Nightly wiki save",
-        cadence: "Nightly",
-        detail: "Saves the day's wiki changes.",
-      },
-      {
-        name: "Weekly review",
-        cadence: "Friday",
-        detail: "Distills the week into lessons worth keeping.",
-      },
-      {
-        name: "Tenant wiki ingest",
-        cadence: "Sunday",
-        detail: "Folds the week's changes into Lyra's knowledge base.",
-      },
-      {
-        name: "Weekly wiki review",
-        cadence: "Sunday",
-        detail: "Sunday pass over the week's curated notes.",
-      },
-      {
-        name: "Stale-page re-read",
-        cadence: "Sunday",
-        detail: "Re-reads pages that have not been checked in a while.",
-      },
-      {
-        name: "Wiki verify",
-        cadence: "Monday",
-        detail: "Checks the shared map still matches the live system.",
-      },
-    ],
-    macJobs: [
-      {
-        name: "Wiki memory watcher",
-        cadence: "Hourly",
-        detail: "Indexes new notes into the shared knowledge base.",
-      },
-    ],
   },
   {
     id: "tweeter",
     lane: "Tweeter",
-    name: "Tweeter",
-    title: "X research (paused)",
-    detail: "X research lane. Paused — no routines are running.",
-    owns: ["Nothing scheduled while the lane is paused."],
-    chatRoutines: [],
-    macJobs: [],
+    name: "Research",
+    title: "Quick answers + web and X research",
+    detail: "A quick-answer and web/X research desk. Its scheduled scan is paused, so it works on request.",
+    owns: ["Answers and research on request; nothing scheduled."],
   },
 ];
 
-const routineCount = agents.reduce((sum, agent) => sum + agent.chatRoutines.length, 0);
-const macJobCount = agents.reduce((sum, agent) => sum + agent.macJobs.length, 0);
-
-if (routineCount !== operatingStats.routines || macJobCount !== operatingStats.macJobs) {
-  throw new Error(
-    `operating-map counts drifted: ${routineCount} routines, ${macJobCount} Mac jobs`,
-  );
-}
+export const agents: Agent[] = lanes.map((lane) => ({
+  ...lane,
+  model: modelFor(lane.id),
+  chatRoutines: routinesFor(lane.id),
+  macJobs: macJobsFor(lane.id),
+}));

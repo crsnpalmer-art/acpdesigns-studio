@@ -1161,8 +1161,8 @@
 
 .footerContact a {
   align-items: center;
-  background: var(--orange);
-  border: 1px solid var(--orange);
+  background: #b8340c; /* white on #f04a17 is only 3.7:1 */
+  border: 1px solid #b8340c;
   color: white;
   display: inline-flex;
   font-size: 0.78rem;
@@ -1884,4 +1884,1751 @@
 
 .caseCopy {
   view-transition-name: case-copy;
+}
+
+/* ============================================================
+   CINEMATIC HOME — scoped so the deeper /systems field manual
+   keeps its original document treatment.
+   ============================================================ */
+
+.homeManual {
+  --void: #070708;
+  --paper: #f3efe6;
+  --paper-deep: #d8d2c8;
+  --ink: #070708;
+  --muted: #8a8680;
+  --orange: #f04a17;
+  --blue: #6f8fbf;
+  --line: rgba(243, 239, 230, 0.14);
+  --line-soft: rgba(243, 239, 230, 0.08);
+  --live: #7fd9c8;
+  --cinematic-ease: cubic-bezier(0.19, 1, 0.22, 1);
+  background: var(--void);
+  color: var(--paper);
+  container-type: normal;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.homeManual::before,
+.homeManual::after {
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+}
+
+.homeManual::before {
+  animation: cinematicGrain 1.1s steps(5) infinite;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  background-size: 220px 220px;
+  inset: -5%;
+  opacity: 0.045;
+  z-index: 60;
+}
+
+.homeManual::after {
+  background: radial-gradient(125% 95% at 50% 32%, transparent 58%, rgba(0, 0, 0, 0.46) 100%);
+  z-index: 55;
+}
+
+.homeManual ::selection {
+  background: var(--paper);
+  color: var(--void);
+}
+
+.homeManual section[id],
+.homeManual nav[id] {
+  scroll-margin-top: 5rem;
+}
+
+.homeManual .skipLink {
+  background: var(--paper);
+  color: var(--void);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  z-index: 100;
+}
+
+.homeManual .header {
+  border: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  left: 0;
+  margin: 0;
+  min-height: auto;
+  padding: 1.45rem clamp(1.3rem, 2.4vw, 2.2rem);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 70;
+}
+
+.homeManual .identity {
+  color: rgba(243, 239, 230, 0.68);
+  gap: 0.65rem;
+}
+
+.homeManual .mark {
+  filter: grayscale(1) brightness(2.4);
+  height: 1.45rem;
+  opacity: 0.62;
+  width: 1.45rem;
+}
+
+.homeManual .identity strong,
+.homeManual .identity small,
+.homeManual .location,
+.homeManual .primaryNav a,
+.homeManual .marginRail span,
+.homeManual .sectionLabel,
+.homeManual .eyebrow,
+.homeManual .caseMeta {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+
+.homeManual .identity strong {
+  letter-spacing: 0.16em;
+}
+
+.homeManual .identity small {
+  color: var(--muted);
+  font-size: 0.48rem;
+}
+
+.homeManual .primaryNav ul {
+  gap: clamp(1rem, 2.2vw, 2rem);
+}
+
+.homeManual .primaryNav a {
+  color: rgba(243, 239, 230, 0.6);
+  letter-spacing: 0.16em;
+  transition: color 400ms var(--cinematic-ease);
+}
+
+.homeManual .primaryNav a::after {
+  background: var(--paper);
+  bottom: -0.5rem;
+  height: 1px;
+}
+
+.homeManual .primaryNav a:hover,
+.homeManual .primaryNav a:focus-visible {
+  color: var(--paper);
+}
+
+.homeManual .location {
+  color: var(--muted);
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  justify-self: end;
+}
+
+.homeManual .marginRail {
+  border: 0;
+  bottom: 1.5rem;
+  color: rgba(138, 134, 128, 0.8);
+  height: auto;
+  left: auto;
+  padding: 0;
+  position: fixed;
+  right: 1.6rem;
+  top: auto;
+  width: auto;
+  writing-mode: vertical-rl;
+  z-index: 70;
+}
+
+.homeManual .marginRail span:not(:nth-child(2)) {
+  display: none;
+}
+
+.homeManual .marginRail span:nth-child(2)::before {
+  background: rgba(243, 239, 230, 0.16);
+  content: "";
+  display: inline-block;
+  height: 3.5rem;
+  margin-bottom: 0.9rem;
+  width: 1px;
+}
+
+.homeManual .readingLine {
+  animation: cinematicRead linear both;
+  animation-timeline: scroll(root);
+  background: rgba(243, 239, 230, 0.55);
+  bottom: 1.5rem;
+  height: 3.5rem;
+  left: 1.75rem;
+  position: fixed;
+  scale: 1 0;
+  top: auto;
+  transform-origin: top;
+  width: 1px;
+  z-index: 70;
+}
+
+.homeManual .hero {
+  align-items: center;
+  border: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100svh;
+  overflow: clip;
+  padding: clamp(7rem, 13vh, 10rem) clamp(1.4rem, 6vw, 7.5rem) clamp(5rem, 10vh, 8rem);
+  text-align: center;
+}
+
+.homeManual .hero::before {
+  animation: cinematicLamp 3.2s var(--cinematic-ease) 0.35s forwards;
+  background:
+    radial-gradient(54% 42% at 50% 48%, rgba(243, 239, 230, 0.055), transparent 70%),
+    radial-gradient(85% 32% at 50% 96%, rgba(240, 74, 23, 0.08), transparent 68%);
+  content: "";
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.homeManual .systemField {
+  height: 100%;
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.homeManual .heroCopy {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 78rem;
+  padding: 0;
+  width: 100%;
+  z-index: 8;
+}
+
+.homeManual .eyebrow {
+  animation: cinematicLift 1.15s var(--cinematic-ease) 0.2s both;
+  color: var(--muted);
+  margin: 0;
+}
+
+.homeManual .heroWordmark {
+  animation: cinematicLift 1.3s var(--cinematic-ease) 0.31s both;
+  color: var(--paper);
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-size: clamp(7rem, 22vw, 20rem);
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 0.76;
+  margin: clamp(2rem, 5vh, 3.5rem) 0 0;
+}
+
+.homeManual .hero h1 {
+  animation: cinematicLift 1.2s var(--cinematic-ease) 0.43s both;
+  color: rgba(243, 239, 230, 0.92);
+  font-size: clamp(1.45rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin: 2rem auto 0;
+  max-width: none;
+}
+
+.homeManual .hero h1 em {
+  font-weight: 400;
+}
+
+.homeManual .hero h1 span {
+  color: var(--orange);
+}
+
+.homeManual .heroLead {
+  animation: cinematicLift 1.2s var(--cinematic-ease) 0.52s both;
+  color: rgba(243, 239, 230, 0.56);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  line-height: 1.7;
+  margin: 1.25rem auto 0;
+  max-width: 49ch;
+}
+
+.homeManual .heroActions {
+  animation: cinematicLift 1.2s var(--cinematic-ease) 0.62s both;
+  gap: 1.4rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.homeManual .primaryButton,
+.homeManual .secondaryButton {
+  align-items: center;
+  background: transparent;
+  color: var(--paper);
+  display: inline-flex;
+  font-size: 0.67rem;
+  font-weight: 600;
+  gap: 0.75rem;
+  letter-spacing: 0.2em;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.35rem;
+  position: relative;
+  text-transform: uppercase;
+  transition: border-color 500ms var(--cinematic-ease), color 500ms var(--cinematic-ease), background-color 500ms var(--cinematic-ease);
+}
+
+.homeManual .primaryButton {
+  border: 1px solid rgba(243, 239, 230, 0.28);
+}
+
+.homeManual .secondaryButton {
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  min-height: auto;
+  padding-inline: 0;
+}
+
+.homeManual .primaryButton:hover,
+.homeManual .primaryButton:focus-visible {
+  background: rgba(243, 239, 230, 0.07);
+  border-color: rgba(243, 239, 230, 0.58);
+}
+
+.homeManual .secondaryButton:hover,
+.homeManual .secondaryButton:focus-visible {
+  border-color: rgba(243, 239, 230, 0.44);
+  color: var(--paper);
+}
+
+.homeManual .primaryButton svg,
+.homeManual .secondaryButton svg {
+  height: 0.9rem;
+  width: 0.9rem;
+}
+
+.homeManual .heroProof {
+  animation: cinematicLift 1.2s var(--cinematic-ease) 0.7s both;
+  display: grid;
+  gap: clamp(1rem, 4vw, 4rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: clamp(3rem, 7vh, 5rem) auto 0;
+  max-width: 44rem;
+  text-align: left;
+  width: 100%;
+}
+
+.homeManual .heroProof div {
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1rem;
+}
+
+.homeManual .heroProof dt {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1;
+}
+
+.homeManual .heroProof dd {
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  margin: 0.55rem 0 0;
+  text-transform: uppercase;
+}
+
+.homeManual .approvalStamp {
+  align-items: center;
+  animation: cinematicLift 1.2s var(--cinematic-ease) 0.78s both;
+  background: transparent;
+  border: 0;
+  color: rgba(243, 239, 230, 0.6);
+  display: inline-flex;
+  gap: 0.65rem;
+  justify-content: center;
+  margin: 2rem auto 0;
+  padding: 0;
+  position: static;
+  transform: none;
+}
+
+.homeManual .approvalStamp svg {
+  color: var(--orange);
+  height: 1rem;
+  width: 1rem;
+}
+
+.homeManual .approvalStamp span {
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  line-height: 1.55;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.homeManual .scaleNote {
+  bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.52rem;
+  letter-spacing: 0.24em;
+  right: 4rem;
+  text-transform: uppercase;
+  writing-mode: horizontal-tb;
+  z-index: 8;
+}
+
+.homeManual .sectionLabel {
+  color: var(--muted);
+  margin: 0;
+}
+
+.homeManual .workStats,
+.homeManual .chapterMap,
+.homeManual .projectIndex,
+.homeManual .dayTimeline,
+.homeManual .propertyDirectory,
+.homeManual .processSection,
+.homeManual .manifesto,
+.homeManual .systemNotes,
+.homeManual .footer {
+  border-color: var(--line);
+  margin-left: 0;
+  padding-left: clamp(1.4rem, 6vw, 7.5rem);
+  padding-right: clamp(1.4rem, 6vw, 7.5rem);
+}
+
+.homeManual .workStats {
+  align-items: center;
+  background:
+    radial-gradient(95% 42% at 50% 92%, rgba(240, 74, 23, 0.08), transparent 64%),
+    var(--void);
+  border-bottom: 0;
+  display: grid;
+  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(15rem, 0.75fr) minmax(24rem, 1.25fr);
+  min-height: 105svh;
+  padding-bottom: clamp(7rem, 15vh, 12rem);
+  padding-top: clamp(7rem, 15vh, 12rem);
+  position: relative;
+}
+
+.homeManual .workStats::after {
+  background: linear-gradient(90deg, transparent, rgba(243, 239, 230, 0.24) 18%, rgba(243, 239, 230, 0.24) 82%, transparent);
+  bottom: 23%;
+  content: "";
+  height: 1px;
+  left: 7%;
+  pointer-events: none;
+  position: absolute;
+  right: 7%;
+}
+
+.homeManual .workStatsIntro {
+  border: 0;
+  padding: 0;
+}
+
+.homeManual .workStatsIntro h2,
+.homeManual .propertyDirectoryIntro h2,
+.homeManual .notesLead h2 {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3.2rem, 7vw, 6.8rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  margin: 1.4rem 0 0;
+  text-wrap: balance;
+}
+
+.homeManual .workStatsIntro > p:last-child {
+  color: rgba(243, 239, 230, 0.62);
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  line-height: 1.7;
+  margin-top: 1.6rem;
+  max-width: 38ch;
+}
+
+.homeManual .workStatsBody {
+  padding: 0;
+}
+
+.homeManual .workStatsGrid {
+  border: 0;
+  gap: clamp(1rem, 3vw, 3rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.homeManual .workStatsGrid > div {
+  border-color: var(--line-soft);
+  border-left: 0;
+  border-right: 0;
+  border-top: 1px solid var(--line-soft);
+  padding: 1.2rem 0 0;
+}
+
+.homeManual .workStatsGrid dt {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  font-weight: 400;
+}
+
+.homeManual .workStatsGrid dd {
+  color: var(--muted);
+  font-size: 0.61rem;
+  letter-spacing: 0.24em;
+  margin-top: 0.65rem;
+  text-transform: uppercase;
+}
+
+.homeManual .workStatsGrid p,
+.homeManual .workStatsMethod {
+  color: rgba(243, 239, 230, 0.5);
+}
+
+.homeManual .buildTrail {
+  align-items: end;
+  border-color: var(--line);
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+}
+
+.homeManual .buildTrail > p,
+.homeManual .buildTrail dd,
+.homeManual .workStatsMethod {
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.homeManual .buildTrail dt {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+}
+
+.homeManual .chapterMap {
+  border-bottom: 0;
+  display: block;
+  padding-bottom: clamp(7rem, 14vh, 11rem);
+  padding-top: clamp(7rem, 14vh, 11rem);
+}
+
+.homeManual .chapterMap > div:first-child {
+  display: none;
+}
+
+.homeManual .chapterMap ol {
+  border-top: 1px solid var(--line);
+  display: block;
+  margin-top: 1.4rem;
+}
+
+.homeManual .chapterMap li {
+  border-bottom: 1px solid var(--line-soft);
+  grid-template-columns: 4rem 1fr;
+  min-height: clamp(6rem, 12vh, 9rem);
+  padding: 1.4rem 0.35rem;
+}
+
+.homeManual .chapterMap li > span {
+  color: var(--muted);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+}
+
+.homeManual .chapterMap a {
+  color: var(--paper);
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.35fr);
+}
+
+.homeManual .chapterMap strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.3rem, 5.3vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.homeManual .chapterMap small {
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.homeManual .projectIndex {
+  background: var(--void);
+  border: 0;
+  padding-bottom: clamp(7rem, 16vh, 13rem);
+  padding-top: clamp(7rem, 16vh, 13rem);
+}
+
+.homeManual .projectGroups {
+  gap: clamp(5rem, 11vh, 8rem);
+  margin-top: 2rem;
+}
+
+.homeManual .projectGroup {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(10rem, 0.32fr) minmax(0, 1fr);
+}
+
+.homeManual .projectGroup h3 {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  margin: 1.5rem 0 0;
+  text-transform: uppercase;
+}
+
+.homeManual .projectRail {
+  border-top: 1px solid var(--line);
+  display: block;
+}
+
+.homeManual .projectRail a {
+  align-items: baseline;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--paper);
+  display: grid;
+  gap: 0.7rem 1.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.52fr) auto;
+  min-height: clamp(7rem, 13vh, 10rem);
+  padding: 1.6rem 0.4rem;
+  transition: background-color 450ms var(--cinematic-ease), color 450ms var(--cinematic-ease);
+}
+
+.homeManual .projectRail a:hover,
+.homeManual .projectRail a:focus-visible {
+  background: rgba(243, 239, 230, 0.032);
+}
+
+.homeManual .projectName {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 5vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.homeManual .projectRail svg {
+  color: var(--orange);
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  height: 1rem;
+  opacity: 0.45;
+  transition: opacity 350ms var(--cinematic-ease);
+  width: 1rem;
+}
+
+.homeManual .projectRail a:hover svg,
+.homeManual .projectRail a:focus-visible svg {
+  opacity: 1;
+}
+
+.homeManual .projectDetail {
+  color: rgba(243, 239, 230, 0.58);
+  font-size: 0.85rem;
+  grid-column: 2;
+  grid-row: 1;
+  line-height: 1.65;
+  max-width: 34ch;
+}
+
+.homeManual .projectRail em {
+  align-items: center;
+  color: var(--muted);
+  display: inline-flex;
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 600;
+  grid-column: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.homeManual .projectRail em::before {
+  background: rgba(243, 239, 230, 0.3);
+  border-radius: 50%;
+  content: "";
+  height: 0.32rem;
+  margin-right: 0.55rem;
+  width: 0.32rem;
+}
+
+.homeManual .projectRail .statusLive::before {
+  animation: cinematicStatus 2.8s ease-out infinite;
+  background: var(--live);
+}
+
+.homeManual .projectRail .statusReview::before {
+  background: transparent;
+  border: 1px solid var(--orange);
+}
+
+.homeManual .dayTimeline {
+  background: var(--void);
+  border: 0;
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+  grid-template-columns: minmax(15rem, 0.65fr) minmax(0, 1.35fr);
+  padding-bottom: clamp(7rem, 16vh, 13rem);
+  padding-top: clamp(7rem, 16vh, 13rem);
+}
+
+.homeManual .dayIntro {
+  align-self: start;
+  position: sticky;
+  top: 8rem;
+}
+
+.homeManual .dayIntro h2,
+.homeManual .processIntro h2,
+.homeManual .manifesto h2 {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3rem, 6.4vw, 6.5rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin: 1.4rem 0 0;
+}
+
+.homeManual .dayLead {
+  color: rgba(243, 239, 230, 0.56);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  margin-top: 1.6rem;
+  max-width: 37ch;
+}
+
+.homeManual .dayTrack {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.homeManual .dayTrack::before {
+  background: var(--line);
+  left: 1.45rem;
+}
+
+.homeManual .dayMoment {
+  background: transparent;
+  border-color: var(--line-soft);
+  gap: 0.5rem 1.5rem;
+  grid-template-columns: 3.2rem 8rem minmax(0, 1fr);
+  min-height: 8rem;
+  padding: 1.6rem 0;
+}
+
+.homeManual .dayMoment > span,
+.homeManual .dayMoment time {
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.homeManual .dayMoment strong {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.55rem, 2.8vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.homeManual .dayMoment p {
+  color: rgba(243, 239, 230, 0.5);
+  grid-column: 3;
+  line-height: 1.7;
+  max-width: 50ch;
+}
+
+.homeManual .dayNote {
+  border-color: var(--line);
+  color: var(--muted);
+  font-size: 0.62rem;
+  grid-column: 2;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.homeManual .caseStudy {
+  background: #08090a;
+  border: 0;
+  color: var(--paper);
+  display: grid;
+  grid-template-columns: minmax(22rem, 0.78fr) minmax(0, 1.22fr);
+  margin: 0;
+  min-height: 100svh;
+  overflow: clip;
+}
+
+.homeManual .caseCopy {
+  align-self: center;
+  padding: clamp(5rem, 10vh, 8rem) clamp(2rem, 5vw, 5rem) clamp(5rem, 10vh, 8rem) clamp(1.4rem, 6vw, 7.5rem);
+}
+
+.homeManual .caseHeader {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+}
+
+.homeManual .caseHeader > span,
+.homeManual .caseSystemsLabel {
+  color: var(--muted);
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.homeManual .caseStudy h2 {
+  color: var(--paper);
+  font-size: clamp(3rem, 6.4vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+}
+
+.homeManual .caseMeta {
+  color: var(--muted);
+  margin-top: 1.4rem;
+}
+
+.homeManual .caseCopy > p:not(.caseMeta):not(.caseSystemsLabel) {
+  color: rgba(243, 239, 230, 0.62);
+  line-height: 1.75;
+}
+
+.homeManual .caseSystemsLabel {
+  margin-top: 2.3rem;
+}
+
+.homeManual .caseCopy dl {
+  border-top: 1px solid var(--line);
+  margin-top: 0.8rem;
+}
+
+.homeManual .caseCopy dl div {
+  border-bottom: 1px solid var(--line-soft);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 9rem 1fr;
+  padding: 1rem 0;
+}
+
+.homeManual .caseCopy dt {
+  color: var(--paper);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.homeManual .caseCopy dd {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.homeManual .caseCopy > a {
+  background: transparent;
+  border: 1px solid rgba(243, 239, 230, 0.26);
+  color: var(--paper);
+  font-size: 0.65rem;
+  letter-spacing: 0.17em;
+  margin-top: 2rem;
+  padding: 0.9rem 1.2rem;
+  text-transform: uppercase;
+}
+
+.homeManual .caseCopy > a:hover,
+.homeManual .caseCopy > a:focus-visible {
+  background: rgba(243, 239, 230, 0.07);
+  border-color: rgba(243, 239, 230, 0.56);
+  color: var(--paper);
+}
+
+.homeManual .caseImage {
+  min-height: 100svh;
+  position: relative;
+}
+
+.homeManual .caseImage::after {
+  background: linear-gradient(90deg, rgba(7, 7, 8, 0.72), transparent 38%), linear-gradient(0deg, rgba(7, 7, 8, 0.38), transparent 48%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.homeManual .casePhoto img {
+  filter: saturate(0.7) contrast(1.08) brightness(0.75);
+  object-fit: cover;
+  transition: filter 900ms var(--cinematic-ease), opacity 900ms var(--cinematic-ease), scale 10s linear;
+}
+
+.homeManual .casePhotoActive img {
+  filter: saturate(0.82) contrast(1.05) brightness(0.82);
+  scale: 1.025;
+}
+
+.homeManual .casePrevious,
+.homeManual .caseNext,
+.homeManual .casePagination button {
+  background: rgba(7, 7, 8, 0.42);
+  border-color: rgba(243, 239, 230, 0.2);
+  color: var(--paper);
+  z-index: 4;
+}
+
+.homeManual .casePrevious:hover,
+.homeManual .caseNext:hover,
+.homeManual .casePagination button:hover,
+.homeManual .casePagination button[aria-current="true"] {
+  background: rgba(243, 239, 230, 0.1);
+  border-color: rgba(243, 239, 230, 0.5);
+  color: var(--paper);
+}
+
+.homeManual .casePagination {
+  z-index: 4;
+}
+
+.homeManual .propertyDirectory {
+  background: var(--void);
+  border: 0;
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+  grid-template-columns: minmax(15rem, 0.42fr) minmax(0, 1fr);
+  padding-bottom: clamp(7rem, 16vh, 13rem);
+  padding-top: clamp(7rem, 16vh, 13rem);
+}
+
+.homeManual .propertyDirectoryIntro {
+  align-self: start;
+  position: sticky;
+  top: 8rem;
+}
+
+.homeManual .propertyDirectory ol {
+  border-top: 1px solid var(--line);
+}
+
+.homeManual .propertyDirectory li {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.homeManual .propertyDirectory a {
+  color: var(--paper);
+  gap: 1rem 1.5rem;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(10rem, 0.4fr) auto;
+  min-height: clamp(6rem, 12vh, 9rem);
+  padding: 1.5rem 0.35rem;
+  transition: background-color 450ms var(--cinematic-ease);
+}
+
+.homeManual .propertyDirectory a:hover,
+.homeManual .propertyDirectory a:focus-visible {
+  background: rgba(243, 239, 230, 0.032);
+}
+
+.homeManual .propertyDirectory a > span,
+.homeManual .propertyDirectory small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.homeManual .propertyDirectory strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.75rem, 3.4vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.homeManual .propertyDirectory svg {
+  color: var(--orange);
+  opacity: 0.55;
+}
+
+.homeManual .processSection {
+  background:
+    radial-gradient(72% 45% at 50% 100%, rgba(240, 74, 23, 0.055), transparent 68%),
+    var(--void);
+  border: 0;
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+  grid-template-columns: minmax(15rem, 0.52fr) minmax(0, 1fr);
+  min-height: 100svh;
+  padding-bottom: clamp(7rem, 16vh, 13rem);
+  padding-top: clamp(7rem, 16vh, 13rem);
+  position: relative;
+}
+
+.homeManual .processSection .chapterNumber,
+.homeManual .manifesto .chapterNumber {
+  color: rgba(243, 239, 230, 0.025);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(14rem, 30vw, 29rem);
+  line-height: 0.7;
+  position: absolute;
+  right: -0.04em;
+  top: 0.2em;
+  z-index: 0;
+}
+
+.homeManual .processIntro,
+.homeManual .processList {
+  position: relative;
+  z-index: 1;
+}
+
+.homeManual .processList {
+  border-top: 1px solid var(--line);
+}
+
+.homeManual .processList li {
+  align-items: baseline;
+  border-color: var(--line-soft);
+  display: grid;
+  gap: 0.6rem 1.4rem;
+  grid-template-columns: 3.5rem minmax(8rem, 0.45fr) minmax(0, 1fr);
+  min-height: clamp(6.3rem, 12vh, 9rem);
+  padding: 1.5rem 0;
+}
+
+.homeManual .processList li > span {
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+
+.homeManual .processList strong {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.homeManual .processList p {
+  color: rgba(243, 239, 230, 0.5);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.homeManual .processList i {
+  display: none;
+}
+
+.homeManual .manifesto {
+  align-items: center;
+  background: #090a0b;
+  border: 0;
+  display: grid;
+  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  min-height: 100svh;
+  overflow: clip;
+  padding-bottom: clamp(7rem, 16vh, 13rem);
+  padding-top: clamp(7rem, 16vh, 13rem);
+  position: relative;
+}
+
+.homeManual .manifestoCopy,
+.homeManual .towerArt {
+  position: relative;
+  z-index: 1;
+}
+
+.homeManual .manifesto h2 {
+  max-width: 13ch;
+}
+
+.homeManual .manifestoCopy > p:not(.sectionLabel) {
+  color: rgba(243, 239, 230, 0.6);
+  font-size: clamp(0.95rem, 1.3vw, 1.12rem);
+  line-height: 1.75;
+  max-width: 48ch;
+}
+
+.homeManual .manifesto ul {
+  border-top: 1px solid var(--line);
+  margin-top: 2.3rem;
+}
+
+.homeManual .manifesto li {
+  border-bottom: 1px solid var(--line-soft);
+  color: rgba(243, 239, 230, 0.78);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 1rem 0;
+  text-transform: uppercase;
+}
+
+.homeManual .manifesto li svg {
+  color: var(--orange);
+  height: 1rem;
+  width: 1rem;
+}
+
+.homeManual .towerArt {
+  opacity: 0.3;
+}
+
+.homeManual .towerArt::after {
+  background: radial-gradient(circle, transparent 36%, #090a0b 78%);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.homeManual .towerArt img {
+  filter: grayscale(1) invert(1) contrast(0.7);
+}
+
+.homeManual .systemNotes {
+  background: var(--void);
+  border: 0;
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(15rem, 0.68fr) repeat(3, minmax(0, 1fr));
+  padding-bottom: clamp(7rem, 15vh, 12rem);
+  padding-top: clamp(7rem, 15vh, 12rem);
+}
+
+.homeManual .notesLead,
+.homeManual .systemNotes article {
+  border-color: var(--line-soft);
+  border-left: 0;
+  border-right: 1px solid var(--line-soft);
+  border-top: 1px solid var(--line);
+  padding: 2rem clamp(1rem, 2.2vw, 2rem) 3rem 0;
+}
+
+.homeManual .systemNotes article {
+  padding-left: clamp(1rem, 2.2vw, 2rem);
+}
+
+.homeManual .systemNotes article:last-child {
+  border-right: 0;
+}
+
+.homeManual .notesLead h2 {
+  font-size: clamp(2.5rem, 4.6vw, 4.8rem);
+}
+
+.homeManual .systemNotes article svg {
+  color: var(--orange);
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.homeManual .systemNotes article > span {
+  color: var(--muted);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.homeManual .systemNotes h3 {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.65rem, 2.8vw, 2.7rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin-top: 2.2rem;
+}
+
+.homeManual .systemNotes article p {
+  color: rgba(243, 239, 230, 0.5);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.homeManual .footer {
+  background:
+    radial-gradient(72% 42% at 50% 100%, rgba(240, 74, 23, 0.045), transparent 70%),
+    var(--void);
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: var(--paper);
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: 0.45fr 1fr 0.8fr;
+  min-height: 70svh;
+  overflow: clip;
+  padding-bottom: 6rem;
+  padding-top: clamp(6rem, 14vh, 10rem);
+  position: relative;
+}
+
+.homeManual .footer::after {
+  bottom: -0.25em;
+  color: rgba(243, 239, 230, 0.022);
+  content: "ACP";
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(12rem, 32vw, 31rem);
+  line-height: 0.72;
+  pointer-events: none;
+  position: absolute;
+  right: -0.04em;
+}
+
+.homeManual .footerBrand,
+.homeManual .footerStatement,
+.homeManual .footerContact,
+.homeManual .footerLocation,
+.homeManual .footerRule {
+  position: relative;
+  z-index: 1;
+}
+
+.homeManual .footerBrand img {
+  filter: grayscale(1) brightness(2.4);
+  opacity: 0.58;
+}
+
+.homeManual .footerBrand p,
+.homeManual .footerBrand small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.homeManual .footerStatement p {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.8rem, 6.2vw, 6.5rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.homeManual .footerContact a {
+  background: transparent;
+  border: 1px solid rgba(243, 239, 230, 0.26);
+  color: var(--paper);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  margin-top: 1.5rem;
+  padding: 0.95rem 1.2rem;
+  text-transform: uppercase;
+}
+
+.homeManual .footerContact a:hover,
+.homeManual .footerContact a:focus-visible {
+  background: rgba(243, 239, 230, 0.07);
+  border-color: rgba(243, 239, 230, 0.55);
+  color: var(--paper);
+}
+
+.homeManual .footerLocation {
+  color: var(--muted);
+  grid-column: 1;
+}
+
+.homeManual .footerLocation svg {
+  color: var(--orange);
+}
+
+.homeManual .footerRule {
+  border-color: var(--line);
+  color: var(--muted);
+  font-size: 0.6rem;
+  grid-column: 1 / -1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.homeManual .footerRule a {
+  color: var(--paper);
+}
+
+.homeManual .decorativeIcons {
+  display: none;
+}
+
+.homeManual .workflowFilm {
+  margin: 0;
+  padding: clamp(5rem, 12vh, 9rem) 0 clamp(4rem, 8vh, 7rem);
+}
+
+.homeManual .workflowIntro {
+  margin: 0 auto clamp(2.5rem, 6vh, 4.5rem);
+  max-width: 42rem;
+  padding: 0 clamp(1.4rem, 6vw, 7.5rem);
+}
+
+.homeManual .workflowIntro h2 {
+  color: var(--paper);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+  margin: 0.85rem 0 0;
+}
+
+.homeManual .workflowIntro > p:last-child {
+  color: rgba(243, 239, 230, 0.56);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 1.1rem 0 0;
+  max-width: 38ch;
+}
+
+.homeManual .workflowScenes {
+  display: grid;
+  gap: clamp(2.5rem, 7vh, 5.5rem);
+  list-style: none;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.homeManual .workflowScene {
+  display: grid;
+  gap: 1.15rem;
+  min-width: 0;
+  padding: 0 clamp(1.4rem, 6vw, 7.5rem);
+}
+
+.homeManual .workflowFrame {
+  aspect-ratio: 16 / 9;
+  background: #050506;
+  min-width: 0;
+  overflow: clip;
+  position: relative;
+}
+
+.homeManual .workflowVideo {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.homeManual .workflowCopy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.homeManual .workflowCopy > p:last-child {
+  color: rgba(243, 239, 230, 0.62);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 28ch;
+}
+
+@media (min-width: 980px) {
+  .homeManual .workflowScene {
+    align-items: end;
+    grid-template-columns: minmax(0, 1.7fr) minmax(14rem, 0.7fr);
+    gap: 2.4rem;
+  }
+
+  .homeManual .workflowScene:nth-child(even) {
+    grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.7fr);
+  }
+
+  .homeManual .workflowScene:nth-child(even) .workflowCopy {
+    order: -1;
+    text-align: right;
+  }
+
+  .homeManual .workflowScene:nth-child(even) .workflowCopy > p:last-child {
+    justify-self: end;
+  }
+}
+
+@keyframes cinematicGrain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-1.6%, 1.2%); }
+  40% { transform: translate(1.3%, -1.8%); }
+  60% { transform: translate(-1%, -0.8%); }
+  80% { transform: translate(1.7%, 0.9%); }
+}
+
+@keyframes cinematicLamp {
+  to { opacity: 1; }
+}
+
+@keyframes cinematicLift {
+  from { opacity: 0; transform: translateY(2.2rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes cinematicAppear {
+  from { opacity: 0; transform: translateY(1.6rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes cinematicRead {
+  to { scale: 1 1; }
+}
+
+@keyframes cinematicStatus {
+  0% { box-shadow: 0 0 0 0 rgba(127, 217, 200, 0.35); }
+  65%, 100% { box-shadow: 0 0 0 0.4rem rgba(127, 217, 200, 0); }
+}
+
+@supports (animation-timeline: view()) {
+  .homeManual .workStatsIntro,
+  .homeManual .workStatsGrid > div,
+  .homeManual .chapterMap li,
+  .homeManual .projectRail a,
+  .homeManual .dayMoment,
+  .homeManual .propertyDirectory li,
+  .homeManual .processList li,
+  .homeManual .manifestoCopy,
+  .homeManual .systemNotes article {
+    animation: cinematicAppear linear both;
+    animation-range: entry 8% entry 48%;
+    animation-timeline: view();
+  }
+}
+
+@media (max-width: 980px) {
+  .homeManual .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .homeManual .primaryNav {
+    display: none;
+  }
+
+  .homeManual .location {
+    grid-column: 2;
+  }
+
+  .homeManual .marginRail,
+  .homeManual .readingLine {
+    display: none;
+  }
+
+  .homeManual .workStats,
+  .homeManual .dayTimeline,
+  .homeManual .propertyDirectory,
+  .homeManual .processSection {
+    gap: 4rem;
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .dayIntro,
+  .homeManual .propertyDirectoryIntro {
+    position: static;
+  }
+
+  .homeManual .dayNote {
+    grid-column: 1;
+  }
+
+  .homeManual .caseStudy {
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .caseImage {
+    min-height: 70svh;
+  }
+
+  .homeManual .manifesto {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.7fr);
+  }
+
+  .homeManual .systemNotes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .homeManual .notesLead {
+    grid-column: 1 / -1;
+  }
+
+  .homeManual .systemNotes article:nth-of-type(2) {
+    border-right: 0;
+  }
+
+  .homeManual .systemNotes article:last-child {
+    border-top-color: var(--line-soft);
+  }
+}
+
+@media (max-width: 700px) {
+  .homeManual .header {
+    padding: 1.1rem 1.2rem;
+  }
+
+  .homeManual .identity small,
+  .homeManual .location {
+    display: none;
+  }
+
+  .homeManual .hero {
+    min-height: 100svh;
+    padding: 6.5rem 1.2rem 4rem;
+  }
+
+  .homeManual .heroWordmark {
+    font-size: clamp(6.7rem, 35vw, 9.2rem);
+    line-height: 0.8;
+  }
+
+  .homeManual .hero h1 {
+    font-size: clamp(1.35rem, 7vw, 1.85rem);
+  }
+
+  .homeManual .heroLead {
+    font-size: 0.84rem;
+  }
+
+  .homeManual .heroActions {
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .homeManual .heroProof {
+    gap: 0.65rem;
+    margin-top: 2.8rem;
+  }
+
+  .homeManual .heroProof dt {
+    font-size: clamp(1.65rem, 9vw, 2.3rem);
+  }
+
+  .homeManual .heroProof dd {
+    font-size: 0.48rem;
+    letter-spacing: 0.14em;
+  }
+
+  .homeManual .approvalStamp {
+    margin-top: 1.5rem;
+  }
+
+  .homeManual .scaleNote {
+    display: none;
+  }
+
+  .homeManual .workStats,
+  .homeManual .chapterMap,
+  .homeManual .projectIndex,
+  .homeManual .dayTimeline,
+  .homeManual .propertyDirectory,
+  .homeManual .processSection,
+  .homeManual .manifesto,
+  .homeManual .systemNotes,
+  .homeManual .footer {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  .homeManual .workStats {
+    min-height: auto;
+  }
+
+  .homeManual .workStatsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .workStatsGrid > div {
+    min-height: auto;
+  }
+
+  .homeManual .chapterMap li {
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+  }
+
+  .homeManual .chapterMap a {
+    gap: 0.6rem;
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .chapterMap small {
+    grid-column: 1;
+  }
+
+  .homeManual .projectGroup {
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .projectGroup h3 {
+    margin-top: 0;
+  }
+
+  .homeManual .projectRail a {
+    align-items: start;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: auto;
+    padding: 1.8rem 0.2rem;
+  }
+
+  .homeManual .projectName {
+    font-size: clamp(2.1rem, 12vw, 3.3rem);
+  }
+
+  .homeManual .projectDetail {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .homeManual .projectRail em {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .homeManual .projectRail svg {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .homeManual .dayMoment {
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+  }
+
+  .homeManual .dayTrack::before {
+    left: 1.15rem;
+  }
+
+  .homeManual .dayMoment time,
+  .homeManual .dayMoment strong,
+  .homeManual .dayMoment p {
+    grid-column: 2;
+  }
+
+  .homeManual .dayMoment strong {
+    margin-top: 0.5rem;
+  }
+
+  .homeManual .caseCopy {
+    padding: 6rem 1.2rem 4rem;
+  }
+
+  .homeManual .caseCopy dl div {
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .caseImage {
+    min-height: 32rem;
+  }
+
+  .homeManual .propertyDirectory a {
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  }
+
+  .homeManual .propertyDirectory small {
+    grid-column: 2;
+  }
+
+  .homeManual .processList li {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .homeManual .processList p {
+    grid-column: 2;
+  }
+
+  .homeManual .manifesto {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .homeManual .towerArt {
+    margin: -2rem auto 0;
+    max-width: 22rem;
+  }
+
+  .homeManual .systemNotes {
+    grid-template-columns: 1fr;
+  }
+
+  .homeManual .notesLead,
+  .homeManual .systemNotes article,
+  .homeManual .systemNotes article:nth-of-type(2) {
+    border-right: 0;
+    grid-column: 1;
+  }
+
+  .homeManual .footer {
+    grid-template-columns: 1fr;
+    min-height: 100svh;
+  }
+
+  .homeManual .footerLocation,
+  .homeManual .footerRule {
+    grid-column: 1;
+  }
+
+  .homeManual .footerRule {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeManual::before,
+  .homeManual::after,
+  .homeManual *,
+  .homeManual *::before,
+  .homeManual *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .homeManual::before {
+    transform: none;
+  }
+
+  .homeManual .hero::before {
+    opacity: 1;
+  }
+
+  .homeManual .heroCopy > *,
+  .homeManual .workStatsIntro,
+  .homeManual .workStatsGrid > div,
+  .homeManual .chapterMap li,
+  .homeManual .projectRail a,
+  .homeManual .dayMoment,
+  .homeManual .propertyDirectory li,
+  .homeManual .processList li,
+  .homeManual .manifestoCopy,
+  .homeManual .systemNotes article {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .homeManual .readingLine {
+    scale: 1 1;
+  }
+
+  .homeManual .casePhotoActive img {
+    scale: 1;
+  }
 }

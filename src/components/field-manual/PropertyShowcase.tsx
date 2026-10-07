@@ -30,7 +30,7 @@ const properties = [
   {
     slug: "pinnacle-park",
     title: ["Pinnacle Park", "at Northriver"],
-    meta: "Tuscaloosa, AL · 50 Palmer-managed townhomes · Luxury living",
+    meta: "Tuscaloosa, AL · 50 Palmer-managed luxury townhomes",
     systems: [
       ["Lyra", "Answers leasing and maintenance calls and texts, day or night."],
       ["AppFolio Workflow", "Sorts open work orders into a daily sheet for each vendor."],

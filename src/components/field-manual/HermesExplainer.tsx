@@ -54,7 +54,7 @@ export default function HermesExplainer() {
       <header className={styles.intro}>
         <div>
           <p>System map · Hermes</p>
-          <h2 id="hermes-title">A conductor and eight specialists.<br />One operating center.</h2>
+          <h2 id="hermes-title">A dispatcher and eight specialists.<br />One operating center.</h2>
         </div>
         <p className={styles.lead}>
           A self-hosted AI team running on one Mac: property operations, leasing,
