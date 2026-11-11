@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { numberWord, operatingStats, snapshotDate } from "@/content/operating-map";
 import FieldManualChrome from "@/components/field-manual/FieldManualChrome";
 import Playbook, { Callout, Card, Cards, Lead, Section, TableWrap } from "@/components/field-manual/Playbook";
 
@@ -68,10 +69,9 @@ function DontBuild({ id, title, lead, children }: { id?: string; title: string; 
 export default function PlaybookCostsPage() {
   return (
     <FieldManualChrome
-      page="systems"
+      page="playbook"
       skipHref="#playbook-content"
       skipLabel="Skip to the playbook"
-      rail={["v1.0", "Playbook", "Costs"]}
     >
       <Playbook
         current="costs"
@@ -82,15 +82,15 @@ export default function PlaybookCostsPage() {
           <>
             <p>
               Most &ldquo;AI agent&rdquo; sites are vague about money. Here&apos;s the real picture: roughly what Carson
-              pays per month at his volume (property portfolio, 24/7 voice and text agent, 32 enabled scheduled jobs,
-              and nine Hermes profiles), and what the cheapest possible version costs if you&apos;re starting tonight.
+              pays per month at his volume (property portfolio, 24/7 voice and text agent, {operatingStats.routines} scheduled
+              jobs, and {numberWord(operatingStats.agents)} AI specialists), and what the cheapest possible version costs if you&apos;re starting tonight.
             </p>
             <p>
               These are honest estimates, not invoices. Your actual bill depends on call volume, message volume, model
               choice, and how aggressive you get with caching.
             </p>
             <p>
-              <small>Counts verified 2026-10-01 · some prices still being confirmed</small>
+              <small>Counts verified {snapshotDate} · some prices still being confirmed</small>
             </p>
           </>
         }
@@ -138,8 +138,8 @@ export default function PlaybookCostsPage() {
 
         <Section label="Carson's full setup" title="$400+ / month.">
           <Lead>
-            The real bill for the system on the <Link href="/systems">operating map</Link>{" "}— 24/7 voice and text agent,
-            property operations, 32 enabled scheduled jobs, and 6 Mac background services. The two AI model plans alone
+            The real bill for the system on the <Link href="/systems">Systems page</Link>{" "}— 24/7 voice and text agent,
+            property operations, {operatingStats.routines} scheduled jobs, and {operatingStats.macJobs} Mac background services. The two AI model plans alone
             are about $400/month; the usage-based items below are being re-tallied, so no grand total is shown until
             that&apos;s done:
           </Lead>
@@ -224,7 +224,7 @@ export default function PlaybookCostsPage() {
         <Section label="The honest math" title="Compare to the alternative." tone="dark">
           <p>
             If this system saves you 8 hours a week (a conservative estimate at Carson&apos;s full scale) and your time is
-            worth $50/hr, that&apos;s $1,600/month of recovered time against a bill that starts around $400/month in
+            worth $50/hr, that&apos;s about $1,740/month of recovered time against a bill that starts around $400/month in
             model plans. The hard part is being honest with yourself about whether you&apos;d actually <em>do</em>{" "}
             something productive with the recovered hours.
           </p>
@@ -251,8 +251,8 @@ export default function PlaybookCostsPage() {
                   ["Phone intake (leasing, maintenance, vendor)", "4.0", "0.5", "3.5 hr"],
                   ["Inbox triage across 6 accounts", "3.0", "0.5", "2.5 hr"],
                   ["Daily property/occupancy/work-order check-in", "1.5", "0.25", "1.25 hr"],
-                  ["Weekly P&L review prep", "1.5", "0.5", "1.0 hr"],
-                  ["Monthly delinquency sweep", "0.75", "0.1", "0.65 hr"],
+                  ["Weekly collections and rent review prep", "1.5", "0.5", "1.0 hr"],
+                  ["Weekly late-rent report", "0.75", "0.1", "0.65 hr"],
                   ["Vendor follow-ups", "1.0", "0.4", "0.6 hr"],
                   ["Lease renewal pipeline", "0.5", "0.1", "0.4 hr"],
                 ] as const
@@ -289,7 +289,7 @@ export default function PlaybookCostsPage() {
         <Section label="Where the wins came from" title="Two workflows do most of the work.">
           <Lead>
             If you only build the top two from the table above (phone intake + inbox triage), you capture{" "}
-            <strong>75% of the total savings</strong>. The rest is incremental.
+            <strong>about 60% of the total savings</strong>. The rest is incremental.
           </Lead>
           <Cards>
             <Card title="1. Lyra (phone + text intake) — biggest single win">

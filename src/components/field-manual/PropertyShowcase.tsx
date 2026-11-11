@@ -50,7 +50,7 @@ const properties = [
     systems: [
       ["Lyra", "Answers the phone around the clock."],
       ["Kae", "Gives each resident a move-in page as the unit turns."],
-      ["Hermes", "Drafts leasing email replies for approval."],
+      ["Inbox sorting", "Drafts leasing email replies for approval."],
     ],
     description:
       "At First and Main, leasing questions, maintenance requests, and move-outs move through one shared workflow. Routine answers send on their own; anything about money, a lease, or the law waits for a person.",
@@ -66,7 +66,7 @@ const properties = [
     systems: [
       ["Lyra", "Catches every inquiry, even after hours."],
       ["Kae", "Tracks student turnover through move-in."],
-      ["Hermes", "Drafts replies and reminders for approval."],
+      ["Inbox sorting", "Drafts replies and reminders for approval."],
     ],
     description:
       "At The Station, a leasing inquiry can become a tour, a signed lease, and a prepared move-in checklist without losing the handoff between people.",
@@ -77,12 +77,12 @@ const properties = [
   },
   {
     slug: "forest-lake",
-    title: ["Forest Lake", "Homes"],
-    meta: "Tuscaloosa, AL · 13 homes including Rosemary Circle · Student living",
+    title: ["Forest Lake", "+ Rosemary Circle"],
+    meta: "Tuscaloosa, AL · 13 homes across two communities · Student living",
     systems: [
       ["Lyra", "One number, answered day and night."],
       ["Kae", "Move-in pages and turn progress for each house."],
-      ["Hermes", "Weekly rent, renewal, and occupancy reports."],
+      ["Weekly reports", "Rent, renewals, and occupancy, every week."],
     ],
     description:
       "At Forest Lake and Rosemary Circle, recurring questions, maintenance follow-up, and renewals stay organized across thirteen homes—while a person still decides anything about money, a lease, or the law.",

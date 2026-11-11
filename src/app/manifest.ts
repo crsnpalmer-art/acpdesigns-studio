@@ -5,11 +5,11 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "ACP Designs Studio",
     short_name: "ACP Studio",
     description:
-      "Home for Carson Palmer's property portfolio, apps, automation systems, and ideas.",
+      "Carson Palmer builds useful systems for real property operations, practical software, and human-supervised AI.",
     start_url: "/",
     display: "standalone",
-    background_color: "#000000",
-    theme_color: "#000000",
+    background_color: "#fafaf8",
+    theme_color: "#131c1a",
     icons: [
       { src: "/favicon.ico", sizes: "any", type: "image/x-icon" },
       { src: "/apple-icon", sizes: "180x180", type: "image/png" },

@@ -4,7 +4,7 @@ const moments = [
   {
     when: "Before I wake",
     title: "Property data syncs",
-    detail: "AppFolio numbers land on the Mac before the workday starts.",
+    detail: "The day's numbers come over from AppFolio before the workday starts.",
   },
   {
     when: "Morning",
@@ -29,7 +29,7 @@ const moments = [
   {
     when: "Morning",
     title: "The turn board lands",
-    detail: "Each turning unit's checklist, printed for the crew.",
+    detail: "Each turning unit's checklist, ready for the crew.",
   },
   {
     when: "All day",
@@ -44,7 +44,7 @@ const moments = [
   {
     when: "Overnight",
     title: "The system tends itself",
-    detail: "Memory logs write, the shared wiki is filed and saved; weekly backups run.",
+    detail: "The day is written down, the shared notebook is tidied and saved, and backups run weekly.",
   },
   {
     when: "Weekly",
@@ -75,7 +75,7 @@ export default function DayTimeline() {
         ))}
       </ol>
       <p className={styles.dayNote}>
-        Pulled from the live schedule above, rounded to the rhythm of the day.
+        Drawn from the real schedule, rounded to the rhythm of the day.
         A person still owns money, leases, and legal. Routine replies can send
         when they pass a checker.
       </p>

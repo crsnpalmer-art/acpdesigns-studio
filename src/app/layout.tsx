@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
-const displayFont = Bodoni_Moda({
+const sansFont = Inter({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-sans",
   display: "swap",
 });
 
-const bodyFont = Manrope({
+const monoFont = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -69,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html lang="en" className={`${sansFont.variable} ${monoFont.variable}`}>
       <body>
         {children}
         <script

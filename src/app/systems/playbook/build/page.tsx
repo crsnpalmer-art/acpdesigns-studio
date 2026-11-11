@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FieldManualChrome from "@/components/field-manual/FieldManualChrome";
+import { numberWord, operatingStats } from "@/content/operating-map";
 import Playbook, {
   Callout,
   Card,
@@ -199,10 +200,9 @@ function PromptCard({ title, children }: { title: string; children: string }) {
 export default function PlaybookBuildPage() {
   return (
     <FieldManualChrome
-      page="systems"
+      page="playbook"
       skipHref="#playbook-content"
       skipLabel="Skip to the playbook"
-      rail={["v1.0", "Playbook", "Build"]}
     >
       <Playbook
         current="build"
@@ -400,7 +400,7 @@ export default function PlaybookBuildPage() {
             </Card>
             <Card title="Agents">
               <p>
-                Nine lanes: the Dispatcher (main), work, Lyra (leasing and resident intake), finance,
+                {numberWord(operatingStats.agents, true)} lanes: the Dispatcher (main), work, Lyra (leasing and resident intake), finance,
                 collections, ops, memory, maintenance, and a Grok-powered tweeter lane.
               </p>
             </Card>
@@ -545,7 +545,7 @@ export default function PlaybookBuildPage() {
 
         <Section label="Current job families" title="What the recurring work covers.">
           <Lead>
-            The real setup has 32 scheduled jobs. Publicly, they are best understood as job families instead of exact
+            The real setup has {operatingStats.routines} scheduled jobs. Publicly, they are best understood as job families instead of exact
             private schedules.
           </Lead>
           <TableWrap label="Scheduled job families">
@@ -636,7 +636,7 @@ export default function PlaybookBuildPage() {
         </Section>
 
         <Section label="Always-on families" title="What LaunchAgents cover.">
-          <Lead>Six Mac background services keep the always-on pieces running.</Lead>
+          <Lead>{numberWord(operatingStats.macJobs, true)} Mac background services keep the always-on pieces running.</Lead>
           <Cards>
             <Card title="Gateway">
               <p>Keep the single Hermes gateway alive so every profile, tool, and Telegram lane can talk to each other.</p>

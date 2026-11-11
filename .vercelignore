@@ -9,4 +9,3 @@ public/*.bak
 public/**/*.bak
 .artifacts
 design-qa.md
-docs

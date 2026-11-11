@@ -1,11 +1,4 @@
-import Image from "next/image";
-import {
-  ArrowRightIcon,
-  BuildingsIcon,
-  CirclesThreePlusIcon,
-  GlobeHemisphereWestIcon,
-  MapPinIcon,
-} from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import styles from "./FieldManual.module.css";
 
 const nav = [
@@ -13,33 +6,45 @@ const nav = [
   { id: "systems", home: "/systems", away: "/systems", label: "Systems" },
   { id: "case-studies", home: "#case-studies", away: "/#case-studies", label: "Case studies" },
   { id: "field-notes", home: "#field-notes", away: "/#field-notes", label: "What I've learned" },
-  { id: "contact", home: "#contact", away: "/#contact", label: "Contact" },
+  { id: "playbook", home: "/systems/playbook", away: "/systems/playbook", label: "Playbook" },
 ] as const;
 
-type ChromePage = "home" | "systems";
+const playbookLinks = [
+  ["/systems/playbook", "Start"],
+  ["/systems/playbook/build", "Build"],
+  ["/systems/playbook/costs", "Costs"],
+  ["/systems/playbook/reference", "Reference"],
+] as const;
+
+const contactHref = "mailto:crsnpalmer@gmail.com";
+
+export type ChromePage = "home" | "systems" | "playbook" | "other";
 
 type FieldManualChromeProps = {
   children: React.ReactNode;
   page: ChromePage;
   skipHref: string;
   skipLabel: string;
-  rail: readonly [string, string, string];
 };
+
+function Wordmark() {
+  return (
+    <span className={styles.wordmark}>
+      acp<span>designs</span>
+    </span>
+  );
+}
 
 export default function FieldManualChrome({
   children,
   page,
   skipHref,
   skipLabel,
-  rail,
 }: FieldManualChromeProps) {
   const onHome = page === "home";
 
   return (
-    <main
-      id={onHome ? "top" : undefined}
-      className={`${styles.manual} ${onHome ? styles.homeManual : styles.manualScroll}`}
-    >
+    <main id={onHome ? "top" : undefined} className={styles.manual}>
       <a className={styles.skipLink} href={skipHref}>
         {skipLabel}
       </a>
@@ -48,67 +53,79 @@ export default function FieldManualChrome({
 
       <header className={styles.header}>
         <a href={onHome ? "#top" : "/"} className={styles.identity} aria-label="ACP Designs Studio home">
-          <Image src="/apple-icon" width={36} height={36} alt="" className={styles.mark} />
-          <span>
-            <strong>ACP Designs Studio</strong>
-            <small>Carson Palmer</small>
-          </span>
+          <Wordmark />
         </a>
         <nav aria-label="Primary" className={styles.primaryNav}>
-          <ul className={styles.scrollSpy}>
-            {nav.map((item) => {
-              const current = item.id === "systems" && page === "systems";
-              return (
-                <li key={item.id}>
-                  <a href={onHome ? item.home : item.away} aria-current={current ? "page" : undefined}>
-                    {item.label}
-                  </a>
-                </li>
-              );
-            })}
+          <ul>
+            {nav.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={onHome ? item.home : item.away}
+                  aria-current={item.id === page ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
-        <p className={styles.location}>Tuscaloosa, AL<br />Property systems studio</p>
+        <a className={styles.headerContact} href={onHome ? "#contact" : "/#contact"}>
+          Contact
+        </a>
       </header>
-
-      <aside className={styles.marginRail} aria-hidden="true">
-        {rail.map((label) => (
-          <span key={label}>{label}</span>
-        ))}
-      </aside>
 
       {children}
 
       <footer id="contact" className={styles.footer}>
-        <div className={styles.footerBrand}>
-          <Image src="/apple-icon" width={54} height={54} alt="" />
-          <p>ACP Designs Studio<small>Carson Palmer</small></p>
-        </div>
-        <div className={styles.footerStatement}>
-          <p>Let&apos;s build something<br />useful together.</p>
-        </div>
-        <div className={styles.footerContact}>
-          <p className={styles.sectionLabel}>Tell me about your work.</p>
-          <a href="mailto:crsnpalmer@gmail.com">
+        <div className={styles.footerLead}>
+          <p className={styles.sectionLabel}>Tell me about your work</p>
+          <p className={styles.footerStatement}>Let&apos;s build something useful together.</p>
+          <a className={styles.primaryButton} href={contactHref}>
             Start a conversation <ArrowRightIcon aria-hidden="true" />
           </a>
         </div>
-        <div className={styles.footerLocation}>
-          <MapPinIcon aria-hidden="true" />
-          <p>33.2098° N<br />87.5692° W</p>
+
+        <div className={styles.footerColumns}>
+          <div className={styles.footerBrand}>
+            <Wordmark />
+            <p>Carson Palmer<br />Property systems studio<br />Tuscaloosa, Alabama</p>
+          </div>
+          <nav aria-label="Site">
+            <p>Site</p>
+            <ul>
+              {nav.slice(0, 4).map((item) => (
+                <li key={item.id}>
+                  <a href={onHome ? item.home : item.away}>{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Playbook">
+            <p>Playbook</p>
+            <ul>
+              {playbookLinks.map(([href, label]) => (
+                <li key={href}>
+                  <a href={href}>{label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Legal and contact">
+            <p>Legal</p>
+            <ul>
+              <li><a href="/privacy">Privacy &amp; data use</a></li>
+              <li><a href={contactHref}>Email Carson</a></li>
+            </ul>
+          </nav>
         </div>
+
+        <p className={styles.footerWordmark} aria-hidden="true">acp designs.</p>
+
         <div className={styles.footerRule}>
-          <p>© 2026 ACP Designs Studio</p>
+          <p>© {new Date().getFullYear()} ACP Designs Studio</p>
           <p>Built in Tuscaloosa. Working wherever better systems help.</p>
-          <a href="/privacy">Privacy &amp; data use</a>
         </div>
       </footer>
-
-      {onHome ? (
-        <div className={styles.decorativeIcons} aria-hidden="true">
-          <BuildingsIcon /><CirclesThreePlusIcon /><GlobeHemisphereWestIcon />
-        </div>
-      ) : null}
     </main>
   );
 }

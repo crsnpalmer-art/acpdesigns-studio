@@ -9,10 +9,10 @@ import {
   ShieldCheckIcon,
 } from "@phosphor-icons/react/ssr";
 import DayTimeline from "./DayTimeline";
+import { numberWord, operatingStats } from "@/content/operating-map";
 import FieldManualChrome from "./FieldManualChrome";
 import HermesExplainer from "./HermesExplainer";
 import PropertyShowcase from "./PropertyShowcase";
-import SystemField from "./SystemField";
 import WorkflowFilm from "./WorkflowFilm";
 import styles from "./FieldManual.module.css";
 
@@ -23,7 +23,7 @@ const projectGroups = [
     projects: [
       {
         name: "Lyra",
-        detail: "AI voice and text line for leasing and maintenance.",
+        detail: "Answers leasing and maintenance calls and texts, day and night.",
         status: "Live",
         href: "#hermes",
       },
@@ -55,7 +55,7 @@ const projectGroups = [
         name: "Find Your Fit",
         detail: "Matches prospects to the right property.",
         status: "In review",
-        href: "#field-notes",
+        href: null,
       },
     ],
   },
@@ -79,7 +79,7 @@ const projectGroups = [
         name: "TodoToNotes",
         detail: "Handwritten lists become useful Apple Notes.",
         status: "Prototype",
-        href: "#field-notes",
+        href: null,
       },
     ],
   },
@@ -127,14 +127,25 @@ export default function FieldManualPage() {
       page="home"
       skipHref="#main-content"
       skipLabel="Skip to the work"
-      rail={["v1.0", "Field Manual", "Real Property Operations"]}
     >
       <section id="main-content" className={styles.hero} aria-labelledby="hero-title">
-        <SystemField />
+        <Image
+          className={styles.heroImage}
+          src="/workflow-film/handoff.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+        />
+        <dl className={styles.heroProof} aria-label="ACP field snapshot">
+          <div className={styles.heroProofHead}><dt>Field snapshot</dt><dd>Live</dd></div>
+          <div><dt>109</dt><dd>Palmer-managed rentals</dd></div>
+          <div><dt>05</dt><dd>Communities</dd></div>
+          <div><dt>24/7</dt><dd>Answered calls</dd></div>
+        </dl>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>ACP Designs Studio · Tuscaloosa, Alabama</p>
-          <p className={styles.heroWordmark} aria-hidden="true">ACP</p>
-          <h1 id="hero-title">Real work. <em>Better systems</em><span>.</span></h1>
+          <h1 id="hero-title">Real work. Better systems.</h1>
           <p className={styles.heroLead}>
             I go into the messy parts of property operations and come back with calm,
             useful systems—built for people, not dashboards.
@@ -147,17 +158,11 @@ export default function FieldManualPage() {
               Systems map <ArrowUpRightIcon aria-hidden="true" />
             </a>
           </div>
-          <dl className={styles.heroProof} aria-label="ACP field snapshot">
-            <div><dt>109</dt><dd>Palmer-managed rentals</dd></div>
-            <div><dt>05</dt><dd>Communities</dd></div>
-            <div><dt>24/7</dt><dd>Answered calls</dd></div>
-          </dl>
-          <div className={styles.approvalStamp}>
+          <p className={styles.approvalStamp}>
             <ShieldCheckIcon aria-hidden="true" />
-            <span>Human judgment<br />stays in the loop</span>
-          </div>
+            Human judgment stays in the loop
+          </p>
         </div>
-        <div className={styles.scaleNote} aria-hidden="true">Scroll · One continuous field manual</div>
       </section>
 
       <WorkflowFilm />
@@ -165,51 +170,39 @@ export default function FieldManualPage() {
       <section id="work-stats" className={styles.workStats} aria-labelledby="work-stats-title">
         <div className={styles.workStatsIntro}>
           <p className={styles.sectionLabel}>Work in numbers</p>
-          <h2 id="work-stats-title">What the work<br />supports.</h2>
-          <p>Real properties, real calls, and useful side projects.</p>
+          <h2 id="work-stats-title">What the work supports.</h2>
+          <p>Real properties, real residents, and real calls.</p>
         </div>
         <div className={styles.workStatsBody}>
           <dl className={styles.workStatsGrid}>
             <div>
               <dt>109</dt>
               <dd>Rental units</dd>
-              <p>Across five communities where these systems do real work.</p>
+              <p>Homes where these systems answer calls, track rent, and line up repairs.</p>
             </div>
             <div>
               <dt>05</dt>
               <dd>Communities</dd>
-              <p>Across Tuscaloosa and Northport, each with its own real workflow.</p>
+              <p>Pinnacle Park, First and Main, The Station, Forest Lake, and Rosemary Circle.</p>
             </div>
             <div>
               <dt>24/7</dt>
-              <dd>Service</dd>
-              <p>Leasing and maintenance calls across five communities.</p>
+              <dd>Answered calls</dd>
+              <p>Leasing and maintenance calls and texts, picked up day or night.</p>
             </div>
           </dl>
-          <div className={styles.buildTrail}>
-            <p>Build trail</p>
-            <dl>
-              <div><dt>1,833</dt><dd>Commits</dd></div>
-              <div><dt>≈564</dt><dd>Logged build hours</dd></div>
-            </dl>
-          </div>
-          <p className={styles.workStatsMethod}>
-            Build snapshot through July 17, 2026. Commits cover 16 active repositories.
-            Hours use unique 15-minute windows from human-directed AI sessions and Git history.
-            August field work is in the systems below, not in this count.
-          </p>
         </div>
       </section>
 
       <section className={styles.chapterMap} aria-labelledby="chapter-map-title">
-        {/* The map is the index, not a chapter — the spacer keeps the two-column
-            grid while the numbered chapters below match the page's own stamps. */}
-        <div aria-hidden="true" />
         <div>
-          <p className={styles.sectionLabel} id="chapter-map-title">Chapters</p>
+          <p className={styles.sectionLabel}>Chapters</p>
+          <h2 id="chapter-map-title">Where to go from here.</h2>
+        </div>
+        <div>
           <ol>
             <li><span>01</span><a href="#projects"><strong>Projects</strong><small>Live work, real impact.</small></a></li>
-            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>A dispatcher and eight specialists, one private system.</small></a></li>
+            <li><span>02</span><a href="/systems"><strong>Systems</strong><small>A dispatcher and {numberWord(operatingStats.agents - 1)} specialists, and every job they run.</small></a></li>
             <li><span>03</span><a href="#systems"><strong>How I work</strong><small>Operations become systems.</small></a></li>
             <li><span>04</span><a href="#field-notes"><strong>What I&apos;ve learned</strong><small>Patterns worth keeping.</small></a></li>
           </ol>
@@ -224,6 +217,29 @@ export default function FieldManualPage() {
               <h3 id={`${group.slug}-title`}>{group.label}</h3>
               <div className={styles.projectRail}>
                 {group.projects.map((project) => {
+                  const status = (
+                    <em
+                      className={
+                        project.status === "Live"
+                          ? styles.statusLive
+                          : project.status === "In review"
+                            ? styles.statusReview
+                            : undefined
+                      }
+                    >
+                      {project.status}
+                    </em>
+                  );
+                  // Projects with nothing public to show yet render as a plain card, not a link.
+                  if (!project.href) {
+                    return (
+                      <div key={project.name}>
+                        <span className={styles.projectName}>{project.name}</span>
+                        <span className={styles.projectDetail}>{project.detail}</span>
+                        {status}
+                      </div>
+                    );
+                  }
                   const external = project.href.startsWith("http");
                   return (
                     <a
@@ -235,17 +251,7 @@ export default function FieldManualPage() {
                       <span className={styles.projectName}>{project.name}</span>
                       <ArrowRightIcon aria-hidden="true" />
                       <span className={styles.projectDetail}>{project.detail}</span>
-                      <em
-                        className={
-                          project.status === "Live"
-                            ? styles.statusLive
-                            : project.status === "In review"
-                              ? styles.statusReview
-                              : undefined
-                        }
-                      >
-                        {project.status}
-                      </em>
+                      {status}
                     </a>
                   );
                 })}
@@ -281,10 +287,9 @@ export default function FieldManualPage() {
       </nav>
 
       <section id="systems" className={styles.processSection} aria-labelledby="process-title">
-        <div className={styles.chapterNumber}>03</div>
         <div className={styles.processIntro}>
           <p className={styles.sectionLabel}>How I work</p>
-          <h2 id="process-title">Field-tested.<br />Iterate. Ship.<br />Repeat.</h2>
+          <h2 id="process-title">Field-tested. Iterate. Ship. Repeat.</h2>
         </div>
         <ol className={styles.processList}>
           {process.map(([number, title, detail]) => (
@@ -299,10 +304,9 @@ export default function FieldManualPage() {
       </section>
 
       <section id="field-notes" className={styles.manifesto} aria-labelledby="manifesto-title">
-        <div className={styles.chapterNumber}>04</div>
         <div className={styles.manifestoCopy}>
           <p className={styles.sectionLabel}>What I&apos;ve learned</p>
-          <h2 id="manifesto-title">I build systems that respect people and <em>reality.</em></h2>
+          <h2 id="manifesto-title">I build systems that respect people and reality.</h2>
           <p>
             Real property is people work. Technology should make it lighter, clearer,
             and more accountable—not hide it behind another screen.

@@ -13,17 +13,16 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background:
-            "radial-gradient(circle at 30% 25%, #2a2a2a 0%, #000000 70%)",
-          color: "white",
+          background: "#131c1a",
+          color: "#d9ff43",
           fontFamily:
             "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
           letterSpacing: "-0.04em",
-          fontSize: 70,
-          fontWeight: 600,
+          fontSize: 74,
+          fontWeight: 700,
         }}
       >
-        ACP
+        acp
       </div>
     ),
     { ...size },

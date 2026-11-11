@@ -11,7 +11,9 @@ const pages: readonly { id: PlaybookPage; href: string; label: string; note: str
 ];
 
 type PlaybookProps = {
-  current: PlaybookPage;
+  /** Omit on standalone long-form pages (privacy) to hide the playbook sub-nav. */
+  current?: PlaybookPage;
+  back?: { href: string; label: string };
   eyebrow: string;
   title: string;
   lead: React.ReactNode;
@@ -19,12 +21,20 @@ type PlaybookProps = {
   children: React.ReactNode;
 };
 
-export default function Playbook({ current, eyebrow, title, lead, meta, children }: PlaybookProps) {
+export default function Playbook({
+  current,
+  back = { href: "/systems", label: "Systems" },
+  eyebrow,
+  title,
+  lead,
+  meta,
+  children,
+}: PlaybookProps) {
   return (
     <article className={styles.playbook} aria-labelledby="playbook-title">
       <header className={styles.intro}>
-        <Link href="/systems" className={styles.back}>
-          <span aria-hidden="true">←</span> Operating map
+        <Link href={back.href} className={styles.back}>
+          <span aria-hidden="true">←</span> {back.label}
         </Link>
         <p className={styles.eyebrow}>
           {eyebrow}
@@ -34,19 +44,21 @@ export default function Playbook({ current, eyebrow, title, lead, meta, children
         <div className={styles.lead}>{lead}</div>
       </header>
 
-      <nav aria-label="Playbook pages" className={styles.subNav}>
-        <ol>
-          {pages.map((page, index) => (
-            <li key={page.id}>
-              <Link href={page.href} aria-current={page.id === current ? "page" : undefined}>
-                <span className={styles.subNavIndex}>0{index + 1}</span>
-                <strong>{page.label}</strong>
-                <small>{page.note}</small>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </nav>
+      {current ? (
+        <nav aria-label="Playbook pages" className={styles.subNav}>
+          <ol>
+            {pages.map((page, index) => (
+              <li key={page.id}>
+                <Link href={page.href} aria-current={page.id === current ? "page" : undefined}>
+                  <span className={styles.subNavIndex}>0{index + 1}</span>
+                  <strong>{page.label}</strong>
+                  <small>{page.note}</small>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      ) : null}
 
       <div id="playbook-content" className={styles.body} tabIndex={-1}>
         {children}

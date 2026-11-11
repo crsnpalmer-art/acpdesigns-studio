@@ -48,7 +48,7 @@ prompt = "Give me a 5-bullet morning brief. Today is " \\
 req = http.Request(
     "https://api.anthropic.com/v1/messages",
     data=json.dumps({
-        "model": "claude-haiku-4-5",
+        "model": "claude-haiku-5-5",
         "max_tokens": 600,
         "messages": [{"role": "user", "content": prompt}],
     }).encode(),
@@ -78,15 +78,14 @@ TG_BOT_TOKEN=123456:ABC... \\
 TG_CHAT_ID=12345678 \\
 python3 ~/morning-brief.py`;
 
-const cronLine = `0 8 * * * ANTHROPIC_API_KEY=sk-ant-... TG_BOT_TOKEN=123456:ABC... TG_CHAT_ID=12345678 /usr/bin/python3 /path/to/morning-brief.py >> /tmp/brief.log 2>&1`;
+const cronLine = `0 8 * * * ANTHROPIC_API_KEY=sk-ant-... TG_BOT_TOKEN=123456:ABC... TG_CHAT_ID=12345678 /usr/bin/python3 /path/to/morning-brief.py >> /tmp/morning-brief.log 2>&1`;
 
 export default function PlaybookStartPage() {
   return (
     <FieldManualChrome
-      page="systems"
+      page="playbook"
       skipHref="#playbook-content"
       skipLabel="Skip to the playbook"
-      rail={["v1.0", "Playbook", "Start"]}
     >
       <Playbook
         current="start"
@@ -104,7 +103,7 @@ export default function PlaybookStartPage() {
               has a human approval gate, and every run leaves proof. Copy that. Skip the parts that don&apos;t fit.
             </p>
             <p>
-              <strong>Looking for the actual setup?</strong>{" "}The <Link href="/systems">operating map</Link>{" "}shows
+              <strong>Looking for the actual setup?</strong>{" "}The <Link href="/systems">Systems page</Link>{" "}shows
               Carson&apos;s real agents, real schedules, and real software. This playbook is the generic version for
               friends and colleagues building their own.
             </p>
@@ -134,7 +133,7 @@ export default function PlaybookStartPage() {
               meta="5 min read · honest bill"
             >
               <p>
-                Three tiers (~$20, ~$80–$150, and $400+/month for the full setup). Real per-vendor breakdown at each
+                Three tiers (~$20, ~$60–$135, and $400+/month for the full setup). Real per-vendor breakdown at each
                 level. Tells you what you&apos;re signing up for before you sign up.
               </p>
             </Card>
@@ -245,6 +244,9 @@ export default function PlaybookStartPage() {
               <p>
                 <code>morning-brief.py</code>{" "}— the working script. ~80 lines. Sends a daily AI brief to your
                 Telegram.
+              </p>
+              <p>
+                <code>README.md</code>{" "}— what each file is and the order to use them.
               </p>
               <p>
                 <code>setup-telegram-bot.md</code>{" "}— 5-minute walkthrough for getting a bot token + chat ID.
@@ -433,7 +435,8 @@ export default function PlaybookStartPage() {
 
         <Section label="Step 3 · 15 minutes" title="Write the script.">
           <p>
-            Save this as <code>~/morning-brief.py</code>. It&apos;s intentionally tiny — under 40 lines.
+            Save this as <code>~/morning-brief.py</code>. It&apos;s intentionally tiny — about 40 lines. (The copy in the zip is the same idea with error
+            handling added.)
           </p>
           <Code label="morning-brief.py">{scriptSource}</Code>
           <Callout>
@@ -455,7 +458,7 @@ export default function PlaybookStartPage() {
           <Code label="Crontab line">{cronLine}</Code>
           <p>
             Save and exit. The cron daemon will run it tomorrow at 8 AM and every day after. Logs go to{" "}
-            <code>/tmp/brief.log</code>{" "}if anything breaks.
+            <code>/tmp/morning-brief.log</code>{" "}if anything breaks.
           </p>
           <Callout>
             <p>

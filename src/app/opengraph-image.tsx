@@ -7,22 +7,20 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Field-manual palette, mirrored from FieldManual.module.css so the share card
-// and the page it links to read as the same object.
-const PAPER = "#f3efe6";
-const INK = "#171817";
-const MUTED = "#5d5a52";
-const ORANGE = "#f04a17";
-const LINE = "rgba(23, 24, 23, 0.12)";
+// Site palette, mirrored from FieldManual.module.css (the dark band tokens) so
+// the share card and the page it links to read as the same object.
+const PAPER = "#131c1a";
+const INK = "#f3f5ef";
+const MUTED = "#a4afab";
+const ACCENT = "#d9ff43";
+const LINE = "rgba(243, 245, 239, 0.07)";
+const RULE = "rgba(243, 245, 239, 0.18)";
 
 export default async function Image() {
   const fontDir = join(process.cwd(), "src/app/og-fonts");
-  const [display, body] = await Promise.all([
-    readFile(join(fontDir, "BodoniModa-SemiBold.ttf")),
-    readFile(join(fontDir, "Manrope-SemiBold.ttf")),
-  ]);
+  const body = await readFile(join(fontDir, "Manrope-SemiBold.ttf"));
 
-  // Blueprint grid, drawn as discrete rules — Satori has no repeating-gradient.
+  // Faint grid, drawn as discrete rules — Satori has no repeating-gradient.
   const columns = Array.from({ length: 11 }, (_, i) => (i + 1) * 100);
   const rows = Array.from({ length: 6 }, (_, i) => (i + 1) * 90);
 
@@ -74,7 +72,7 @@ export default async function Image() {
             left: 56,
             width: 1,
             height: "100%",
-            background: "rgba(23, 24, 23, 0.22)",
+            background: RULE,
             display: "flex",
           }}
         />
@@ -161,17 +159,16 @@ export default async function Image() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                fontFamily: "Bodoni",
-                fontSize: 96,
+                fontSize: 92,
                 lineHeight: 1.04,
-                letterSpacing: "-0.015em",
+                letterSpacing: "-0.035em",
                 color: INK,
               }}
             >
               <div style={{ display: "flex" }}>Real work.</div>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <span style={{ display: "flex" }}>Better systems</span>
-                <span style={{ display: "flex", color: ORANGE }}>.</span>
+                <span style={{ display: "flex", color: ACCENT }}>.</span>
               </div>
             </div>
             <div
@@ -195,7 +192,7 @@ export default async function Image() {
               flexDirection: "row",
               alignItems: "flex-end",
               justifyContent: "space-between",
-              borderTop: `1px solid rgba(23, 24, 23, 0.22)`,
+              borderTop: `1px solid ${RULE}`,
               paddingTop: 22,
             }}
           >
@@ -205,7 +202,7 @@ export default async function Image() {
                   display: "flex",
                   fontSize: 12,
                   letterSpacing: "0.16em",
-                  color: ORANGE,
+                  color: ACCENT,
                 }}
               >
                 PROOF, NOT PROMISES.
@@ -228,8 +225,8 @@ export default async function Image() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                border: `1px solid ${ORANGE}`,
-                color: ORANGE,
+                border: `1px solid ${ACCENT}`,
+                color: ACCENT,
                 padding: "12px 18px",
                 fontSize: 13,
                 letterSpacing: "0.14em",
@@ -246,7 +243,6 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: "Bodoni", data: display, style: "normal", weight: 600 },
         { name: "Manrope", data: body, style: "normal", weight: 600 },
       ],
     },

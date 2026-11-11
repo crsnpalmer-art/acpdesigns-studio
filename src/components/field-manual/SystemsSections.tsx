@@ -1,32 +1,23 @@
 import {
   ArrowRightIcon,
   BookOpenTextIcon,
-  BrainIcon,
   FlowArrowIcon,
+  GearSixIcon,
   HandPalmIcon,
   LockKeyIcon,
   PhoneCallIcon,
-  PlugsConnectedIcon,
 } from "@phosphor-icons/react/ssr";
 import {
   guardrails,
   knowledge,
   lyra,
-  modelChainNote,
-  models,
   offPage,
   requestLoop,
   requestPath,
-  tools,
+  underTheHood,
   workflows,
 } from "@/content/hermes-sections";
 import styles from "./SystemsSections.module.css";
-
-// "lookup_tenant" -> "Look up tenant"
-const toolLabel = (name: string) => {
-  const words = name.replace(/^lookup/, "look_up").split("_");
-  return words.map((w, i) => (i === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w)).join(" ");
-};
 
 function SectionHead({
   id,
@@ -70,43 +61,47 @@ export function RequestLoop() {
   );
 }
 
+/** The automations themselves — shown first, above the specialist list. */
+export function Workflows() {
+  return (
+    <section id="workflows" className={styles.section} aria-labelledby="workflows-title">
+      <SectionHead
+        id="workflows-title"
+        eyebrow="The automations"
+        title="What runs without me."
+        lead={`${workflows.length} workflows that run every day or every week. Each one says what happens and where I step in.`}
+        icon={FlowArrowIcon}
+      />
+      <div className={`${styles.cards} ${styles.cardsThree}`}>
+        {workflows.map((w) => (
+          <article key={w.id} className={styles.card}>
+            <h3>{w.label}</h3>
+            <span>{w.summary}</span>
+            <ol className={styles.chain} aria-label={`${w.label} steps`}>
+              {w.steps.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ol>
+            <p className={styles.human}>
+              <b>My part</b>
+              {w.human}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function SystemsSections() {
   return (
     <>
-      <section id="models" className={styles.section} aria-labelledby="models-title">
+      <section id="request-path" className={styles.section} aria-labelledby="request-path-title">
         <SectionHead
-          id="models-title"
-          eyebrow="The reasoning layer"
-          title="Four AI backends, one job each."
-          lead="Hermes doesn't think on its own. Each lane borrows a model, and every lane has a fallback."
-          icon={BrainIcon}
-        />
-        <div className={styles.cards}>
-          {models.map((m) => (
-            <article key={m.id} className={styles.card}>
-              <p>{m.role}</p>
-              <h3>{m.name}</h3>
-              <strong>{m.model}</strong>
-              <span>{m.blurb}</span>
-              {m.lanes.length > 0 && (
-                <ul className={styles.chips} aria-label={`Lanes on ${m.name}`}>
-                  {m.lanes.map((lane) => (
-                    <li key={lane}>{lane}</li>
-                  ))}
-                </ul>
-              )}
-            </article>
-          ))}
-        </div>
-        <p className={styles.note}>{modelChainNote}</p>
-      </section>
-
-      <section id="workflows" className={styles.section} aria-labelledby="workflows-title">
-        <SectionHead
-          id="workflows-title"
-          eyebrow="Workflows"
-          title="How a request actually moves."
-          lead="Every request takes the same six steps. Below that, six real workflows that run every day."
+          id="request-path-title"
+          eyebrow="Step by step"
+          title="How one request moves."
+          lead="Every piece of work takes the same six steps, whether it starts with a phone call or a schedule."
           icon={FlowArrowIcon}
         />
         <ol className={styles.path}>
@@ -118,19 +113,6 @@ export default function SystemsSections() {
             </li>
           ))}
         </ol>
-        <div className={`${styles.cards} ${styles.cardsThree}`}>
-          {workflows.map((w) => (
-            <article key={w.id} className={styles.card}>
-              <h3>{w.label}</h3>
-              <span>{w.summary}</span>
-              <ol className={styles.chain} aria-label={`${w.label} steps`}>
-                {w.steps.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ol>
-            </article>
-          ))}
-        </div>
       </section>
 
       <section id="lyra-line" className={styles.section} aria-labelledby="lyra-line-title">
@@ -143,11 +125,11 @@ export default function SystemsSections() {
         />
         <div className={styles.split}>
           <div>
-            <p className={styles.label}>Her tools</p>
+            <p className={styles.label}>What she can do</p>
             <dl className={styles.defs}>
               {lyra.tools.map((t) => (
                 <div key={t.name}>
-                  <dt>{toolLabel(t.name)}</dt>
+                  <dt>{t.name}</dt>
                   <dd>{t.detail}</dd>
                 </div>
               ))}
@@ -160,7 +142,7 @@ export default function SystemsSections() {
                 <li key={b}>{b}</li>
               ))}
             </ul>
-            <p className={styles.label}>Rollout</p>
+            <p className={styles.label}>How it rolled out</p>
             <dl className={styles.defs}>
               {lyra.phases.map((p) => (
                 <div key={p.label}>
@@ -173,30 +155,24 @@ export default function SystemsSections() {
         </div>
       </section>
 
-      <section id="tools" className={styles.section} aria-labelledby="tools-title">
+      <section id="guardrails" className={styles.section} aria-labelledby="guardrails-title">
         <SectionHead
-          id="tools-title"
-          eyebrow="Connected apps"
-          title="The tools Hermes drives."
-          icon={PlugsConnectedIcon}
+          id="guardrails-title"
+          eyebrow="Human in the loop"
+          title="A person still makes the calls that matter."
+          icon={HandPalmIcon}
         />
-        <dl className={styles.toolGrid}>
-          {tools.map((t) => (
-            <div key={t.name}>
-              <dt>
-                <small>{t.category}</small>
-                {t.name}
-              </dt>
-              <dd>{t.blurb}</dd>
-            </div>
+        <ol className={styles.numbered}>
+          {guardrails.map((g) => (
+            <li key={g}>{g}</li>
           ))}
-        </dl>
+        </ol>
       </section>
 
       <section id="knowledge" className={styles.section} aria-labelledby="knowledge-title">
         <SectionHead
           id="knowledge-title"
-          eyebrow="The knowledge base"
+          eyebrow="How it remembers"
           title="A shared notebook, in plain text."
           lead={knowledge.plainEnglish}
           icon={BookOpenTextIcon}
@@ -225,18 +201,36 @@ export default function SystemsSections() {
         </dl>
       </section>
 
-      <section id="guardrails" className={styles.section} aria-labelledby="guardrails-title">
+      <section id="tools" className={styles.section} aria-labelledby="tools-title">
         <SectionHead
-          id="guardrails-title"
-          eyebrow="Human in the loop"
-          title="A person still makes the calls that matter."
-          icon={HandPalmIcon}
+          id="tools-title"
+          eyebrow="Under the hood"
+          title="What it is built on."
+          lead="For the curious. The apps the system connects to, and which AI does which job."
+          icon={GearSixIcon}
         />
-        <ol className={styles.numbered}>
-          {guardrails.map((g) => (
-            <li key={g}>{g}</li>
+        <dl className={styles.toolGrid}>
+          {underTheHood.tools.map((t) => (
+            <div key={t.name}>
+              <dt>
+                <small>{t.category}</small>
+                {t.name}
+              </dt>
+              <dd>{t.blurb}</dd>
+            </div>
           ))}
-        </ol>
+        </dl>
+        <dl className={`${styles.toolGrid} ${styles.toolGridFour}`}>
+          {underTheHood.models.map((m) => (
+            <div key={m.id}>
+              <dt>
+                <small>{m.role}</small>
+                {m.name}
+              </dt>
+              <dd>{m.blurb}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <section id="off-page" className={styles.section} aria-labelledby="off-page-title">
@@ -244,7 +238,7 @@ export default function SystemsSections() {
           id="off-page-title"
           eyebrow="The boundary"
           title="What stays off this page."
-          lead="The shape of the system is public. The private wiring is not."
+          lead="How the system works is public. The private details are not."
           icon={LockKeyIcon}
         />
         <dl className={styles.toolGrid}>
@@ -262,7 +256,7 @@ export default function SystemsSections() {
           id="playbook-title"
           eyebrow="Build your own"
           title="The playbook is for you."
-          lead="Everything above is mine. The playbook is the generic version: the same shape, built with your own tools on your own machine."
+          lead="Everything above is mine. The playbook is the general version: the same approach, built with your own tools on your own computer."
           icon={BookOpenTextIcon}
         />
         <ul className={styles.links}>

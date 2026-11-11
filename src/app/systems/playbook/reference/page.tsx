@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { numberWord, operatingStats } from "@/content/operating-map";
 import FieldManualChrome from "@/components/field-manual/FieldManualChrome";
 import Playbook, { Faq, Lead, Section, TableWrap } from "@/components/field-manual/Playbook";
 
@@ -144,10 +145,9 @@ function Broke({
 export default function PlaybookReferencePage() {
   return (
     <FieldManualChrome
-      page="systems"
+      page="playbook"
       skipHref="#playbook-content"
       skipLabel="Skip to the playbook"
-      rail={["v1.0", "Playbook", "Reference"]}
     >
       <Playbook
         current="reference"
@@ -164,7 +164,7 @@ export default function PlaybookReferencePage() {
         <Section label="Building it" title="Build & scope.">
           <Faq question="How long did this take to build?">
             <p>
-              Roughly 6 months of evenings + weekends to get to what&apos;s on the operating map today. The first usable
+              Evenings and weekends since March 2026 to get to what&apos;s on the Systems page today. The first usable
               version (one scheduled job + Telegram approvals) was about a weekend. Lyra (then called Sarah) took maybe
               three weeks. The Obsidian wiki layer was a few weeks of refining. Most of the rest was incremental.
             </p>
@@ -197,7 +197,7 @@ export default function PlaybookReferencePage() {
           <Faq question="Can I use ChatGPT instead of Claude?">
             <p>
               Yes. The pattern doesn&apos;t care which model you use. Substitute the OpenAI API where you see Anthropic.
-              Switch the model name from <code>claude-haiku-4-5</code>{" "}to <code>gpt-5-mini</code>. Adjust the request
+              Switch the model name from <code>claude-haiku-5-5</code>{" "}to OpenAI&apos;s current small model. Adjust the request
               body for OpenAI&apos;s slightly different format.
             </p>
             <p>
@@ -208,7 +208,7 @@ export default function PlaybookReferencePage() {
           <Faq question="Why Telegram and not Slack / Discord / iMessage?">
             <p>
               Three reasons: bots are dead-simple to set up (no admin approval, no app review), the API is excellent,
-              and topic-channels let me organize nine agent lanes inside one app instead of nine different inboxes.
+              and topic-channels let me organize {numberWord(operatingStats.agents)} agent lanes inside one app instead of {numberWord(operatingStats.agents)} different inboxes.
             </p>
             <p>
               Slack works for team setups. iMessage doesn&apos;t have a usable bot API. Discord is fine but feels
@@ -235,10 +235,10 @@ export default function PlaybookReferencePage() {
           <Faq question="What if the gateway crashes overnight?">
             <p>
               launchd restarts the gateway; a Hermes job re-fires missed scheduled runs every 20 minutes; ops monitors
-              check credentials and the browser profile daily and alert the ops lane.
+              check credentials and the browser profile several times a day and alert the ops lane.
             </p>
             <p>
-              Net result: I&apos;ve had maybe one outage I noticed in 6 months, and the system told me about it before I
+              Net result: I&apos;ve had maybe one outage I noticed in the first 6 months, and the system told me about it before I
               noticed it organically.
             </p>
           </Faq>
@@ -306,7 +306,7 @@ export default function PlaybookReferencePage() {
           <Faq question="Did this actually save you money or just shift it?">
             <p>
               For me running a property business: it&apos;s saved money. The alternative would have been hiring a
-              part-time admin (~$2,000/month at minimum) or accepting more dropped balls. A few hundred dollars a month
+              part-time admin (~$2,000/month at minimum) or accepting more dropped balls. Roughly $400 and up a month
               for a system that handles intake 24/7 is a clear win.
             </p>
             <p>
