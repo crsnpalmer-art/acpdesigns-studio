@@ -30,7 +30,11 @@ type FieldManualChromeProps = {
 function Wordmark() {
   return (
     <span className={styles.wordmark}>
-      acp<span>designs</span>
+      <b aria-hidden="true">ACP</b>
+      <span>
+        ACP Designs Studio
+        <small>Carson Palmer</small>
+      </span>
     </span>
   );
 }
@@ -88,7 +92,7 @@ export default function FieldManualChrome({
         <div className={styles.footerColumns}>
           <div className={styles.footerBrand}>
             <Wordmark />
-            <p>Carson Palmer<br />Property systems studio<br />Tuscaloosa, Alabama</p>
+            <p>Property systems studio<br />Tuscaloosa, Alabama<br />33.2098° N · 87.5692° W</p>
           </div>
           <nav aria-label="Site">
             <p>Site</p>
@@ -118,8 +122,6 @@ export default function FieldManualChrome({
             </ul>
           </nav>
         </div>
-
-        <p className={styles.footerWordmark} aria-hidden="true">acp designs.</p>
 
         <div className={styles.footerRule}>
           <p>© {new Date().getFullYear()} ACP Designs Studio</p>

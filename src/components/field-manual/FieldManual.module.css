@@ -1,25 +1,36 @@
 /* ACP Designs Studio — shared design system.
-   One light surface, deep-green ink, a single lime accent, mono labels.
-   Dark bands (.hero, .processSection, .footer and the Hermes / operating-map
+   The studio's own field-manual palette: cream paper, charcoal ink, signal
+   orange, blueprint blue; serif display headlines over a plain sans.
+   Dark bands (.hero, .processSection, .footer and the Hermes / playbook
    modules) flip the four "local" tokens below instead of restyling children. */
 
 .manual {
-  --bg: #fafaf8;
-  --surface: #ffffff;
-  --ink: #16201e;
-  --muted: #5f6a67;
-  --line: rgba(22, 32, 30, 0.13);
-  --dark: #131c1a;
-  --dark-raised: #1b2624;
-  --on-dark: #f3f5ef;
-  --on-dark-muted: #a4afab;
-  --line-dark: rgba(243, 245, 239, 0.15);
-  --accent: #d9ff43;
-  --accent-ink: #16201e;
-  --radius: 1.25rem;
+  --bg: #f3efe6;
+  --surface: #fbf8f2;
+  --ink: #171817;
+  --muted: #5d5a52;
+  --line: rgba(23, 24, 23, 0.18);
+  --dark: #171817;
+  --dark-raised: #232422;
+  --on-dark: #f3efe6;
+  --on-dark-muted: #b5b0a6;
+  --line-dark: rgba(243, 239, 230, 0.16);
+  --accent: #f04a17;
+  --accent-hover: #ff6a3d;
+  --accent-ink: #171817;
+  /* Orange as small text: full orange on dark, a darker cut on cream for contrast. */
+  --accent-text: #b8340c;
+  --blue: #184d9c;
+  /* Faint blueprint grid for dark bands. */
+  --blueprint:
+    linear-gradient(rgba(111, 143, 191, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 143, 191, 0.1) 1px, transparent 1px);
+  --radius: 0.5rem;
   --gutter: clamp(1.25rem, 5.5vw, 6rem);
   --section-y: clamp(4.5rem, 9vw, 8rem);
-  --mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --display: var(--font-display), Georgia, "Times New Roman", serif;
+  --label: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Local tokens — dark bands override these. */
   --fg: var(--ink);
@@ -54,17 +65,25 @@
 }
 
 :where(.manual) h1,
-:where(.manual) h2,
+:where(.manual) h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  margin: 0;
+  text-wrap: balance;
+}
+
 :where(.manual) h3 {
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
   margin: 0;
   text-wrap: balance;
 }
 
 :where(.manual) h2 {
-  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
 }
 
 :where(.manual) p {
@@ -75,7 +94,7 @@
 
 .skipLink {
   background: var(--ink);
-  border-radius: 999px;
+  border-radius: 0.25rem;
   color: var(--on-dark);
   left: 1rem;
   padding: 0.7rem 1.1rem;
@@ -115,27 +134,33 @@
 .eyebrow,
 .caseMeta {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.75rem;
-  font-weight: 500;
   letter-spacing: 0.14em;
   line-height: 1.5;
   text-transform: uppercase;
 }
 
 .sectionLabel::before {
-  content: "// ";
+  background: var(--accent);
+  content: "";
+  display: inline-block;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  vertical-align: 0.02em;
+  width: 0.5rem;
 }
 
 .primaryButton,
 .secondaryButton {
   align-items: center;
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   display: inline-flex;
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.8rem;
-  font-weight: 500;
   gap: 0.6rem;
   letter-spacing: 0.14em;
   min-height: 3.25rem;
@@ -150,7 +175,7 @@
 }
 
 .primaryButton:hover {
-  background: #e6ff7a;
+  background: var(--accent-hover);
   transform: translateY(-1px);
 }
 
@@ -166,17 +191,43 @@
 }
 
 .wordmark {
+  align-items: center;
   color: var(--fg);
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  display: inline-flex;
+  gap: 0.75rem;
+}
+
+.wordmark b {
+  background: var(--fg);
+  color: var(--bg);
+  display: grid;
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  height: 2.4rem;
+  letter-spacing: 0.02em;
+  place-items: center;
+  width: 2.4rem;
+}
+
+.footer .wordmark b {
+  color: var(--dark);
 }
 
 .wordmark span {
-  color: transparent;
-  font-weight: 500;
-  -webkit-text-stroke: 1px var(--fg-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.wordmark small {
+  color: var(--fg-muted);
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
 }
 
 /* ---------- Header ---------- */
@@ -243,7 +294,8 @@
 .headerContact {
   color: var(--ink);
   flex: none;
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -262,13 +314,15 @@
   --fg: var(--on-dark);
   --fg-muted: var(--on-dark-muted);
   --rule: var(--line-dark);
-  background: var(--dark);
+  --accent-text: var(--accent);
+  background: var(--blueprint), var(--dark);
+  background-size: 3rem 3rem;
   color: var(--fg);
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   isolation: isolate;
-  justify-content: space-between;
+  justify-content: flex-end;
   min-height: min(calc(100svh - 4.5rem), 56rem);
   overflow: hidden;
   padding: clamp(1.5rem, 4vw, 3rem) var(--gutter) clamp(2.5rem, 6vw, 4.5rem);
@@ -282,8 +336,8 @@
 
 .hero::before {
   background:
-    linear-gradient(90deg, rgba(13, 20, 18, 0.88) 0%, rgba(13, 20, 18, 0.55) 55%, rgba(13, 20, 18, 0.3) 100%),
-    linear-gradient(180deg, rgba(13, 20, 18, 0.2) 40%, rgba(13, 20, 18, 0.85) 100%);
+    linear-gradient(90deg, rgba(16, 16, 15, 0.88) 0%, rgba(16, 16, 15, 0.55) 55%, rgba(16, 16, 15, 0.3) 100%),
+    linear-gradient(180deg, rgba(16, 16, 15, 0.2) 40%, rgba(16, 16, 15, 0.85) 100%);
   content: "";
   inset: 0;
   position: absolute;
@@ -291,29 +345,28 @@
 }
 
 .heroProof {
-  align-self: flex-end;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgba(19, 28, 26, 0.62);
-  border: 1px solid var(--line-dark);
-  border-radius: var(--radius);
+  border-top: 1px solid var(--line-dark);
   display: grid;
-  gap: 0.9rem 1.5rem;
+  gap: 0.9rem clamp(1.5rem, 4vw, 4rem);
   grid-template-columns: repeat(3, auto);
+  justify-content: start;
   margin: 0;
-  padding: 1.25rem 1.5rem 1.4rem;
+  order: 2;
+  padding-top: 1.5rem;
 }
 
 .heroProof dt {
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-family: var(--display);
+  font-size: 2.6rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .heroProof dd {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   margin: 0.45rem 0 0;
@@ -330,9 +383,9 @@
 
 .heroProof .heroProofHead dt,
 .heroProof .heroProofHead dd {
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
-  font-weight: 500;
   letter-spacing: 0.14em;
   margin: 0;
   text-transform: uppercase;
@@ -347,8 +400,8 @@
 }
 
 .heroCopy h1 {
-  font-size: clamp(2.6rem, 6.4vw, 5rem);
-  line-height: 1.02;
+  font-size: clamp(3rem, 7.5vw, 6.2rem);
+  line-height: 0.98;
   margin: 1.1rem 0 1.4rem;
 }
 
@@ -370,7 +423,8 @@
   align-items: center;
   color: var(--fg-muted);
   display: flex;
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   gap: 0.55rem;
   letter-spacing: 0.14em;
@@ -505,6 +559,7 @@
 }
 
 .workStatsGrid dt {
+  font-family: var(--display);
   font-size: clamp(2.4rem, 4vw, 3.4rem);
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -512,7 +567,8 @@
 }
 
 .workStatsGrid dd {
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   margin: 0.9rem 0 0.6rem;
@@ -547,7 +603,8 @@
 
 .chapterMap li > span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.8rem;
 }
 
@@ -654,7 +711,8 @@
   align-items: center;
   color: var(--fg-muted);
   display: inline-flex;
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.7rem;
   font-style: normal;
   gap: 0.5rem;
@@ -676,8 +734,8 @@
 }
 
 .projectRail em.statusLive::before {
-  background: #7fbf2a;
-  box-shadow: 0 0 0 3px rgba(217, 255, 67, 0.55);
+  background: #2f8f57;
+  box-shadow: 0 0 0 3px rgba(47, 143, 87, 0.22);
 }
 
 .projectRail em.statusReview::before {
@@ -714,15 +772,16 @@
 }
 
 .dayMoment > span {
-  color: transparent;
+  color: var(--accent-text);
+  font-family: var(--display);
   font-size: 1.5rem;
-  font-weight: 600;
-  -webkit-text-stroke: 1px var(--fg-muted);
+  font-weight: 500;
 }
 
 .dayMoment time {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -770,7 +829,8 @@
 
 .caseHeader > span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.14em;
 }
@@ -787,7 +847,8 @@
 }
 
 .caseSystemsLabel {
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   margin-top: 2rem;
@@ -821,10 +882,11 @@
   align-items: center;
   align-self: flex-start;
   border: 1px solid var(--fg);
-  border-radius: 999px;
+  border-radius: 0.25rem;
   color: var(--fg);
   display: inline-flex;
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.8rem;
   gap: 0.6rem;
   letter-spacing: 0.14em;
@@ -869,7 +931,7 @@
   align-items: center;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: rgba(19, 28, 26, 0.6);
+  background: rgba(23, 24, 23, 0.6);
   border: 1px solid var(--line-dark);
   color: var(--on-dark);
   cursor: pointer;
@@ -911,8 +973,9 @@
 }
 
 .casePagination button {
-  border-radius: 999px;
-  font-family: var(--mono);
+  border-radius: 0.25rem;
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   height: 2.75rem;
   letter-spacing: 0.08em;
@@ -953,7 +1016,8 @@
 
 .propertyDirectory a > span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.8rem;
   grid-row: span 2;
 }
@@ -999,7 +1063,9 @@
   --fg-muted: var(--on-dark-muted);
   --rule: var(--line-dark);
   --card: var(--dark-raised);
-  background: var(--dark);
+  --accent-text: var(--accent);
+  background: var(--blueprint), var(--dark);
+  background-size: 3rem 3rem;
   color: var(--fg);
 }
 
@@ -1027,12 +1093,12 @@
 }
 
 .processList span {
-  color: transparent;
+  color: var(--accent-text);
+  font-family: var(--display);
   font-size: 2.25rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1;
-  -webkit-text-stroke: 1px var(--fg-muted);
 }
 
 .processList strong {
@@ -1130,14 +1196,15 @@
 
 .systemNotes article > svg {
   border: 1px solid var(--rule);
-  border-radius: 0.75rem;
+  border-radius: 0.35rem;
   font-size: 2.75rem;
   padding: 0.7rem;
 }
 
 .systemNotes article > span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1172,9 +1239,10 @@
 }
 
 .footerStatement {
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
   line-height: 1.05;
   max-width: 14em;
   text-wrap: balance;
@@ -1195,7 +1263,8 @@
 
 .footerBrand p {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   line-height: 1.9;
@@ -1205,7 +1274,8 @@
 
 .footerColumns nav p {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1228,18 +1298,6 @@
   text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.35rem;
-}
-
-.footerWordmark {
-  color: transparent;
-  font-size: clamp(3rem, 13.2vw, 15rem);
-  font-weight: 600;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
-  margin-top: clamp(3rem, 7vw, 6rem);
-  user-select: none;
-  white-space: nowrap;
-  -webkit-text-stroke: 1px rgba(243, 245, 239, 0.28);
 }
 
 .footerRule {
@@ -1320,13 +1378,12 @@
   }
 
   .heroProof {
-    align-self: stretch;
     gap: 0.9rem 1rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .heroProof dt {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .workStatsGrid,

@@ -102,8 +102,8 @@ html {
 }
 
 body {
-  background: #fafaf8;
-  color: #16201e;
+  background: #f3efe6;
+  color: #171817;
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

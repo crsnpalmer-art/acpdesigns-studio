@@ -16,14 +16,21 @@
 .blocks > section > p,
 .laneNav span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .intro > div > p::before {
-  content: "// ";
+  background: var(--accent);
+  content: "";
+  display: inline-block;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  vertical-align: 0.02em;
+  width: 0.5rem;
 }
 
 .intro h1 {
@@ -53,6 +60,7 @@
 }
 
 .stats dt {
+  font-family: var(--display);
   font-size: clamp(2.2rem, 3.6vw, 3.2rem);
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -61,7 +69,8 @@
 
 .stats dd {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   margin: 0.8rem 0 0;
@@ -81,14 +90,21 @@
 
 .teamHead > p {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .teamHead > p::before {
-  content: "// ";
+  background: var(--accent);
+  content: "";
+  display: inline-block;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  vertical-align: 0.02em;
+  width: 0.5rem;
 }
 
 .teamHead > span {
@@ -174,7 +190,7 @@
 
 .dossier header > svg {
   background: var(--accent);
-  border-radius: 0.8rem;
+  border-radius: 0.35rem;
   color: var(--accent-ink);
   font-size: 2.75rem;
   margin-bottom: 0.75rem;
@@ -263,7 +279,8 @@
 
 .blocks ol em {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.7rem;
   font-style: normal;
   letter-spacing: 0.08em;
@@ -288,7 +305,8 @@
 
 .job summary strong::before {
   content: "+ ";
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
 }
 
 .job[open] summary strong::before {
@@ -305,7 +323,7 @@
 .guide {
   background: var(--bg);
   border: 1px solid var(--rule);
-  border-radius: 0.9rem;
+  border-radius: var(--radius);
   display: grid;
   gap: 0.85rem;
   margin: 0 0 0.9rem;
@@ -314,7 +332,8 @@
 
 .guide dt {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -365,7 +384,7 @@
   }
 
   .laneNav {
-    border-radius: 999px;
+    border-radius: 0.25rem;
     flex-direction: row;
     overflow-x: auto;
     scrollbar-width: none;

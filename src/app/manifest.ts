@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Carson Palmer builds useful systems for real property operations, practical software, and human-supervised AI.",
     start_url: "/",
     display: "standalone",
-    background_color: "#fafaf8",
-    theme_color: "#131c1a",
+    background_color: "#f3efe6",
+    theme_color: "#171817",
     icons: [
       { src: "/favicon.ico", sizes: "any", type: "image/x-icon" },
       { src: "/apple-icon", sizes: "180x180", type: "image/png" },

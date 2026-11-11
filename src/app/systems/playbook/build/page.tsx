@@ -208,480 +208,71 @@ export default function PlaybookBuildPage() {
         current="build"
         eyebrow="How to build it"
         meta="4 min read"
-        title="Build one loop first."
+        title="Build one workflow first."
         lead={
           <p>
-            The safest way to copy the system is not to automate everything. Pick one painful workflow, make it
-            visible, verify it, then widen the pattern.
+            The safest way to copy this system is not to automate everything. Pick one task that wears you out, make
+            it easy to see, check that it works, and only then add the next.
           </p>
         }
       >
-        <Section label="Phase plan" title="Build sequence.">
+        <Section label="The order to build in" title="Seven steps, one at a time.">
           <Checklist
             items={[
               <>
-                <strong>Phase 1: Inventory.</strong>{" "}List inputs, systems of record, recurring reports, approval points,
-                and painful handoffs.
+                <strong>Make a list.</strong>{" "}Write down where work comes in, where your records live, which reports
+                you repeat, and where a person has to say yes.
               </>,
               <>
-                <strong>Phase 2: Choose one workflow.</strong>{" "}Good first choices are leasing follow-up, daily
-                maintenance triage, owner brief prep, or delinquency review.
+                <strong>Choose one workflow.</strong>{" "}Good first choices: following up with leads, sorting the
+                day&apos;s repair requests, preparing an owner update, or checking who is late on rent.
               </>,
               <>
-                <strong>Phase 3: Run dry.</strong>{" "}Let the system classify and draft, but do not let it send, dispatch,
-                pay, delete, or change official records.
+                <strong>Practice first.</strong>{" "}Let the system sort and draft, but do not let it send, pay, delete,
+                or change your records.
               </>,
               <>
-                <strong>Phase 4: Add receipts.</strong>{" "}Every run should leave proof: source data, draft, decision,
-                approval, final action, and log.
+                <strong>Keep a record.</strong>{" "}Every run should show what it looked at, what it drafted, who
+                approved it, and what finally happened.
               </>,
               <>
-                <strong>Phase 5: Add the scheduler.</strong>{" "}Put recurring judgment work on an agent schedule. Put
-                boring syncs and health checks in system services.
+                <strong>Put it on a schedule.</strong>{" "}Once it works when you run it by hand, have it run on its own
+                every day or every week.
               </>,
               <>
-                <strong>Phase 6: Add memory.</strong>{" "}Write lessons into the playbook so the next run uses the current
-                truth instead of old assumptions.
+                <strong>Write down what you learn.</strong>{" "}Add each lesson to the notebook, so the next run uses
+                today&apos;s facts instead of old guesses.
               </>,
               <>
-                <strong>Phase 7: Expand lanes.</strong>{" "}Add the next workflow only after the first one is boring,
-                visible, and easy to turn off.
+                <strong>Then add the next one.</strong>{" "}Start a second workflow only after the first is boring,
+                easy to see, and easy to switch off.
               </>,
             ]}
           />
         </Section>
 
-        <Section label="Stack build order" title="Put the pieces in this order.">
-          <Flow
-            rows={[
-              [
-                "Models",
-                "Pick model roles first: OpenAI/Codex-style coding support, Claude-style reasoning, fast classification, and retrieval/search.",
-              ],
-              [
-                "Control",
-                "Add a Hermes-style control plane: agents, tools, gateway, dashboard, approvals, logs, and memory startup.",
-              ],
-              [
-                "Records",
-                "Connect systems of record: AppFolio or your property platform, Google Sheets/Docs, accounting exports, and a task manager if you use one.",
-              ],
-              [
-                "Comms",
-                "Add communication APIs: Telegram for approvals, Gmail for inbox signals, ElevenLabs/Twilio for voice/SMS intake, and business-text reminders if needed.",
-              ],
-              [
-                "Schedules",
-                "Use cron for recurring agent judgment and LaunchAgents/system services for background polling, syncs, watchdogs, backups, and drains.",
-              ],
-              [
-                "Proof",
-                "Use browser automation, logs, receipts, screenshots, returned records, and dashboards to prove each run worked.",
-              ],
-            ]}
-          />
-        </Section>
-
-        <Section label="Templates" title="Copy these worksheets.">
-          <Cards>
-            <Card title="Workflow card">
-              <p>
-                <code>Input:</code>{" "}Where does this start?
-              </p>
-              <p>
-                <code>Owner:</code>{" "}Which lane owns the next step?
-              </p>
-              <p>
-                <code>Context:</code>{" "}What data is needed?
-              </p>
-              <p>
-                <code>Draft:</code>{" "}What should the system prepare?
-              </p>
-              <p>
-                <code>Verify:</code>{" "}What proof says it worked?
-              </p>
-              <p>
-                <code>Approve:</code>{" "}Who must say yes?
-              </p>
-              <p>
-                <code>Log:</code>{" "}Where does the result live?
-              </p>
-            </Card>
-            <Card title="Risk card">
-              <p>
-                <code>External impact:</code>{" "}Could this message or action affect someone else?
-              </p>
-              <p>
-                <code>Money impact:</code>{" "}Could this move cash, invoices, charges, or owner reporting?
-              </p>
-              <p>
-                <code>Legal impact:</code>{" "}Could this affect notices, lease status, collections, or compliance?
-              </p>
-              <p>
-                <code>Data impact:</code>{" "}Could this expose private records?
-              </p>
-              <p>
-                <code>Rollback:</code>{" "}How do we turn it off?
-              </p>
-            </Card>
-          </Cards>
-        </Section>
-
-        <Section label="Minimum viable version" title="What to build first." tone="dark">
+        <Section label="The smallest useful version" title="What to build first." tone="dark">
           <p>
-            Start with one dashboard, one lane, one recurring dry-run job, one approval rule, and one memory note. That
-            is enough to prove the pattern without creating a fragile automation maze.
+            Start with one daily summary, one area of the business, one job that runs in practice mode, one approval
+            rule, and one page of notes. That is enough to prove the idea without building something fragile.
           </p>
         </Section>
 
-        <Section id="stack" label="Model layer" title="AI models are split by job.">
-          <TableWrap label="Model layer">
-            <thead>
-              <tr>
-                <th scope="col">Model/API category</th>
-                <th scope="col">What it does here</th>
-                <th scope="col">How another team should copy it</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>OpenAI / Codex</strong>
-                </td>
-                <td>Coding, implementation, site edits, local verification, browser checks, and structured tool work.</td>
-                <td>
-                  Use a coding-oriented model for repository edits, scripts, tests, deployments, and repeatable tooling.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Claude / Claude CLI</strong>
-                </td>
-                <td>Long-form planning, architecture review, audits, policy reasoning, and operator-facing analysis.</td>
-                <td>Use a strong reasoning model for ambiguous business logic, audits, and complex operating decisions.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Fast classification models</strong>
-                </td>
-                <td>Message triage, extraction, routing, summarization, and repeated low-risk ops checks.</td>
-                <td>
-                  Use cheaper or faster models for high-frequency classification and extraction after the rules are
-                  clear.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Retrieval/search layer</strong>
-                </td>
-                <td>
-                  Finds prior decisions, runbooks, tenant-safe context, and historical lessons before a workflow acts.
-                </td>
-                <td>
-                  Build search over docs and logs before adding automation. The system should remember what it already
-                  learned.
-                </td>
-              </tr>
-            </tbody>
-          </TableWrap>
-          <Callout>
-            <p>
-              <strong>In the reference setup today:</strong>{" "}the Dispatcher plus the work, collections, Lyra, and memory
-              lanes run on Anthropic Claude Opus 5.5; the finance, ops, and maintenance lanes run on OpenAI Codex
-              GPT-6.1; the tweeter lane runs on xAI Grok 4.7; and ElevenLabs gives Lyra her voice.
-            </p>
-          </Callout>
-        </Section>
-
-        <Section label="Control layer" title="Hermes is the operator hub.">
+        <Section label="Rule of thumb" title="Let AI prepare. Let people decide.">
           <Cards>
-            <Card title="Gateway">
-              <p>One always-on local gateway that connects all profiles, tools, Telegram lanes, and scheduled jobs.</p>
-            </Card>
-            <Card title="Agents">
+            <Card title="Good AI work">
               <p>
-                {numberWord(operatingStats.agents, true)} lanes: the Dispatcher (main), work, Lyra (leasing and resident intake), finance,
-                collections, ops, memory, maintenance, and a Grok-powered tweeter lane.
+                Sorting messages, summarizing, drafting replies, comparing reports, spotting what looks off, and
+                explaining what changed.
               </p>
             </Card>
-            <Card title="Tools">
+            <Card title="Keep with a person">
               <p>
-                Narrow access to shell, files, browser automation, Google tools, Vercel deploys, GitHub, local scripts,
-                and app-specific commands.
-              </p>
-            </Card>
-            <Card title="Approvals">
-              <p>
-                Human gates sit in Telegram and the operator loop. Work orders, sensitive messages, legal/financial
-                actions, and destructive edits stay approval-owned.
+                Sending sensitive messages, sending out costly repairs, approving payments, anything legal, deleting
+                data, and anything published to the public.
               </p>
             </Card>
           </Cards>
-        </Section>
-
-        <Section label="APIs and software" title="What sits around Hermes.">
-          <TableWrap label="APIs and software">
-            <thead>
-              <tr>
-                <th scope="col">Software/API</th>
-                <th scope="col">Role in the system</th>
-                <th scope="col">Copy pattern</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>Telegram Bot API</strong>
-                </td>
-                <td>Primary notification, approval, alert, and handoff channel across specialist lanes.</td>
-                <td>Use one visible human channel first. Every risky workflow should have a clear approval surface.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Google Workspace APIs</strong>
-                </td>
-                <td>Gmail signals, Sheets queues, Docs/Drive references, and calendar-style context.</td>
-                <td>Use Workspace as the first queue and source-of-truth surface if your team already lives there.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>AppFolio</strong>
-                </td>
-                <td>Property system of record for residents, work orders, vendors, occupancy, delinquency, and reports.</td>
-                <td>Connect to the portfolio system of record. Read first, draft second, approve before writes.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>ElevenLabs</strong>
-                </td>
-                <td>Lyra voice AI: inbound call handling, intent collection, knowledge-base answers, and call analysis.</td>
-                <td>
-                  Start with inbound-only voice intake. Let it collect context and hand off before it promises outcomes.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Twilio</strong>
-                </td>
-                <td>Phone number plus live two-way texting around customer communication.</td>
-                <td>Keep compliance and opt-in requirements outside the model. Let the phone/SMS layer enforce them.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>iMessage</strong>
-                </td>
-                <td>Business-text digests and urgent-message scans.</td>
-                <td>
-                  Keep specialized message scanners separate from the main agent loop so they can fail independently.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Kanban handoffs</strong>
-                </td>
-                <td>Hermes&apos;s built-in board for passing work between lanes.</td>
-                <td>Give every handoff an owner, so work never falls between lanes.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Cloudflare Workers</strong>
-                </td>
-                <td>
-                  Thin webhook/edge API pattern used for worker-style glue and public-facing handoffs when useful.
-                </td>
-                <td>
-                  Put small public API surfaces at the edge; keep private decision logic and secrets out of the public
-                  docs.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Vercel</strong>
-                </td>
-                <td>Hosts this public explanation site.</td>
-                <td>Use a public site to explain the pattern, not to expose private machinery.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Browser automation</strong>
-                </td>
-                <td>Used where a system lacks a clean API or visual verification is necessary.</td>
-                <td>Prefer APIs first. Use browser automation for legacy portals and proof-gathering.</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Node.js + Python</strong>
-                </td>
-                <td>Local scripts, sync jobs, parsers, browser tooling, reports, and small service glue.</td>
-                <td>Keep scripts small, named, logged, and easy to run by hand before scheduling them.</td>
-              </tr>
-            </tbody>
-          </TableWrap>
-        </Section>
-
-        <Section label="Schedules" title="Cron and LaunchAgents do different jobs.">
-          <Cards>
-            <Card title="Hermes scheduled jobs">
-              <p>
-                Recurring agent-owned jobs: ops daily digest, occupancy, tenant directory, lease renewals, daily rent
-                roll, weekly delinquency and collections snapshot, work-order history, unit-turn digest, business-text
-                digests and urgent scans, Lyra QA and improvement drafts, wiki synthesis/curation/verification, daily
-                logs, weekly reviews, backups, and a morning newsletter.
-              </p>
-            </Card>
-            <Card title="macOS LaunchAgents">
-              <p>
-                Only a handful: the gateway, the 5-minute email pipeline, the daily AppFolio pull, the weekly Lyra KB
-                sync, a Telegram delivery re-sender, and the wiki file watcher. Everything else moved into Hermes
-                scheduled jobs.
-              </p>
-            </Card>
-          </Cards>
-          <p>
-            The rule is simple: if the job needs judgment, put it in the agent scheduler. If it mostly checks, syncs,
-            drains, watches, or keeps something alive, make it a boring service.
-          </p>
-        </Section>
-
-        <Section label="Current job families" title="What the recurring work covers.">
-          <Lead>
-            The real setup has {operatingStats.routines} scheduled jobs. Publicly, they are best understood as job families instead of exact
-            private schedules.
-          </Lead>
-          <TableWrap label="Scheduled job families">
-            <thead>
-              <tr>
-                <th scope="col">Job family</th>
-                <th scope="col">What it does</th>
-                <th scope="col">Why it exists</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(
-                [
-                  [
-                    "Wiki synthesis + curation",
-                    "Updates the shared planning wiki and keeps recent decisions searchable.",
-                    "Stops the agents from working from stale notes.",
-                  ],
-                  [
-                    "Lyra QA (twice daily)",
-                    "Reviews customer-service calls and texts and flags quality or routing issues.",
-                    "Keeps the voice agent useful and accountable.",
-                  ],
-                  ["Daily log writer", "Writes the day into a durable record.", "Makes tomorrow's work smarter than today's memory."],
-                  [
-                    "Weekly failure review",
-                    "Looks for repeated failures and turns them into rules or fixes.",
-                    "Prevents the same mistake from repeating quietly.",
-                  ],
-                  [
-                    "Property sync",
-                    "Pulls property-system data like work orders, occupancy, tenants, and updates.",
-                    "Keeps dashboards and follow-ups based on current records.",
-                  ],
-                  [
-                    "Work-order sheets",
-                    "The daily AppFolio pull turns work-order changes into per-vendor sheets.",
-                    "Turns maintenance status into visible follow-up.",
-                  ],
-                  ["Ops daily brief", "Summarizes property operations and open work.", "Gives the operator a morning control panel."],
-                  [
-                    "Occupancy report",
-                    "Checks which units or assets are occupied, vacant, or changing.",
-                    "Supports leasing and owner visibility.",
-                  ],
-                  [
-                    "Weekly collections snapshot",
-                    "Summarizes late-rent totals and how fresh the data is.",
-                    "Turns accounting data into reviewable insight.",
-                  ],
-                  [
-                    "Weekly delinquency + daily rent roll",
-                    "Tracks past-due balances and follow-up.",
-                    "Keeps money-risk work from slipping.",
-                  ],
-                  [
-                    "Business-text digests and urgent scans",
-                    "Digests business texts three times a day and scans for urgent ones every 15 minutes in the daytime.",
-                    "Keeps communication follow-up moving.",
-                  ],
-                  [
-                    "Lease renewal pipeline",
-                    "Tracks renewals and next-step follow-up.",
-                    "Turns lease timing into tasks before it becomes urgent.",
-                  ],
-                  [
-                    "Tenant directory refresh",
-                    "Refreshes tenant/contact context.",
-                    "Helps agents find the right person and property context.",
-                  ],
-                  [
-                    "Work-order history sync",
-                    "Maintains longer work-order history.",
-                    "Supports reporting, vendor review, and pattern detection.",
-                  ],
-                ] as const
-              ).map(([family, what, why]) => (
-                <tr key={family}>
-                  <td>
-                    <strong>{family}</strong>
-                  </td>
-                  <td>{what}</td>
-                  <td>{why}</td>
-                </tr>
-              ))}
-            </tbody>
-          </TableWrap>
-        </Section>
-
-        <Section label="Always-on families" title="What LaunchAgents cover.">
-          <Lead>{numberWord(operatingStats.macJobs, true)} Mac background services keep the always-on pieces running.</Lead>
-          <Cards>
-            <Card title="Gateway">
-              <p>Keep the single Hermes gateway alive so every profile, tool, and Telegram lane can talk to each other.</p>
-            </Card>
-            <Card title="Inbox">
-              <p>
-                Poll Gmail every 5 minutes and run the leasing drafter so communication inputs keep moving into the
-                operating loop.
-              </p>
-            </Card>
-            <Card title="Property and Lyra sync">
-              <p>Run the daily AppFolio pull and the weekly Lyra knowledge-base sync.</p>
-            </Card>
-            <Card title="Reliability">
-              <p>
-                Re-send failed Telegram deliveries and watch the wiki for changes. The other watchdogs (credentials,
-                browser profile, backups, missed jobs) now run as Hermes scheduled jobs.
-              </p>
-            </Card>
-          </Cards>
-        </Section>
-
-        <Section label="Lyra" title="Customer service is a workflow, not just a voice bot.">
-          <Flow
-            rows={[
-              ["Call", "A prospect, resident, vendor, or other caller reaches the intake line."],
-              [
-                "Voice AI",
-                "ElevenLabs gives Lyra a natural conversation layer. Lyra asks questions and identifies intent.",
-              ],
-              [
-                "Tools",
-                "Scoped backend tools check availability, property info, tenant lookup, tenant verification, emergency alerts, caller history, tour requests, and warm transfer; the call log is written automatically after the call.",
-              ],
-              [
-                "Knowledge",
-                "Maintained property notes and customer-service rules tell Lyra what she may say and what she must hand off.",
-              ],
-              ["Queue", "The call becomes a summary, queue item, alert, or follow-up request."],
-              [
-                "Human",
-                "Maintenance dispatch, legal/payment/account issues, emergencies, uncertain answers, and sensitive follow-up stay human-owned.",
-              ],
-            ]}
-          />
         </Section>
 
         <Section id="pieces" label="Parts list" title="The pieces, in plain English.">
@@ -690,7 +281,7 @@ export default function PlaybookBuildPage() {
               <tr>
                 <th scope="col">Piece</th>
                 <th scope="col">Simple meaning</th>
-                <th scope="col">Portfolio example</th>
+                <th scope="col">Property example</th>
                 <th scope="col">How to build it</th>
               </tr>
             </thead>
@@ -698,73 +289,73 @@ export default function PlaybookBuildPage() {
               {(
                 [
                   [
-                    "Input layer",
+                    "Inputs",
                     "All the places work arrives.",
                     "Tenant call, leasing email, owner question, vendor invoice, delinquency report.",
                     "Make one list of sources. For each source, name the owner and what proof should be captured.",
                   ],
                   [
-                    "Router",
+                    "Dispatcher",
                     "The traffic controller.",
-                    "A message gets classified as leasing, maintenance, finance, collections, or review.",
-                    "Start with simple rules. Later add AI classification once the rules are clear.",
+                    "A message gets sorted as leasing, maintenance, finance, collections, or needs-a-person.",
+                    "Start with simple rules. Let the AI do the sorting once the rules are clear.",
                   ],
                   [
-                    "Operating lane",
+                    "Lane",
                     "A named owner for a kind of work.",
                     "Leasing lane, work-order lane, finance lane, collections lane, executive-review lane.",
-                    "Give each lane allowed tools, blocked actions, escalation rules, and a dashboard view.",
+                    "For each lane, write down what it may do, what it may not do, and when it hands off to a person.",
                   ],
                   [
-                    "Agent job",
-                    "A recurring task that needs judgment.",
+                    "Scheduled job",
+                    "A repeating task that takes some thinking.",
                     "Summarize delinquency risk, prepare owner brief, review leasing follow-ups.",
-                    "Run it on a schedule, but require a receipt and human review before action.",
+                    "Run it on a schedule, but have a person review the result before anything is sent.",
                   ],
                   [
-                    "System service",
-                    "A boring background job.",
-                    "Sync tasks, check inbox, rotate logs, verify backup, detect config drift.",
-                    "Move repetitive checks outside the reasoning layer so the AI is used for judgment, not plumbing.",
+                    "Background helper",
+                    "A simple job that just keeps running.",
+                    "Check the inbox, download the day's records, make a backup.",
+                    "Use plain scripts for simple repeating checks. Save the AI for work that takes judgment.",
                   ],
                   [
-                    "Knowledge base",
-                    "The written source of truth.",
+                    "Notebook",
+                    "The written facts everyone works from.",
                     "Property notes, leasing policies, emergency rules, vendor instructions, team runbooks.",
-                    "Keep it in simple files or docs. Sync it into the tools that need it.",
+                    "Keep it in simple files or documents. Share it with every tool that needs it.",
                   ],
                   [
                     "Memory",
-                    "The system's durable lessons.",
+                    "What the system has learned.",
                     "“This vendor needs photos before dispatch” or “this report must reconcile to owner statement.”",
                     "After every important run, write the lesson in a place future runs can search.",
                   ],
                   [
-                    "Tool connection",
-                    "A narrow doorway into another system.",
+                    "Connection",
+                    "A narrow doorway into another piece of software.",
                     "Property software, CRM, accounting, calendar, inbox, messaging, task manager.",
-                    "Give each connection the least power it needs. Avoid broad admin access when read-only is enough.",
+                    "Give each connection the least power it needs. If reading is enough, do not let it change anything.",
                   ],
                   [
-                    "Approval gate",
+                    "Approval step",
                     "The stop sign before impact.",
                     "Work order dispatch, tenant message, owner update, payment action, legal escalation.",
-                    "Define the exact approval phrase or button. Log who approved and what was approved.",
+                    "Decide the exact word or button that means yes. Record who approved and what they approved.",
                   ],
                   [
-                    "Verification receipt",
-                    "Proof that a run did what it claimed.",
-                    "Returned record count, screenshot, sync receipt, sent-message ID, dashboard link.",
+                    "Record of the run",
+                    "Proof that a job did what it said.",
+                    "How many records it read, a screenshot, a copy of the message that was sent.",
                     "Do not call a workflow done until it leaves proof a person can inspect.",
                   ],
                   [
-                    "Dashboard",
-                    "A simple view of current state.",
+                    "Daily summary",
+                    "A simple view of where things stand.",
                     "Open approvals, failed jobs, leasing follow-ups, unresolved work orders, cash-risk items.",
                     "Start with one page or table. Show what changed, what is blocked, and what needs a decision.",
                   ],
                   [
-                    "Rollback path",
+                    "Off switch",
                     "The way back if something goes wrong.",
                     "Disable a new automation and return to manual review.",
                     "Before turning a workflow on, write down how to turn it off.",
@@ -784,110 +375,412 @@ export default function PlaybookBuildPage() {
           </TableWrap>
         </Section>
 
-        <Section label="Rule of thumb" title="Use AI for judgment, not blind action.">
+        <Section label="Worksheets" title="Fill these in for each workflow.">
           <Cards>
-            <Card title="Good AI work">
+            <Card title="Workflow card">
               <p>
-                Classifying messages, summarizing context, drafting replies, comparing reports, finding exceptions,
-                preparing decisions, and explaining what changed.
+                <code>Starts with:</code>{" "}Where does this work come from?
+              </p>
+              <p>
+                <code>Owner:</code>{" "}Who handles the next step?
+              </p>
+              <p>
+                <code>Needs:</code>{" "}What information is needed?
+              </p>
+              <p>
+                <code>Draft:</code>{" "}What should the system prepare?
+              </p>
+              <p>
+                <code>Proof:</code>{" "}What shows it worked?
+              </p>
+              <p>
+                <code>Approve:</code>{" "}Who must say yes?
+              </p>
+              <p>
+                <code>Record:</code>{" "}Where is the result saved?
               </p>
             </Card>
-            <Card title="Keep human-owned">
+            <Card title="Risk card">
               <p>
-                Sending sensitive messages, dispatching costly work, approving payments, changing legal status, deleting
-                data, publishing externally, or overriding policy.
+                <code>Other people:</code>{" "}Could this message or action affect someone else?
+              </p>
+              <p>
+                <code>Money:</code>{" "}Could this move cash, invoices, charges, or owner reporting?
+              </p>
+              <p>
+                <code>Legal:</code>{" "}Could this affect notices, lease status, collections, or compliance?
+              </p>
+              <p>
+                <code>Privacy:</code>{" "}Could this expose private records?
+              </p>
+              <p>
+                <code>Off switch:</code>{" "}How do we turn it off?
               </p>
             </Card>
           </Cards>
         </Section>
 
-        <Section id="prompts" label="Battle-tested" title="The prompts I actually use.">
+        <Section label="Lyra" title="Customer service is a workflow, not just a voice.">
+          <Flow
+            rows={[
+              ["The call", "A prospect, resident, or vendor calls or texts the line."],
+              ["The conversation", "Lyra answers in a natural voice, asks questions, and works out what the person needs."],
+              [
+                "The lookups",
+                "She can check availability, look up a resident, confirm who is calling, see earlier calls, take a tour request, raise an emergency, or transfer to a person. The call is logged automatically afterward.",
+              ],
+              ["The rules", "Written property notes and service rules tell her what she may say and what she must hand off."],
+              ["The handoff", "The call becomes a summary, a to-do, an alert, or a follow-up request."],
+              [
+                "The person",
+                "Sending out repairs, legal and payment questions, emergencies, and anything uncertain stay with a person.",
+              ],
+            ]}
+          />
+        </Section>
+
+        <Section id="stack" label="How Carson&apos;s is put together" title="The pieces, in the order he added them.">
           <Lead>
-            These are the ones that ship — pulled directly from my Claude behavioral file, the wiki schema, and the
-            scheduled jobs that run every day. Copy what fits, adjust for your work.
+            The rest of this page describes Carson&apos;s own setup and gets more detailed. Skim it for ideas. You do not
+            need any of it to start.
+          </Lead>
+          <Flow
+            rows={[
+              ["The AI", "Pick which AI does which kind of work: one for careful thinking, one for quick sorting, one for building things."],
+              ["The dispatcher", "Add one program that receives every request, sends it to the right specialist, and keeps the logs. Carson uses one called Hermes."],
+              ["The records", "Connect the software your business already runs on: your property software, spreadsheets, and accounting reports."],
+              ["The messages", "Connect how people reach you: a chat app for approvals, email, and a phone line if you want one."],
+              ["The schedule", "Put repeating work on a schedule, and keep the simple always-on checks separate from the work that takes judgment."],
+              ["The proof", "Make every job leave something a person can check: a log, a screenshot, a copy of what was sent."],
+            ]}
+          />
+        </Section>
+
+        <Section label="Which AI does what" title="Different AIs for different jobs.">
+          <TableWrap label="Which AI does what">
+            <thead>
+              <tr>
+                <th scope="col">Kind of work</th>
+                <th scope="col">What it covers</th>
+                <th scope="col">What to copy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Careful thinking</strong>
+                </td>
+                <td>Planning, reviewing, and anything where the right answer takes judgment.</td>
+                <td>Use your strongest AI for unclear business questions and reviews.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Building and fixing</strong>
+                </td>
+                <td>Writing and repairing the scripts and web pages the system runs on.</td>
+                <td>Use an AI made for coding when you need something built or changed.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Quick sorting</strong>
+                </td>
+                <td>Sorting messages, pulling out details, and short summaries, many times a day.</td>
+                <td>Use a cheaper, faster AI for simple work that repeats all day.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Looking things up</strong>
+                </td>
+                <td>Finding earlier decisions, how-to guides, and past lessons before a job acts.</td>
+                <td>Make your notes searchable before you automate anything. The system should remember what it learned.</td>
+              </tr>
+            </tbody>
+          </TableWrap>
+          <Callout>
+            <p>
+              <strong>In Carson&apos;s setup today:</strong>{" "}Claude handles the dispatcher, leasing, collections, Lyra&apos;s
+              text replies, and record-keeping. OpenAI handles maintenance and system upkeep. Grok handles quick research.
+              ElevenLabs gives Lyra her voice.
+            </p>
+          </Callout>
+        </Section>
+
+        <Section label="The dispatcher" title="One program runs the team.">
+          <Cards>
+            <Card title="Always listening">
+              <p>One program stays on all the time. It receives every message and starts every scheduled job.</p>
+            </Card>
+            <Card title="The specialists">
+              <p>
+                {numberWord(operatingStats.agents, true)} of them: a dispatcher, leasing, Lyra on the phone line,
+                maintenance, collections, system upkeep, record-keeping, market research, and quick research.
+              </p>
+            </Card>
+            <Card title="What they can touch">
+              <p>Each specialist can reach only the files and software its own work needs.</p>
+            </Card>
+            <Card title="Approvals">
+              <p>
+                Approvals happen in the chat. Work orders, sensitive messages, anything legal or financial, and anything
+                that deletes data wait for a person.
+              </p>
+            </Card>
+          </Cards>
+        </Section>
+
+        <Section label="The software around it" title="What the system connects to.">
+          <TableWrap label="Connected software">
+            <thead>
+              <tr>
+                <th scope="col">Software</th>
+                <th scope="col">What it is used for</th>
+                <th scope="col">What to copy</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(
+                [
+                  ["Telegram", "The chat where alerts arrive and approvals happen.", "Start with one chat everyone can see. Every risky job needs one clear place to approve it."],
+                  ["Google Workspace", "Email, spreadsheets, documents, and the calendar.", "If your team already lives here, use it as your first to-do list and record."],
+                  ["AppFolio", "The property records: residents, work orders, vendors, occupancy, and late rent.", "Connect your main records. Read first, draft second, approve before anything is changed."],
+                  ["ElevenLabs", "Lyra's voice on the phone line.", "Start with answering calls only. Let it gather details and hand off before it promises anything."],
+                  ["Twilio", "The phone number and two-way texting.", "Keep opt-in and legal rules in the phone service itself, not in the AI."],
+                  ["iMessage", "A digest of business texts and a watch for urgent ones.", "Keep message checkers separate, so one failing does not stop the rest."],
+                  ["A handoff board", "A shared list for passing work from one specialist to another.", "Give every handoff an owner, so nothing falls between two people."],
+                  ["Vercel and Cloudflare", "Where this website and Lyra's text service are hosted.", "Use public pages to explain how it works, never to show private details."],
+                  ["A robot browser", "Clicks through a website the way a person would, when there is no better way in.", "Use a proper connection when one exists. Use this for older websites and for screenshots as proof."],
+                  ["Small scripts", "Short programs that download, sort, and report.", "Keep each one small, named, logged, and easy to run by hand before you schedule it."],
+                ] as const
+              ).map(([name, role, copy]) => (
+                <tr key={name}>
+                  <td>
+                    <strong>{name}</strong>
+                  </td>
+                  <td>{role}</td>
+                  <td>{copy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </TableWrap>
+        </Section>
+
+        <Section label="Schedules" title="Two kinds of scheduled work.">
+          <Cards>
+            <Card title="Jobs that take judgment">
+              <p>
+                The morning digest, occupancy, the tenant directory, lease renewals, the daily rent roll, the weekly
+                late-rent report and collections snapshot, the unit turn board, text digests, reviews of Lyra&apos;s
+                calls, tidying the notebook, daily logs, weekly reviews, backups, and a morning newsletter.
+              </p>
+            </Card>
+            <Card title="Helpers that just keep running">
+              <p>
+                Only a handful: the dispatcher itself, checking email every five minutes, the daily download from
+                AppFolio, the weekly update of what Lyra knows, re-sending messages that failed, and collecting new
+                notes.
+              </p>
+            </Card>
+          </Cards>
+          <p>
+            The rule is simple. If a job takes judgment, give it to an AI specialist on a schedule. If it only checks,
+            downloads, or keeps something alive, make it a plain script.
+          </p>
+        </Section>
+
+        <Section label="The scheduled jobs" title="What the repeating work covers.">
+          <Lead>
+            The real setup has {operatingStats.routines} scheduled jobs. They fall into these groups.
+          </Lead>
+          <TableWrap label="Scheduled job families">
+            <thead>
+              <tr>
+                <th scope="col">Group</th>
+                <th scope="col">What it does</th>
+                <th scope="col">Why it exists</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(
+                [
+                  [
+                    "Notebook upkeep",
+                    "Files new notes into the shared notebook and keeps recent decisions easy to find.",
+                    "Stops the AI from working from old notes.",
+                  ],
+                  [
+                    "Lyra call review (twice daily)",
+                    "Reviews calls and texts and flags anything that was handled poorly.",
+                    "Keeps the phone line useful and accountable.",
+                  ],
+                  ["Daily log", "Writes down what happened today.", "Tomorrow's work starts from the facts."],
+                  [
+                    "Weekly fix-it review",
+                    "Looks for repeated failures and turns them into rules or fixes.",
+                    "Prevents the same mistake from repeating quietly.",
+                  ],
+                  [
+                    "Property records download",
+                    "Brings over work orders, occupancy, and resident updates from the property software.",
+                    "Keeps every summary and follow-up based on current records.",
+                  ],
+                  [
+                    "Work-order sheets",
+                    "Turns the day's open work orders into one sheet for each vendor.",
+                    "Every vendor sees exactly what is theirs.",
+                  ],
+                  ["Morning digest", "Summarizes the properties and the open work.", "One message to start the day."],
+                  [
+                    "Occupancy report",
+                    "Shows which units are leased, empty, or about to change.",
+                    "Helps leasing and keeps owners informed.",
+                  ],
+                  [
+                    "Weekly collections snapshot",
+                    "Sums up late rent for the week.",
+                    "Turns the accounting numbers into something you can read in a minute.",
+                  ],
+                  [
+                    "Weekly late-rent report and daily rent roll",
+                    "Tracks who is past due and who needs a follow-up.",
+                    "Keeps late rent from slipping through.",
+                  ],
+                  [
+                    "Text digests and urgent-text watch",
+                    "Summarizes business texts three times a day and watches for urgent ones every 15 minutes in the daytime.",
+                    "Nothing important sits unanswered.",
+                  ],
+                  [
+                    "Lease renewal list",
+                    "Tracks upcoming renewals and the next step on each.",
+                    "Turns lease timing into tasks before it becomes urgent.",
+                  ],
+                  [
+                    "Tenant directory refresh",
+                    "Keeps resident contact details current.",
+                    "The system can always find the right person and unit.",
+                  ],
+                  [
+                    "Work-order history",
+                    "Keeps a longer record of past work orders.",
+                    "Helps with reports, vendor reviews, and spotting repeat problems.",
+                  ],
+                ] as const
+              ).map(([family, what, why]) => (
+                <tr key={family}>
+                  <td>
+                    <strong>{family}</strong>
+                  </td>
+                  <td>{what}</td>
+                  <td>{why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </TableWrap>
+        </Section>
+
+        <Section label="Always running" title="The helpers that never stop.">
+          <Lead>{numberWord(operatingStats.macJobs, true)} small helpers run all the time on the studio Mac.</Lead>
+          <Cards>
+            <Card title="The dispatcher">
+              <p>Stays on so every specialist and the chat can reach each other.</p>
+            </Card>
+            <Card title="The inbox">
+              <p>Checks email every five minutes and drafts leasing replies, so messages keep moving.</p>
+            </Card>
+            <Card title="Property records and Lyra">
+              <p>Runs the daily download from AppFolio and the weekly update of what Lyra knows.</p>
+            </Card>
+            <Card title="Safety nets">
+              <p>Re-sends messages that failed and collects new notes. Login checks, backups, and missed-job catch-up run on the schedule.</p>
+            </Card>
+          </Cards>
+        </Section>
+
+        <Section id="prompts" label="Ready to paste" title="The instructions I actually use.">
+          <Lead>
+            A prompt is just the instructions you give an AI. These are the ones I use every day, copied straight from
+            my own setup. Paste what fits and change the details for your work. Some are written for people building
+            software, so skip any that do not apply to you.
           </Lead>
         </Section>
 
-        <Section label="Operator behavior" title="Make Claude (or Codex) actually useful.">
+        <Section label="Ground rules" title="Make the AI careful instead of eager.">
           <Lead>
-            This is the pattern I put at the top of any session that involves building something. It changes the AI
-            from &ldquo;eager assistant&rdquo; to &ldquo;careful collaborator.&rdquo;
+            I put this at the top of any conversation where the AI is building something. It turns an eager
+            assistant into a careful partner.
           </Lead>
           <Code label="Operator behavior prompt">{operatorPrompt}</Code>
           <Callout>
             <p>
-              <strong>Why it works:</strong>{" "}AI assistants default to enthusiasm. This pattern reframes the work as
-              collaborative problem-solving. The &ldquo;verify before claiming done&rdquo; line alone has caught dozens
-              of false-positive completions for me.
+              <strong>Why it works:</strong>{" "}AI assistants are eager to please. These rules make it slow down and
+              check its work. The &ldquo;verify before claiming done&rdquo; line alone has caught dozens of times
+              it said something was finished when it was not.
             </p>
           </Callout>
         </Section>
 
-        <Section label="Two-AI review" title="When you want a real second opinion.">
+        <Section label="A second opinion" title="When you want a real second opinion.">
           <Lead>
-            This is the prompt I use when Claude has just produced something I&apos;m about to ship — before sending it
-            through Codex for review (or vice versa).
+            I use this when one AI has just produced something I am about to use. I hand the result to a different
+            AI and ask it to find the problems.
           </Lead>
           <Code label="Two-AI review prompt">{reviewPrompt}</Code>
           <Callout>
             <p>
-              <strong>The trick:</strong>{" "}&ldquo;Don&apos;t validate it — review it.&rdquo; Most AI reviews default to
-              &ldquo;looks good!&rdquo; because they&apos;re trained to be agreeable. Forcing the reviewer-mode framing
-              surfaces real issues.
+              <strong>The trick:</strong>{" "}&ldquo;Don&apos;t validate it — review it.&rdquo; Left alone, most AI
+              reviews say &ldquo;looks good!&rdquo; because the AI wants to be agreeable. Asking it to act as a
+              reviewer brings out the real problems.
             </p>
           </Callout>
         </Section>
 
-        <Section label="Weekly review" title="The Friday afternoon pattern.">
+        <Section label="Weekly review" title="The Friday afternoon review.">
           <Lead>
-            My memory agent runs this every Friday at 5 PM. The result lands in my Telegram thread and gets appended to
-            the planning wiki.
+            This runs by itself every Friday at 5 PM. The result arrives in my chat and is added to the notebook.
           </Lead>
           <Code label="Weekly review prompt">{weeklyPrompt}</Code>
         </Section>
 
-        <Section label="Wiki ingest" title="Turn raw notes into durable knowledge.">
+        <Section label="Filing notes" title="Turn rough notes into pages you can use.">
           <Lead>
-            When I dump a chunk of session transcripts or rough notes into my wiki&apos;s <code>raw/</code>{" "}folder, this
-            prompt processes them into structured project pages.
+            When I drop rough notes into the notebook&apos;s <code>raw/</code>{" "}folder, this turns them into tidy
+            project pages.
           </Lead>
           <Code label="Wiki ingest prompt">{ingestPrompt}</Code>
         </Section>
 
-        <Section label="Pre-commit safety" title="Keep the AI from doing something destructive.">
+        <Section label="Safety rules" title="Keep the AI from doing something destructive.">
           <Lead>
-            This is the explicit guardrail block I include in any session that has shell or git access. Pulled directly
-            from my CLAUDE.md.
+            I include these rules whenever an AI is allowed to change files on my computer. They are written for
+            software work, so the wording is technical.
           </Lead>
           <Code label="Destructive action guardrails">{guardrailPrompt}</Code>
         </Section>
 
-        <Section label="Project planning" title="Get to a real plan before you write a line of code.">
-          <Lead>For anything bigger than a 30-minute task, I use this to force Claude into planning mode first.</Lead>
+        <Section label="Project planning" title="Get a real plan before any work starts.">
+          <Lead>For anything bigger than a 30-minute task, I use this so the AI plans first and builds second.</Lead>
           <Code label="Project planning prompt">{planningPrompt}</Code>
           <Callout>
             <p>
-              <strong>Why &ldquo;after I confirm&rdquo;:</strong>{" "}the explicit handoff prevents the AI from charging
-              into work the moment the plan exists. It also gives you a clean cancel point if the plan reveals scope you
-              didn&apos;t realize.
+              <strong>Why &ldquo;after I confirm&rdquo;:</strong>{" "}it stops the AI from starting the moment a plan
+              exists. It also gives you a clean chance to cancel if the plan turns out bigger than you expected.
             </p>
           </Callout>
         </Section>
 
-        <Section label="Lyra-style intake" title="The system prompt for a voice agent.">
-          <Lead>A simplified version of what runs Lyra. Adapt the property-specific bits for your domain.</Lead>
+        <Section label="A phone assistant" title="The instructions behind a phone assistant.">
+          <Lead>A simplified version of what Lyra runs on. Change the property details to fit your business.</Lead>
           <Code label="Voice agent system prompt">{voicePrompt}</Code>
         </Section>
 
-        <Section label="Original prompts (still useful)" title="Generic build prompts.">
+        <Section label="Starting from zero" title="One prompt to plan the whole thing.">
           <Lead>
-            The original generic prompts from earlier versions of this playbook — useful for setting up a new system
-            from scratch.
+            Paste this into an AI when you are starting from nothing. It will interview you and produce a plan.
           </Lead>
           <Code label="Generic build prompt">{genericPrompt}</Code>
         </Section>
 
-        <Section label="Discovery" title="Map the current business.">
+        <Section label="Discovery" title="Map how your business works today.">
           <Cards>
             <PromptCard title="Input inventory">
               Interview me about every place work enters our portfolio management team. Build a table with: source,
@@ -909,30 +802,7 @@ export default function PlaybookBuildPage() {
           </Cards>
         </Section>
 
-        <Section label="Stack prompts" title="Ask for the real pieces.">
-          <Cards>
-            <PromptCard title="Model plan">
-              Design our model layer using separate roles for coding, long-form reasoning, fast classification,
-              extraction, retrieval/search, and final review. Explain where OpenAI/Codex-style tools and Claude-style
-              tools fit.
-            </PromptCard>
-            <PromptCard title="Hermes-style control plane">
-              Design a Hermes-style control plane for our team. Include agents, gateway/router, tools, approvals,
-              Telegram or Slack handoff, dashboard, logs, memory, scheduled jobs, and background services.
-            </PromptCard>
-            <PromptCard title="API/software matrix">
-              Build a matrix for Google Workspace, AppFolio or our property system, ElevenLabs or voice AI, Twilio or
-              SMS, a task manager, a wiki, Telegram or approval channel, Vercel or public docs, and Cloudflare Workers or
-              edge API glue.
-            </PromptCard>
-            <PromptCard title="Schedule split">
-              Separate this workflow into scheduled jobs, LaunchAgents/system services, manual approvals, and
-              dashboards. Explain why each piece belongs in that layer.
-            </PromptCard>
-          </Cards>
-        </Section>
-
-        <Section label="Build prompts" title="Design the first loop.">
+        <Section label="Build prompts" title="Design the first workflow.">
           <Flow
             rows={[
               [
@@ -976,29 +846,7 @@ export default function PlaybookBuildPage() {
           />
         </Section>
 
-        <Section label="API prompts" title="Connect software without making a mess.">
-          <Cards>
-            <PromptCard title="API boundary">
-              For this software connection, define the minimum API access needed. Separate read-only lookup, draft
-              creation, queue writing, official record changes, sends, and deletes. Recommend the safest starting
-              permission.
-            </PromptCard>
-            <PromptCard title="System of record">
-              Identify the system of record for this workflow. Tell me which fields should be read from it, which should
-              never be overwritten automatically, and what human approval is required before any write.
-            </PromptCard>
-            <PromptCard title="Service choice">
-              Decide whether this integration should use a direct API, browser automation, spreadsheet queue, webhook,
-              or manual upload. Compare reliability, privacy risk, setup cost, and auditability.
-            </PromptCard>
-            <PromptCard title="Failure handling">
-              Design failure handling for this API. Include timeout behavior, retry limits, stale-data warnings,
-              fallback mode, human alert, and the receipt that proves no external action was taken.
-            </PromptCard>
-          </Cards>
-        </Section>
-
-        <Section label="Lyra-style prompt set" title="Build customer-service intake.">
+        <Section label="A phone assistant" title="Plan your own phone assistant.">
           <Cards>
             <PromptCard title="Voice intake scope">
               Design an inbound customer-service agent for our portfolio team. It can answer common questions, collect
@@ -1018,6 +866,51 @@ export default function PlaybookBuildPage() {
             <PromptCard title="Safety review">
               Review this customer-service workflow for risks: privacy, wrong promises, legal exposure, payment/account
               sensitivity, emergency handling, unclear ownership, and missing logs. Return fixes before launch.
+            </PromptCard>
+          </Cards>
+        </Section>
+
+        <Section label="For the technical builder" title="Ask the AI to design the pieces.">
+          <Cards>
+            <PromptCard title="Model plan">
+              Design our model layer using separate roles for coding, long-form reasoning, fast classification,
+              extraction, retrieval/search, and final review. Explain where OpenAI/Codex-style tools and Claude-style
+              tools fit.
+            </PromptCard>
+            <PromptCard title="Hermes-style control plane">
+              Design a Hermes-style control plane for our team. Include agents, gateway/router, tools, approvals,
+              Telegram or Slack handoff, dashboard, logs, memory, scheduled jobs, and background services.
+            </PromptCard>
+            <PromptCard title="API/software matrix">
+              Build a matrix for Google Workspace, AppFolio or our property system, ElevenLabs or voice AI, Twilio or
+              SMS, a task manager, a wiki, Telegram or approval channel, Vercel or public docs, and Cloudflare Workers or
+              edge API glue.
+            </PromptCard>
+            <PromptCard title="Schedule split">
+              Separate this workflow into scheduled jobs, LaunchAgents/system services, manual approvals, and
+              dashboards. Explain why each piece belongs in that layer.
+            </PromptCard>
+          </Cards>
+        </Section>
+
+        <Section label="For the technical builder" title="Connect software without making a mess.">
+          <Cards>
+            <PromptCard title="API boundary">
+              For this software connection, define the minimum API access needed. Separate read-only lookup, draft
+              creation, queue writing, official record changes, sends, and deletes. Recommend the safest starting
+              permission.
+            </PromptCard>
+            <PromptCard title="System of record">
+              Identify the system of record for this workflow. Tell me which fields should be read from it, which should
+              never be overwritten automatically, and what human approval is required before any write.
+            </PromptCard>
+            <PromptCard title="Service choice">
+              Decide whether this integration should use a direct API, browser automation, spreadsheet queue, webhook,
+              or manual upload. Compare reliability, privacy risk, setup cost, and auditability.
+            </PromptCard>
+            <PromptCard title="Failure handling">
+              Design failure handling for this API. Include timeout behavior, retry limits, stale-data warnings,
+              fallback mode, human alert, and the receipt that proves no external action was taken.
             </PromptCard>
           </Cards>
         </Section>

@@ -27,7 +27,7 @@ Then open http://localhost:3000. `pnpm build` makes a production build; `pnpm li
 
 ## Design system
 
-One light surface, deep-green ink, a single lime accent, and mono uppercase labels.
+Cream paper, charcoal ink, a signal-orange accent, blueprint blue, serif display headlines, and a faint blueprint grid on dark bands.
 Every color and spacing value is a CSS variable on `.manual` in `FieldManual.module.css`;
 dark bands flip the `--fg`, `--fg-muted`, `--rule`, and `--card` tokens instead of restyling children.
 

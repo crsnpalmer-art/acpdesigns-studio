@@ -49,7 +49,8 @@
 .label,
 .toolGrid small {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   font-style: normal;
   letter-spacing: 0.14em;
@@ -89,13 +90,19 @@
 
 .head > svg {
   border: 1px solid var(--rule);
-  border-radius: 0.8rem;
+  border-radius: 0.35rem;
   font-size: 2.75rem;
   padding: 0.65rem;
 }
 
 .head > p::before {
-  content: "// ";
+  background: var(--accent);
+  content: "";
+  display: inline-block;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  vertical-align: 0.02em;
+  width: 0.5rem;
 }
 
 .head > span {
@@ -120,6 +127,7 @@
   color: var(--fg);
   font-family: inherit;
   font-size: 0.9375rem;
+  font-weight: 400;
   letter-spacing: normal;
   text-transform: none;
   margin-top: 0.75rem;
@@ -128,11 +136,11 @@
 
 .human b {
   background: var(--accent);
-  border-radius: 999px;
+  border-radius: 0.25rem;
   color: var(--accent-ink);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.68rem;
-  font-weight: 500;
   letter-spacing: 0.12em;
   margin-right: 0.6rem;
   padding: 0.2rem 0.6rem;
@@ -158,9 +166,9 @@
 }
 
 .card > strong {
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.8rem;
-  font-weight: 500;
 }
 
 .card > span {
@@ -179,7 +187,7 @@
 
 .chips li {
   border: 1px solid var(--rule);
-  border-radius: 999px;
+  border-radius: 0.25rem;
   font-size: 0.8125rem;
   padding: 0.2rem 0.7rem;
 }
@@ -234,7 +242,8 @@
 .chain li::before {
   color: var(--fg-muted);
   content: counter(step, decimal-leading-zero);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   padding-top: 0.2rem;
 }
@@ -363,11 +372,11 @@
 }
 
 .numbered li::before {
-  color: transparent;
+  color: var(--accent-text);
+  font-family: var(--display);
   content: counter(rule, decimal-leading-zero);
   font-size: 1.5rem;
-  font-weight: 600;
-  -webkit-text-stroke: 1px var(--fg-muted);
+  font-weight: 500;
 }
 
 /* ---------- Playbook links ---------- */

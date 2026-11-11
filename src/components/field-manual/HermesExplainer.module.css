@@ -5,7 +5,9 @@
   --fg-muted: var(--on-dark-muted);
   --rule: var(--line-dark);
   --card: var(--dark-raised);
-  background: var(--dark);
+  --accent-text: var(--accent);
+  background: var(--blueprint), var(--dark);
+  background-size: 3rem 3rem;
   color: var(--fg);
   padding: var(--section-y) var(--gutter);
 }
@@ -30,14 +32,21 @@
 .approvalFlow article > span,
 .memoryView article > span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .intro > div > p::before {
-  content: "// ";
+  background: var(--accent);
+  content: "";
+  display: inline-block;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  vertical-align: 0.02em;
+  width: 0.5rem;
 }
 
 .intro h2 {
@@ -67,6 +76,7 @@
 }
 
 .stats dt {
+  font-family: var(--display);
   font-size: clamp(2.2rem, 3.6vw, 3.2rem);
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -75,7 +85,8 @@
 
 .stats dd {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   margin: 0.8rem 0 0;
@@ -96,7 +107,7 @@
 }
 
 .mapCta:hover {
-  background: #e6ff7a;
+  background: var(--accent-hover);
 }
 
 .mapCta span {
@@ -137,7 +148,7 @@
   align-items: center;
   background: transparent;
   border: 1px solid var(--rule);
-  border-radius: 999px;
+  border-radius: 0.25rem;
   color: var(--fg);
   cursor: pointer;
   display: inline-flex;
@@ -152,7 +163,8 @@
 
 .tabs button span {
   color: var(--fg-muted);
-  font-family: var(--mono);
+  font-family: var(--label);
+  font-weight: 700;
   font-size: 0.72rem;
 }
 
@@ -215,7 +227,7 @@
 .agentGrid button {
   background: var(--card);
   border: 1px solid var(--rule);
-  border-radius: 1rem;
+  border-radius: var(--radius);
   color: var(--fg);
   cursor: pointer;
   display: grid;
@@ -274,7 +286,7 @@
 
 .agentDetail > svg {
   background: var(--accent);
-  border-radius: 0.9rem;
+  border-radius: var(--radius);
   color: var(--accent-ink);
   font-size: 3.25rem;
   margin-bottom: 1.5rem;
